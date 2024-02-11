@@ -92,6 +92,22 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(17, 17, 17, 0); }
 
+blockquote {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+cite {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -401,7 +417,9 @@ progress {
 
 .lead {
   font-size: calc(1.2846rem + 0.4152vw);
-  font-weight: 300; }
+  font-weight: 300; 
+  text-align: center;
+}
   @media (min-width: 1200px) {
     .lead {
       font-size: 1.596rem; } }
@@ -9233,7 +9251,7 @@ img {
   padding-bottom: 9vh; }
 
 .py-vh-5 {
-  padding-top: 12vh;
+  padding-top: 5vh;
   padding-bottom: 12vh; }
 
 .py-vh-6 {
@@ -10038,3 +10056,5 @@ img {
   html:not(.no-js) [data-aos=flip-down].aos-animate {
     -webkit-transform: perspective(2500px) rotateX(0);
     transform: perspective(2500px) rotateX(0); } }
+
+    
