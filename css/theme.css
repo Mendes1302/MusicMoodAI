@@ -6529,7 +6529,7 @@ textarea.form-control-lg {
   font-size: calc(1.305rem + 0.66vw) !important; }
 
 .fs-5 {
-  font-size: calc(1.275rem + 0.3vw) !important; }
+  font-size: calc(1.0rem + 0.1vw) !important; }
 
 .fs-6 {
   font-size: 1.2rem !important; }
