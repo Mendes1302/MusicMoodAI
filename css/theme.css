@@ -6174,7 +6174,9 @@ textarea.form-control-lg {
   margin-top: 1.5rem !important; }
 
 .mt-5 {
-  margin-top: 3rem !important; }
+  margin-top: 4rem !important; 
+  text-align: center
+  }
 
 .mt-auto {
   margin-top: auto !important; }
@@ -6615,7 +6617,9 @@ textarea.form-control-lg {
 
 .text-secondary {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity)) !important; }
+  color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity)) !important; 
+  text-align: center;
+}
 
 .text-success {
   --bs-text-opacity: 1;
