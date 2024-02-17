@@ -269,6 +269,18 @@ figure {
 img,
 svg {
   vertical-align: middle; }
+.rotate-logo {
+  transform-origin: center;
+  animation: rotate 10s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 table {
   caption-side: bottom;

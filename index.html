@@ -65,6 +65,7 @@
         url('fonts/inter-v12-latin-700.woff') format('woff');
       /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
     }
+    
   </style>
 
 
@@ -76,7 +77,7 @@
     <div class="container">
       <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="index.html">
         
-        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+        <img id="logo" src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
         <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
       </a>
 
@@ -137,25 +138,6 @@
           </div>
         </div>
 
-      <div class="w-100 position-relative bg-black text-white bg-cover d-flex align-items-center">
-        <div class="container-fluid px-vw-5">
-          <div class="position-absolute w-100 h-50 bg-dark bottom-0 start-0"></div>
-          <div class="row d-flex align-items-center position-relative justify-content-center px-0 g-5">
-            <div class="col-12 col-lg-6">
-              <img src="img/webp/easter_egg.webp" width="2280" height="1732" alt="abstract image"
-                class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up">
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-              <img src="img/webp/software_music.webp" width="1116" height="1578" alt="abstract image"
-                class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="2000">
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-              <img src="img/webp/brazilian.webp" width="1116" height="848" alt="abstract image"
-                class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="3000">
-            </div>
-          </div>
-        </div>
-      </div>
     <div class="bg-dark">
       <div class="container px-vw-5 py-vh-5">
         <div class="row d-flex align-items-center">
@@ -164,9 +146,9 @@
               os desenvolvedores quanto para os usuários finais. 
               Assim, empregamos duas estratégias fundamentais:</h2>
           </div>
-          <div class="col-12 col-lg-5" data-aos="fade-left">
-            <h3 class="pt-5">DataViz</h3>
-            <p class="text-secondary">Desvendando as emoções através da visualização de dados diretamente 
+          <div class="col-12 col-lg-5">
+            <h3 class="pt-5 mt-5"data-aos="zoom-in-right">DataViz</h3>
+            <p class="text-secondary" data-aos="fade-left">Desvendando as emoções através da visualização de dados diretamente 
               ligados às próprias emoções presentes nas músicas e suas inter-relações, proporcionando 
               uma visão macro abrangente.<br>
               <a href="dataviz.html" class="link-fancy link-fancy-light me-2">Saiba mais em</a>
@@ -176,8 +158,8 @@
                   d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
               </svg>
             </p>
-            <h3 class="border-top border-secondary pt-5 mt-5">Explain AI</h3>
-            <p class="text-secondary">Compreendendo as palavras que exerceram influência significativa ou 
+            <h3 class="border-top border-secondary pt-5 mt-5" data-aos="zoom-in-right">Explain AI</h3>
+            <p class="text-secondary" data-aos="fade-left">Compreendendo as palavras que exerceram influência significativa ou 
               desempenharam papel crucial na tomada de decisões do algoritmo, uma perspectiva mais detalhada.<br>
               <a href="explainable_ai.html" class="link-fancy link-fancy-light me-2">Saiba mais em</a>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -226,22 +208,41 @@
           </div>
         </div>
       </div>
-
     </div>
-
-
+    
+    <div class="w-100 position-relative bg-black text-white bg-cover d-flex align-items-center">
+      <div class="container-fluid px-vw-5">
+        <div class="position-absolute w-100 h-50 bg-dark bottom-0 start-0"></div>
+        <div class="row d-flex align-items-center position-relative justify-content-center px-0 g-5">
+          <div class="col-12 col-lg-6">
+            <img src="img/webp/easter_egg.webp" width="2280" height="1732" alt="abstract image"
+              class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up">
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <img src="img/webp/software_music.webp" width="1116" height="1578" alt="abstract image"
+              class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="2000">
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <img src="img/webp/brazilian.webp" width="1116" height="848" alt="abstract image"
+              class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="3000">
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="bg-black py-vh-3">
       <div class="container bg-black px-vw-5 py-vh-3 rounded-5 shadow">
-        <div class="col-12 col-lg-5 text-center text-lg-end" data-aos="zoom-in-right">
-        <span class="h5 text-secondary fw-lighter">Pense em mim, chore por mim<br>
-          Liga pra mim, não, não liga pra ele</span> 
-          <h3 class="display-4">Contato</h3>
+        <div class="text-center text-lg-center mt-5" data-aos="zoom-in-right">
+          <span class="h5 text-secondary fw-lighter">Pense em mim, chore por mim<br>
+            Liga pra mim, não, não liga pra ele</span> 
+            
+            <h3 class="display-4">Contato</h3>
         </div>
 
         <div class="row gx-5">
           <div class="col-12 col-md-6">
             
-            <div class="card bg-transparent mb-5" data-aos="zoom-in-up">
+            <div class="card bg-transparent mb-5 mt-5" data-aos="zoom-in-up">
 
               <div class="bg-dark shadow rounded-5 p-0">
                 <img src="img/webp/linkedin_logo.webp" width="582" height="327" alt="abstract image"
@@ -252,7 +253,7 @@
               </div>
             </div>
 
-            <div class="card bg-transparent" data-aos="zoom-in-up">
+            <div class="card bg-transparent mt-5" data-aos="zoom-in-up">
               <div class="bg-dark shadow rounded-5 p-0">
                 <img src="img/webp/instragram_logo.webp" width="582" height="442" alt="abstract image"
                   class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
@@ -274,7 +275,7 @@
               </div>
             </div>
 
-            <div class="card bg-transparent" data-aos="zoom-in-up">
+            <div class="card bg-transparent mt-5" data-aos="zoom-in-up">
               <div class="bg-dark shadow rounded-5 p-0">
                 <img src="img/webp/github_logo.webp" width="582" height="327" alt="abstract image"
                   class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
@@ -311,19 +312,18 @@
               </div>
             </div>
             <div class="col-5 offset-1">
-              <span class="h5 text-secondary fw-lighter">É isso aí</span>
-              <h2 class="display-huge fw-bolder" data-aos="zoom-in-left">Iniciação Científica</h2>
-              <p class="h4 fw-lighter text-secondary">
+              <h2 class="display-huge fw-bolder pt-5 mt-5" data-aos="zoom-in-left">Iniciação <br> Científica</h2>
+              <p class="h4 fw-lighter text-secondary"  data-aos="zoom-in-up">
                 Detalhes sobre a pesquisa que originou o TCC.
               </p>
               <h2 class="display-huge fw-bolder border-top border-secondary pt-5 mt-5" data-aos="zoom-in-left">Referência
               </h2>
-              <p class="h4 fw-lighter text-secondary">
+              <p class="h4 fw-lighter text-secondary" data-aos="zoom-in-up">
                 Referências das ferramentas e dados utilizados.
               </p>
               <h2 class="display-huge fw-bolder border-top border-secondary pt-5 mt-5" data-aos="zoom-in-left">E muito mais</h2>
-              <p class="h4 fw-lighter text-secondary">
-                Outros projetos que abrangem processamento de imagens da NASA, iniciativas de educação inclusiva utilizando Inteligência Artificial, entre outras áreas.
+              <p class="h4 fw-lighter text-secondary" data-aos="zoom-in-up">
+                Outros projetos que abrangem iniciativas de educação inclusiva utilizando Inteligência Artificial, entre outras áreas.
               </p>
             </div>
           </div>
@@ -333,7 +333,21 @@
     </div>
 
   </main>
+  <footer class="bg-black border-top border-dark">
+    <div class="container py-vh-4 text-secondary fw-lighter">
+      <div class="row">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start">
+          <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="index.html">
+        
+            <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
+          </a>
 
+
+        
+      </div>
+    </div>
+  </footer>
 
 
 
@@ -366,6 +380,11 @@
 
       console.log(scrollpos);
     })
+    const logo = document.getElementById('logo');
+
+    logo.addEventListener('load', () => {
+      logo.classList.add('rotate-logo');
+    });
   </script>
 
 </body>

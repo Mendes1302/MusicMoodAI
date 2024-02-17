@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .rotate-logo {
+  /* Define a origem da rotação no centro da imagem */
+  transform-origin: center;
+  
+  /* Define a animação de rotação */
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+  /* Rotaciona a imagem de 0 a 360 graus */
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+    </style>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <img id="logo" src="img/webp/logo_mmai.webp" width="800" height="800" class="rotate-logo">
+    <script src='main.js'>
+        const logo = document.getElementById('logo');
+
+// Adiciona um ouvinte de eventos para detectar quando a imagem é carregada
+logo.addEventListener('load', () => {
+  // Adiciona a classe que inicia a animação de rotação
+  logo.classList.add('rotate-logo');
+});
+    </script>
+</head>
+<body>
+    
+
+</body>
+</html>
