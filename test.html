@@ -1,44 +1,229 @@
-<!DOCTYPE html>
-<html>
-    <style>
-        .rotate-logo {
-  /* Define a origem da rotação no centro da imagem */
-  transform-origin: center;
-  
-  /* Define a animação de rotação */
-  animation: rotate 5s linear infinite;
-}
+<!doctype html>
+<html class="h-100" lang="en">
 
-@keyframes rotate {
-  /* Rotaciona a imagem de 0 a 360 graus */
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-    </style>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="description" content="A well made and handcrafted Bootstrap 5 template">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
+  <meta name="author" content="Holger Koenemann">
+  <meta name="generator" content="Eleventy v2.0.0">
+  <meta name="HandheldFriendly" content="true">
+  <title>Others</title>
+  <link rel="stylesheet" href="css/theme.min.css">
 
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <img id="logo" src="img/webp/logo_mmai.webp" width="800" height="800" class="rotate-logo">
-    <script src='main.js'>
-        const logo = document.getElementById('logo');
+  <style>
+    /* inter-300 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-300.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-300.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
 
-// Adiciona um ouvinte de eventos para detectar quando a imagem é carregada
-logo.addEventListener('load', () => {
-  // Adiciona a classe que inicia a animação de rotação
-  logo.classList.add('rotate-logo');
-});
-    </script>
+    /* inter-400 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-regular.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-500.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-500.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-700.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+  </style>
+
+
 </head>
-<body>
-    
+
+<body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
+
+  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
+    <div class="container">
+      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
+        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+        <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
+      </a>
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="home.html" aria-label="Homepage">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="dataviz.html" aria-label="A sample content page">
+            DataViz
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="explainable_ai.html" aria-label="A system message page">
+            ExplainAI
+          </a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="others.html" aria-label="A system message page">
+            Others
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="row d-flex justify-content-center py-vh-5 pb-0">
+        <div class="col-12 col-lg-10 col-xl-8">
+          <div class="row">
+            <div class="col-12">
+              <p class="lead pt-5 mt-5" data-aos="fade-up">
+                Aqui, apresento diversos projetos desenvolvidos, desde minha participação em iniciação científica 
+                até links relevantes do Trabalho de Conclusão de Curso (TCC). Destaco uma apresentação sobre a 
+                integração da Inteligência Artificial (IA) na educação inclusiva em Libras, juntamente com outros trabalhos 
+                significativos. Também compartilho influências que moldaram o layout de um site, as letras de músicas
+                e a seleção de imagens em meus projetos.
+              </p> 
+              <h1 class="display-1 mt-5">Others</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 py-vh-2 text-center">
+            <img src="img/webp/sum1.webp" width="500" height="500" alt="abstract image"
+              class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
+          </div>
+        </div>
+        <div class="col-12 col-lg-10 col-xl-8">
+            
+            <h2 class="h3 mt-5 border-top pt-5">01. Quais emoções foram usadas?</h2>
+              <p class="text-secondary">Conforme descrito pela <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X" class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>,
+                 há 25 emoções que são consideradas 
+                "universais", embora o termo esteja entre aspas para indicar a variação em diferentes idiomas, 
+                culturas e ideias, conforme citado no próprio artigo. Adicionalmente, três emoções foram incluídas 
+                devido à sua maior relevância no contexto do português brasileiro, conforme mencionado no  
+                  <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">artigo</a>, 
+                  desenvolvido por cientistas brasileiros. Assim, o estudo considera um total de 28 emoções.
+                  <div class="text-center">
+
+                    <a href="emotions_words.html" class="align-items-center link-fancy link-fancy-light text-center">Aperte o PLAY
+                      <svg class="play-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3 22v-20l18 10-18 10z"/>
+                      </svg></a>
+                      <br></p>
+                      <img src="img/webp/emotion_dataviz.webp" width="500" height="500" alt="abstract image"
+                      class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
+
+            <h2 class="h3 mt-5 border-top pt-5" data-aos="fade-right">02. Iniciação Científica (IC)</h2>
+            <p class="text-secondary" data-aos="fade-right">Minha pesquisa de Iniciação Científica concentrou-se no desenvolvimento de um 
+              algoritmo para prever emoções em letras de músicas. Conduzi benchmarking entre diversos algoritmos, 
+              como DCNN, LSTM, entre outros, visando identificar o mais eficiente. Inspirando-me em um <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">estudo</a> prévio sobre tweets
+              , utilizei parte dessa base de dados e criei uma adicional para aprimorar os resultados, conforme detalhado no meu <a href="https://github.com/Mendes1302/MusicMoodAI" class="link-fancy link-fancy-light" target="_blank">artigo de IC</a>
+              . Como complemento à pesquisa, elaborei uma <a href="https://open.spotify.com/playlist/5c7fsAKU17NcGx1RpsPHw3?si=5039f82a6e49499b" class="link-fancy link-fancy-light" target="_blank">Playlist Spotify</a> 
+              com as músicas testadas, ampliando a diversidade da base e estabelecendo uma conexão mais próxima com os leitores. Além disso, destaco no GitHub o repositório 
+              que abriga todos os códigos referentes à minha Iniciação Científica, intitulado "<a href="https://github.com/Mendes1302/AffectiveComputing" class="link-fancy link-fancy-light" target="_blank">AffectiveComputing</a>".</p>
+          
+            <h2 class="h3 mt-5 border-top pt-5"data-aos="fade-right">03. Inteligência Artificial Aplicada à Educação Inclusiva (Libras)</h2>
+            <p class="text-secondary" data-aos="fade-right">Em uma disciplina eletiva, escolhi Libras e para o projeto final da disciplina, que exigia uma apresentação livre
+              na língua de sinais.  Juntamente com um grupo de colegas de Ciência da Computação e Pedagogia, exploramos as dificuldades 
+              no ensino de Libras. Identificamos a oportunidade de abordar Inteligência Artificial e apresentamos a ferramenta <a href="https://play.google.com/store/apps/details?id=com.storysign.storysign&hl=pt_BR&pli=1" class="link-fancy link-fancy-light" target="_blank">App StorySign</a>
+                da Huawei, uma plataforma gratuita de alfabetização para crianças surdas. Realizamos uma <a href="https://drive.google.com/file/d/1xkQKlWqcvKIA4trjj965S3NZVg8pi693/view?usp=sharing" class="link-fancy link-fancy-light" target="_blank">apresentação PowerPoint</a> e 
+                <a href="https://www.linkedin.com/posts/lucas-mendes-barbosa_libras-inteligaeanciaartificial-educaaexaetoinclusiva-activity-7135336258502860802-wurV?utm_source=share&utm_medium=member_desktop" class="link-fancy link-fancy-light" target="_blank">gravamos o evento</a>, buscando explorar não apenas a IA, mas também tecnologias para auxiliar no ensino de Libras.</p>
+              
+            <h2 class="h3 mt-5 border-top pt-5" data-aos="fade-right">04. Processamento de Imagens da Nasa</h2>
+            <p class="text-secondary" data-aos="fade-right">Na disciplina de  Processamento de Imagens e Sinais, foi uma experiência enriquecedora que 
+              inspirou uma jornada fascinante e motivado pelo livro "Desvendando o Universo: Tudo o que você precisa saber para 
+              viajar pelo tempo e pelo espaço" de Lucy e Stephen Hawking, decidi explorar e processar imagens astronômicas e 
+              meteorológicas para o projeto final. Essas imagens estão disponíveis em <a href="https://images.nasa.gov/" class="link-fancy link-fancy-light" target="_blank">NASA Image</a>. Além disso, decidi aplicar 
+              essas técnicas em duas imagens de minha autoria: um emocionante eclipse solar e uma visão única da Lua junto a um prédio.
+              Todo o processo foi realizado no <a href="https://colab.research.google.com/drive/1UunH1Zo5SYfJUsH7PYfsm77FBGKXw2hA?usp=sharing" class="link-fancy link-fancy-light" target="_blank">Colab</a>
+              , onde explorei curiosidades sobre esses eventos, apliquei uma variedade de filtros e 
+              muito mais. E, para concluir, compartilho um <a href="https://www.linkedin.com/posts/lucas-mendes-barbosa_astronomia-nasa-stephenhawking-activity-7125117670147973120-kc0u?utm_source=share&utm_medium=member_desktop" class="link-fancy link-fancy-light" target="_blank">vídeo</a>
+                com as imagens que mais apreciei.</p>
+            
+
+
+        </div>
+      </div>
+      <div class="row d-flex align-items-start justify-content-center py-vh-3 text-muted" data-aos="fade">
+        <div class="col-12 col-lg-10 col-xl-9">
+          <div class="col-12 py-vh-2 text-center border-top">
+            <img src="img/webp/van-gogh.jpeg" width="500" height="500" alt="abstract image"
+              class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+
+
+
+
+
+
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800, // values from 0 to 3000, with step 50ms
+    });
+  </script>
+  <script>
+    let scrollpos = window.scrollY;
+    const header = document.querySelector(".navbar");
+    const header_height = header.offsetHeight;
+
+    const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm");
+    const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm");
+
+    window.addEventListener('scroll', function () {
+      scrollpos = window.scrollY;
+
+      if (scrollpos >= header_height) { add_class_on_scroll(); }
+      else { remove_class_on_scroll(); }
+
+      console.log(scrollpos);
+    })
+  </script>
 
 </body>
+
 </html>
