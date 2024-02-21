@@ -12,7 +12,7 @@
   <meta name="author" content="Holger Koenemann">
   <meta name="generator" content="Eleventy v2.0.0">
   <meta name="HandheldFriendly" content="true">
-  <title>Explain AI</title>
+  <title>DataViz</title>
   <link rel="stylesheet" href="css/theme.min.css">
 
   <style>
@@ -65,6 +65,17 @@
         url('fonts/inter-v12-latin-700.woff') format('woff');
       /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
     }
+    .play-button {
+      cursor: pointer;
+      fill: #ffffff; /* Cor de preenchimento do botão (branco em hexadecimal) */
+      width: 1.5rem;   /* Largura do botão */
+      height: 1.5rem;  /* Altura do botão */
+      transition: fill 0.3s; /* Adiciona uma transição suave para o efeito hover */
+    }
+
+    .play-button:hover {
+      fill: #808080; /* Cor de preenchimento do botão no hover (cinza em hexadecimal) */
+    }
   </style>
 
 
@@ -101,168 +112,89 @@
           </a>
         </li>
       </ul>
+      
     </div>
   </nav>
 
   <main>
     <div class="container">
-      <div class="row d-flex justify-content-center py-vh-5 pb-0">
-        <div class="col-12 col-lg-10 col-xl-8">
-          <div class="row">
+      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade">
+        <div class="container py-vh-5 position-relative mt-5 px-vw-5 text-center">
+          <div class="row d-flex align-items-center justify-content-center py-vh-5">
+            
             <div class="col-12">
-              <h1 class="display-1 fw-bold">Example
-                <span class="fs-4">of a</span><br>
-                content page
-              </h1>
-              <p class="lead border-top pt-5 mt-5" data-aos="fade-up">Lorem ipsum dolor sit amet, consetetur sadipscing
-                elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
-                ea rebum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua.
-              </p>
+              <div class="row">
+                <div class="col-12 py-vh-2 text-center">
+                  <h1 class="display-1 fw-bold">Explain AI</h1>
+                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">A visualização de dados (Dataviz) é fundamental em algoritmos de predição de emoções em letras de músicas, 
+                    oferecendo uma representação intuitiva e acessível dos resultados. Ao transformar dados complexos em gráficos 
+                    e visualizações, a Dataviz facilita a interpretação de padrões, a avaliação de desempenho do modelo e a identificação 
+                    de características importantes nas letras de músicas. Além disso, proporciona uma comunicação efetiva dos insights obtidos, 
+                    auxiliando na tomada de decisões informadas e na compreensão ampla das tendências emocionais presentes nos dados analisados. 
+                    Essa abordagem visual é crucial para envolver stakeholders e usuários finais, tornando o processo de análise de emoções em 
+                    letras de músicas mais acessível e impactante.
+                  </p>
+                  <img src="img/webp/explorer_ai.webp" width="500" height="500" alt="abstract image"
+                    class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
+                </div>
+              </div>
             </div>
+              
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12 py-vh-2">
-            <img src="img/webp/abstract18.webp" width="1446" height="982" alt="abstract image"
-              class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
-          </div>
-        </div>
-        <div class="col-12 col-lg-10 col-xl-8">
-          <div class="row d-flex align-items-start" data-aos="fade-right">
-            <div class="col-12 col-lg-7">
-              <h2 class="h3 mt-5 border-top pt-5">01. Dolor istam est</h2>
-              <p class="text-secondary">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Stet clita
-                kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat.</p>
-            </div>
-            <div class="col-12 col-lg-4 offset-lg-1 bg-gray-900 p-5 mt-5">
-              <h3 class="h6">tl;dr</h3>
-              <p class="text-secondary">
-                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                amet
-              </p>
-            </div>
-          </div>
-
-          <div class="row d-flex align-items-start" data-aos="fade-right">
-            <div class="col-12 col-lg-7">
-              <h2 class="h3 mt-5 border-top pt-5">02. Lorem ipsum</h2>
-              <p class="text-secondary">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Stet clita
-                kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat.</p>
-            </div>
-            <div class="col-12 col-lg-4 offset-lg-1 bg-gray-900 p-5 mt-5">
-              <h3 class="h6">tl;dr</h3>
-              <p class="text-secondary">
-                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                amet
-              </p>
-            </div>
-          </div>
-          <div class="row d-flex align-items-start" data-aos="fade-right">
-            <div class="col-12 col-lg-7">
-              <h2 class="h3 mt-5 border-top pt-5">03. Dolor sitam est
-              </h2>
-              <p class="text-secondary">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Stet clita
-                kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat.</p>
-            </div>
-            <div class="col-12 col-lg-4 offset-lg-1 bg-gray-900 p-5 mt-5">
-              <h3 class="h6">tl;dr</h3>
-              <p class="text-secondary">
-                Et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-                Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet
-              </p>
-            </div>
-          </div>
-          <div class="row d-flex align-items-start" data-aos="fade-right">
-            <div class="col-12 col-lg-7">
-              <h2 class="h3 mt-5 border-top pt-5">04. Eirmod tempor invidunt</h2>
-              <p class="text-secondary">Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
-                ea rebum. Stet clita kasd gubergren, no
-                sea takimata sanctus est Lorem ipsum dolor sit amet. Stet clita kasd gubergren, no sea takimata sanctus
-                est Lorem ipsum dolor sit amet. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore magna aliquyam erat.</p>
-            </div>
-            <div class="col-12 col-lg-4 offset-lg-1 bg-gray-900 p-5 mt-5">
-              <h3 class="h6">tl;dr</h3>
-              <p class="text-secondary">
-                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                amet
-              </p>
-            </div>
-          </div>
-          <div class="row d-flex align-items-start" data-aos="fade-right">
-            <div class="col-12 col-lg-7">
-              <h2 class="h3 mt-5 border-top pt-5">05. Lorem ipsum</h2>
-              <p class="text-secondary">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Stet clita
-                kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-                erat.</p>
-            </div>
-            <div class="col-12 col-lg-4 offset-lg-1 bg-gray-900 p-5 mt-5">
-              <h3 class="h6">tl;dr</h3>
-              <p class="text-secondary">
-                Eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-                Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet
-              </p>
-            </div>
-          </div>
-
-
+            
         </div>
       </div>
-      <div class="row d-flex align-items-start justify-content-center py-vh-3 text-muted" data-aos="fade">
-        <div class="col-12 col-lg-10 col-xl-9">
-          <div class="p-5 small bg-gray-900">
-            <p>*At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-              sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-              nonumy eirmod tempor invidunt ut labore
-              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-              Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Stet clita kasd
-              gubergren, no sea takimata sanctus est Lorem
-              ipsum dolor sit amet. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-              dolore magna aliquyam erat. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-              gubergren, no sea takimata sanctus est Lorem
-              ipsum dolor sit amet. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-              Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-              erat.</p>
-          </div>
-        </div>
+        
+      <div class="row" data-aos="fade-right">
+        <div class="col-12 text-center pt-5 mt-5" >
+          <h1 class="display-1 fw-bold" data-aos="fade-right">Visualizações Disponíveis:</h1>
+              <h2 class="h3 mt-5 border-top pt-5" data-aos="fade-right">01. Como Isso é Possível?</h2>
+              <p class="text-secondary" data-aos="fade-right">Conforme descrito pela <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X" class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>,
+                 há 25 emoções que são consideradas 
+                "universais", embora o termo esteja entre aspas para indicar a variação em diferentes idiomas, 
+                culturas e ideias, conforme citado no próprio artigo. Adicionalmente, três emoções foram incluídas 
+                devido à sua maior relevância no contexto do português brasileiro, conforme mencionado no  
+                  <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">artigo</a>, 
+                  desenvolvido por cientistas brasileiros. Assim, o estudo considera um total de 28 emoções.
+                  <div class="text-center">
+
+                    <a href="emotions_words.html" data-aos="fade-right" class="align-items-center link-fancy link-fancy-light text-center">APERTE O PLAY
+                      <svg class="play-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3 22v-20l18 10-18 10z"/>
+                      </svg></a>
+                      <br></p>
+                      <div class="text-center">
+                        <img src="img/webp/python_how.webp" width="500" height="500" alt="abstract image"
+                        class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
+                      </div>
+                  </div>
+              <h2 class="h3 mt-5 border-top pt-5" data-aos="fade-right">02. Explore VOCÊ Mesmo !!</h2>
+              <p class="text-secondary" data-aos="fade-right">Conforme descrito pela <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X" class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>,
+                  há 25 emoções que são consideradas 
+                "universais", embora o termo esteja entre aspas para indicar a variação em diferentes idiomas, 
+                culturas e ideias, conforme citado no próprio artigo. Adicionalmente, três emoções foram incluídas 
+                devido à sua maior relevância no contexto do português brasileiro, conforme mencionado no  
+                  <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">artigo</a>, 
+                  desenvolvido por cientistas brasileiros. Assim, o estudo considera um total de 28 emoções.
+                  <div class="text-center">
+  
+                    <a href="emotions_words.html" data-aos="fade-right" class="align-items-center link-fancy link-fancy-light text-center">APERTE O PLAY
+                      <svg class="play-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3 22v-20l18 10-18 10z"/>
+                      </svg></a>
+                      <br></p>
+                      <div class="text-center">
+                        <img src="img/webp/try_yourself.webp" width="500" height="500" alt="abstract image"
+                        class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
+                      </div>
+                  </div>
+            
+        </div>                  
+        
+            
       </div>
+      
+           
     </div>
 
   </main>
@@ -272,82 +204,14 @@
       <div class="row">
         <div class="col-12 col-lg-5 py-4 text-center text-lg-start">
           <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stack"
-              viewBox="0 0 16 16">
-              <path
-                d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z" />
-              <path
-                d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z" />
-            </svg>
+        
+            <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
             <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
           </a>
 
-        </div>
-        <div class="col border-end border-dark">
-          <span class="h6">Company</span>
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">About us</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Legal</a>
-            </li>
 
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Career</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Contact</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col border-end border-dark">
-          <span class="h6">Services</span>
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Products</a>
-            </li>
-
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Customers</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Portfolio</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Success Stories</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">More</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col">
-          <span class="h6">Support</span>
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">About us</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Legal</a>
-            </li>
-
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Career</a>
-            </li>
-            <li class="nav-item">
-              <a home.html class="link-fancy link-fancy-light">Contact</a>
-            </li>
-          </ul>
-        </div>
+        
       </div>
-    </div>
-    <div class="container text-center small py-vh-2 border-top border-dark">Made by
-      <a href="https://templatedeck.com" class="link-fancy link-fancy-light" target="_blank">templatedeck.com</a>
-      Distributed by <a href="https://themewagon.com" class="link-fancy link-fancy-light" target="_blank">ThemeWagon</a>
     </div>
   </footer>
 
