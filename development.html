@@ -65,6 +65,34 @@
         url('fonts/inter-v12-latin-700.woff') format('woff');
       /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
     }
+    .minimalist-button {
+        display: center;
+        align-items: center;
+        font-size: 0.8em;
+        font-family: var(--bs-body-font-family);
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .minimalist-button img {
+        width: 1em;
+        height: 1em;
+        margin-left: 0.5em;
+    }
+
+    .minimalist-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
     .play-button {
       cursor: pointer;
       fill: #ffffff; /* Cor de preenchimento do botão (branco em hexadecimal) */
@@ -138,9 +166,12 @@
                 class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up"> </div>
               </div>
             </div>
-            <button class="col-6 col-lg-4 rounded-5 text-center display-4" data-aos="zoom-in-up" onclick="goBack()">
-              <img src="img/back.png" alt="Previous Icon" style="width: 1em; height: 1em; margin-top: -0.1em;"> Voltar
+            <a data-aos="fade-right" class="col-md-6 col-lg-3">
+              <button class="minimalist-button" data-aos="zoom-in-up" onclick="goBack()">
+                <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
             </button>
+            </a>
+            
           </div>
             
         </div>

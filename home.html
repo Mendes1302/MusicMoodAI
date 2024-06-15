@@ -65,6 +65,37 @@
         url('fonts/inter-v12-latin-700.woff') format('woff');
       /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
     }
+    .rounded-1 {
+            border-radius: 15px; /* Tornar todas as bordas arredondadas */
+    }
+    .minimalist-button {
+        display: center;
+        align-items: center;
+        font-size: 0.8em;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .minimalist-button img {
+        width: 1em;
+        height: 1em;
+        margin-left: 0.5em;
+    }
+
+    .minimalist-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
     
   </style>
 
@@ -143,23 +174,21 @@
             <h3 class="pt-5 mt-5"data-aos="zoom-in-right">DataViz</h3>
             <p class="text-secondary" data-aos="fade-left">Desvendando as emoções através da visualização de dados diretamente 
               ligados às próprias emoções presentes nas músicas e suas inter-relações, proporcionando 
-              uma visão macro abrangente.<br>
-              <a href="dataviz.html" class="link-fancy link-fancy-light me-2">Saiba mais aqui
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-              </svg></a>
+              uma visão macro abrangente.<br><br>
+              <a href="dataviz.html" data-aos="fade-right" class="col-md-6 col-lg-3">
+                <button class="minimalist-button" data-aos="zoom-in-up" ><b>PLAY</b>
+                  <img src="img/play-button.png" alt="Play Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;">
+              </button>
+              </a>
             </p>
             <h3 class="border-top border-secondary pt-5 mt-5" data-aos="zoom-in-right">Explain AI</h3>
             <p class="text-secondary" data-aos="fade-left">Compreendendo as palavras que exerceram influência significativa ou 
-              desempenharam papel crucial na tomada de decisões do algoritmo, uma perspectiva mais detalhada.<br>
-              <a href="explainable_ai.html" class="link-fancy link-fancy-light me-2">Saiba mais aqui
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-              </svg></a>
+              desempenharam papel crucial na tomada de decisões do algoritmo, uma perspectiva mais detalhada.<br><br>
+              <a href="explainable_ai.html" data-aos="fade-right" class="col-md-6 col-lg-3">
+                <button class="minimalist-button" data-aos="zoom-in-up" ><b>PLAY</b>
+                  <img src="img/play-button.png" alt="Play Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;">
+              </button>
+              </a>
               
             </p>
           </div>
@@ -237,46 +266,33 @@
           <div class="col-12 col-md-6">
             
             <div class="card bg-transparent mb-5 mt-5" data-aos="zoom-in-up">
-
-              <div class="bg-dark shadow rounded-5 p-0">
+              <a href="https://www.linkedin.com/in/lucas-mendes-barbosa/" target="_blank" rel="noopener noreferrer" >
                 <img src="img/webp/linkedin_logo.webp" width="582" height="327" alt="abstract image"
-                  class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-                <div class="p-5">
-                  <a href="https://www.linkedin.com/in/lucas-mendes-barbosa/" target="_blank" rel="noopener noreferrer" class="link-fancy link-fancy-light">Saiba mais aqui</a>
-                </div>
-              </div>
+                  class="img-fluid rounded-1" loading="lazy">
+              </a>
             </div>
 
             <div class="card bg-transparent mt-5" data-aos="zoom-in-up">
-              <div class="bg-dark shadow rounded-5 p-0">
-                <img src="img/webp/instragram_logo.webp" width="582" height="442" alt="abstract image"
-                  class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-                <div class="p-5">
-                  <a href="https://www.instagram.com/diade_aprender/" target="_blank" rel="noopener noreferrer" class="link-fancy link-fancy-light">Saiba mais aqui</a>
-                </div>
-              </div>
+              <a href="https://www.instagram.com/diade_aprender/" target="_blank" rel="noopener noreferrer" >
+                <img src="img/webp/instragram_logo.webp" width="582" height="327" alt="abstract image"
+                  class="img-fluid rounded-1" loading="lazy">
+              </a>
             </div>
           </div>
           <div class="col-12 col-md-6">
             
             <div class="card bg-transparent mb-5 mt-5" data-aos="zoom-in-up">
-              <div class="bg-dark shadow rounded-5 p-0">
-                <img src="img/webp/curriculo_lattes_logo.webp" width="582" height="390" alt="abstract image"
-                  class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-                <div class="p-5">
-                    <a href="http://lattes.cnpq.br/7625173608644098" target="_blank" rel="noopener noreferrer" class="link-fancy link-fancy-light">Saiba mais aqui</a>
-                </div>
-              </div>
+              <a href="http://lattes.cnpq.br/7625173608644098" target="_blank" rel="noopener noreferrer" >
+                <img src="img/webp/curriculo_lattes_logo.webp" width="582" height="327" alt="abstract image"
+                  class="img-fluid rounded-1" loading="lazy">
+              </a>
             </div>
 
             <div class="card bg-transparent mt-5" data-aos="zoom-in-up">
-              <div class="bg-dark shadow rounded-5 p-0">
+              <a href="https://github.com/Mendes1302" target="_blank" rel="noopener noreferrer" >
                 <img src="img/webp/github_logo.webp" width="582" height="327" alt="abstract image"
-                  class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-                <div class="p-5">
-                  <a href="https://github.com/Mendes1302" target="_blank" rel="noopener noreferrer" class="link-fancy link-fancy-light">Saiba mais aqui</a>
-                </div>
-              </div>
+                  class="img-fluid rounded-1" loading="lazy">
+              </a>
             </div>
           </div>
         </div>
@@ -285,7 +301,7 @@
 
     </div>
 
-
+    
     <div class="container-fluid px-vw-5 position-relative" data-aos="fade">
       <div class="position-absolute w-100 h-50 bg-black top-0 start-0"></div>
       <div class="position-relative py-vh-5 bg-cover bg-center rounded-5"
@@ -301,7 +317,11 @@
                 </div>
                 <div class="col-12 col-lg-10 col-xl-8 text-center my-5">
                   <p class="lead border-bottom pb-4 border-secondary">Além das abas Dataviz e Explain AI, temos outra aba igualmente importante chamada "Others" que contém:</p>
-                  <a href="others.html" class="link-fancy link-fancy-light me-2">Saiba mais aqui</a>
+                  <a href="others.html" data-aos="fade-right" class="col-md-6 col-lg-3">
+                    <button class="minimalist-button" data-aos="zoom-in-up" ><b>PLAY</b>
+                      <img src="img/play-button.png" alt="Play Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;">
+                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -321,26 +341,30 @@
               </p>
             </div>
           </div>
+          
         </div>
 
       </div>
     </div>
-
+    <br><br>
   </main>
   <footer class="bg-black border-top border-dark">
     <div class="container py-vh-4 text-secondary fw-lighter">
       <div class="row">
-        <div class="col-12 col-lg-5 py-4 text-center text-lg-start">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start text-white">
           <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
         
             <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
-            <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>            
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
           </a>
+          
 
 
         
+        </div>
       </div>
-    </div>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook.🖥️💻</b>
+      </span>
   </footer>
 
 
