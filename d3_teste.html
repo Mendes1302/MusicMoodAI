@@ -1,177 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <style>
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding-top: 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 10px;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
-    <title>Word Cloud</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo, Música e Emoção 🎭</title>
+  <style>
+    /* Estilos CSS para ajustes visuais */
+    .minimalist-button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .minimalist-button img {
+      margin-right: 5px;
+      width: 1.5em;
+      height: 1.5em;
+    }
+    /* Estilo para o ícone dentro do campo de busca */
+    #search {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      background-color: white;
+      padding: 5px 10px;
+      z-index: 1000; /* Garante que o campo de busca fique acima do conteúdo */
+    }
+    #searchInput {
+      padding-left: 30px; /* Espaçamento para o ícone */
+      background-image: url('img/lupa.png'); /* URL do ícone */
+      background-size: 20px 20px; /* Tamanho do ícone */
+      background-repeat: no-repeat; /* Evita repetição */
+      background-position: 10px center; /* Posição do ícone */
+      border: none; /* Remove a borda do input */
+      font-size: 16px; /* Tamanho da fonte */
+      outline: none; /* Remove o contorno ao focar */
+      width: 200px; /* Largura do campo de busca */
+    }
+    #searchInput:focus {
+      border-color: #0066cc; /* Cor da borda ao focar */
+    }
+    #filterSelect {
+      margin-left: 10px; /* Espaçamento entre o campo de busca e o seletor */
+      font-size: 16px; /* Tamanho da fonte */
+      padding: 8px; /* Espaçamento interno */
+    }
+    #applyFilterButton {
+      margin-left: 10px; /* Espaçamento entre o seletor e o botão */
+      font-size: 16px; /* Tamanho da fonte */
+      padding: 8px 15px; /* Espaçamento interno */
+      cursor: pointer;
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    #applyFilterButton:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-    <div id="my_dataviz"></div>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="modal-text"></p>
-        </div>
+<div class="bg-dark row d-flex align-items-center">
+  <div class="container col-12 py-vh-2 text-center">
+    <h2 class="display-4 fw-bold" style="margin-top: 2em;">Modelo, Música e Emoção 🎭</h2>
+
+    <!-- Área de busca e filtro -->
+    <div id="search">
+      <input type="text" id="searchInput" placeholder="Buscar...">
+      
+      <select id="filterSelect">
+        <option value="all">Todos</option>
+        <option value="opcao_a">Opção A</option>
+        <option value="opcao_b">Opção B</option>
+      </select>
+      
+      <button id="applyFilterButton" onclick="applyFilter()">Aplicar Filtro</button>
     </div>
 
-    <script>
-        // List of words with their meanings
-        var myWords = [
-            {text: "aborrecimento", meaning: "A feeling of annoyance or irritation."},
-            {text: "admiração", meaning: "A feeling of wonder, pleasure, or approval."},
-            {text: "alegria", meaning: "A feeling of great pleasure and happiness."},
-            {text: "alívio", meaning: "A feeling of reassurance and relaxation following release from anxiety or distress."},
-            {text: "amor", meaning: "An intense feeling of deep affection."},
-            {text: "compaixão", meaning: "Sympathetic pity and concern for the sufferings or misfortunes of others."},
-            {text: "confusão", meaning: "A state of being bewildered or unclear in one’s mind about something."},
-            {text: "curiosidade", meaning: "A strong desire to know or learn something."},
-            {text: "decepção", meaning: "A feeling of dissatisfaction that follows the failure of expectations or hopes to manifest."},
-            {text: "desaprovação", meaning: "Possession or expression of an unfavorable opinion."},
-            {text: "desejo", meaning: "A strong feeling of wanting to have something or wishing for something to happen."},
-            {text: "diversão", meaning: "The state of being amused or entertained."},
-            {text: "entusiasmo", meaning: "Intense and eager enjoyment, interest, or approval."},
-            {text: "gratidão", meaning: "The quality of being thankful; readiness to show appreciation for and to return kindness."},
-            {text: "inveja", meaning: "A feeling of discontented or resentful longing aroused by someone else's possessions, qualities, or luck."},
-            {text: "luto", meaning: "A state of deep sorrow, especially caused by someone's death."},
-            {text: "medo", meaning: "An unpleasant emotion caused by the belief that someone or something is dangerous, likely to cause pain, or a threat."},
-            {text: "nervosismo", meaning: "The state of being anxious or apprehensive."},
-            {text: "nojo", meaning: "A feeling of revulsion or strong disapproval aroused by something unpleasant or offensive."},
-            {text: "orgulho", meaning: "A feeling of deep pleasure or satisfaction derived from one's own achievements."},
-            {text: "otimismo", meaning: "Hopefulness and confidence about the future or the successful outcome of something."},
-            {text: "provação", meaning: "A difficult or painful experience."},
-            {text: "raiva", meaning: "A strong feeling of annoyance, displeasure, or hostility."},
-            {text: "remorso", meaning: "Deep regret or guilt for a wrong committed."},
-            {text: "saudade", meaning: "A deep emotional state of nostalgic longing for an absent something or someone that one cares for and/or loves."},
-            {text: "surpresa", meaning: "A feeling of mild astonishment or shock caused by something unexpected."},
-            {text: "tristeza", meaning: "A feeling of sorrow or unhappiness."},
-            {text: "vergonha", meaning: "A painful feeling of humiliation or distress caused by the consciousness of wrong or foolish behavior."}
-        ];
+    <div id="my_dataviz" class="img-fluid"></div><br>
+    
+    <a class="col-md-6 col-lg-3">
+      <button class="minimalist-button" onclick="goBack()">
+        <img src="img/back.png" alt="Previous Icon"> <b>BACK</b>
+      </button>
+      <button class="minimalist-button" onclick="refreshPage()">
+        <img src="img/icon_shuffle.png" alt="Shuffle Icon"> <b>SHUFFLE</b>
+      </button>
+    </a>
+  </div>
+</div>
 
-        // set the dimensions and margins of the graph
-        var margin = {top: 5, right: 10, bottom: 10, left: 10},
-            width = 800 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+<script>
+  // Função para aplicar o filtro
+  function applyFilter() {
+    var searchTerm = document.getElementById("searchInput").value.toLowerCase();
+    var filterValue = document.getElementById("filterSelect").value;
 
-        // append the svg object to the body of the page
-        var svg = d3.select("#my_dataviz").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // Implemente o filtro conforme necessário
+    // Exemplo de lógica de filtro:
+    // 1. Recupere os dados filtrados com base nos critérios selecionados.
+    // 2. Atualize o gráfico ou a visualização de acordo com os dados filtrados.
+    console.log("Termo de busca:", searchTerm);
+    console.log("Valor do filtro:", filterValue);
+  }
 
-        // Add a white rectangle with 80% opacity as the background
-        svg.append("rect")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("fill", "white")
-            .attr("opacity", 0.8)
-            .attr("rx", 20) // raio horizontal dos cantos
-            .attr("ry", 20); 
+  // Função para voltar
+  function goBack() {
+    window.history.back();
+  }
 
-        // Constructs a new cloud layout instance. It runs an algorithm to find the position of words that suits your requirements
-        var layout = d3.layout.cloud()
-            .size([width, height])
-            .words(myWords.map(function(d) { return {text: d.text, meaning: d.meaning}; }))
-            .padding(10)
-            .fontSize(30)
-            .on("end", draw);
-        layout.start();
+  // Função para atualizar a página
+  function refreshPage() {
+    location.reload();
+  }
+</script>
 
-        // Function to generate random color
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                // Use lower values (0-9) for darker colors
-                color += letters[Math.floor(Math.random() * 10)];
-            }
-            return color;
-        }
-
-        // This function takes the output of 'layout' above and draws the words
-        function draw(words) {
-            svg.append("g")
-                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-                .selectAll("text")
-                .data(words)
-                .enter().append("text")
-                .style("font-size", function(d) { return d.size + "px"; })
-                .style("fill", function(d) { return getRandomColor(); }) // Add color
-                .attr("text-anchor", "middle")
-                .attr("transform", function(d) {
-                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                })
-                .text(function(d) { return d.text; })
-                .on("click", function(event, d) {
-                    showModal(d.text, d.meaning);
-                });
-        }
-
-        // Function to show modal
-        function showModal(word, meaning) {
-            var modal = document.getElementById("myModal");
-            var modalText = document.getElementById("modal-text");
-            modalText.textContent = word + ": " + meaning;
-            modal.style.display = "block";
-        }
-
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 </body>
 </html>

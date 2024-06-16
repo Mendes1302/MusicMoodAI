@@ -96,7 +96,31 @@
         outline: none;
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
     }
-
+    #model {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 180px;
+    outline: none;
+    box-sizing: border-box;
+  }
+    #searchInput {
+    display: inline-block;
+    padding: 10px 20px 10px 60px; /* Ajustado o padding para o ícone */
+    background-image: url('img/lupa.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 20px center; /* Ajustado a posição do ícone */
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 500px;
+    outline: none;
+    box-sizing: border-box; /* Evita que o padding afete a largura total */
+  }
       
   </style>
 
@@ -140,8 +164,22 @@
     
     <div class="bg-dark row d-flex align-items-center">
       <div class="container col-12 py-vh-2 text-center">
-        <h2 class="display-4 fw-bold" style="margin-top: 2em;">Quais Emoções Foram Usadas? 😜</h2>
-        <div id="my_dataviz" class="img-fluid"></div>
+        
+        <h2 class="display-4 fw-bold" style="margin-top: 2em;">Modelo, Música e Emoção 🎭</h2>
+        <div id="search">
+          <input type="text" id="searchInput" placeholder="Buscar Música">
+          
+          <select id="model">
+            <option value="all">Modelo</option>
+            <option value="KNN">KNN</option>
+            <option value="LSTM">LSTM</option>
+            <option value="DCNN">DCNN</option>
+          </select>
+          
+          <button class="minimalist-button" onclick="goBack()"> <b>Buscar</b> </button>
+        </div>
+        <br>
+        <div id="my_dataviz" class="img-fluid"></div><br>
         <a class="col-md-6 col-lg-3">
           <button class="minimalist-button" onclick="goBack()">
             <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
@@ -193,84 +231,96 @@
     })
     
   </script>
-    <script>
-        // List of words
-        var myWords =[
-            "aborrecimento", "admiração", "alegria", "alívio", "amor", "compaixão", 
-            "confusão", "curiosidade", "decepção", "desaprovação", "desejo", "diversão", 
-            "entusiasmo", "gratidão", "inveja", "luto", "medo", "nervosismo", "nojo", 
-            "orgulho", "otimismo", "provação", "raiva", "remorso", "saudade", "surpresa", 
-            "tristeza", "vergonha"
-        ]
+  <script>
+// List of words
+var myWords = [
+  "aborrecimento", "admiração", "alegria", "alívio", "amor", "compaixão", 
+  "confusão", "curiosidade", "decepção", "desaprovação", "desejo", "diversão", 
+  "entusiasmo", "gratidão", "inveja", "luto", "medo", "nervosismo", "nojo", 
+  "orgulho", "otimismo", "provação", "raiva", "remorso", "saudade", "surpresa", 
+  "tristeza", "vergonha"
+];
 
-        // set the dimensions and margins of the graph
-        var margin = {top: 5, right: 10, bottom: 10, left: 10},
-            width = 800 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+// List of values (assuming they are between 0 and 1)
+var myValues = [
+  0.3, 0.7, 0.5, 0.2, 0.9, 0.4, 0.6, 0.8, 0.1, 0.7, 
+  0.3, 0.2, 0.6, 0.9, 0.4, 0.5, 0.8, 0.2, 0.1, 0.3, 
+  0.9, 0.7, 0.4, 0.6, 0.2, 0.8, 0.5, 0.3
+];
 
-        // append the svg object to the body of the page
-        var svg = d3.select("#my_dataviz").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// Combine words and values into an array of objects for sorting
+var data = myWords.map(function(word, index) {
+  return { word: word, value: myValues[index] };
+});
 
-        // Add a white rectangle with 80% opacity as the background
-        svg.append("rect")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("fill", "white")
-            .attr("opacity", 0.8)
-            .attr("rx", 20) // raio horizontal dos cantos
-            .attr("ry", 20); 
+// Sort data array based on values in descending order
+data.sort(function(a, b) {
+  return b.value - a.value;
+});
 
-        // Constructs a new cloud layout instance. It runs an algorithm to find the position of words that suits your requirements
-        var layout = d3.layout.cloud()
-            .size([width, height])
-            .words(myWords.map(function(d) { return {text: d}; }))
-            .padding(10)
-            .fontSize(30)
-            .on("end", draw);
-        layout.start();
+// Extract sorted words and values back into separate arrays
+var sortedWords = data.map(function(d) { return d.word; });
+var sortedValues = data.map(function(d) { return d.value; });
 
-        // Function to generate random color
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                // Use lower values (0-9) for darker colors
-                color += letters[Math.floor(Math.random() * 10)];
-            }
-            return color;
-        }
-        function goBack() {
-        window.history.back();
-        }
+// Set the dimensions and margins of the graph
+var margin = {top: 30, right: 30, bottom: 70, left: 60},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-        // This function takes the output of 'layout' above and draws the words
-        function draw(words) {
-            svg.append("g")
-                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-                .selectAll("text")
-                .data(words)
-                .enter().append("text")
-                .style("font-size", function(d) { return d.size + "px"; })
-                .style("fill", function(d) { return getRandomColor(); }) // Add color
-                .attr("text-anchor", "middle")
-                .attr("transform", function(d) {
-                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                })
-                .text(function(d) { return d.text; });
-        }
-        function refreshPage() {
-            // Clear the existing words
-            svg.selectAll("text").remove();
+// Append the SVG object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .style("background-color", "white")
+    .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            // Regenerate the word cloud
-            layout.stop();
-            layout.start();
-        }
-    </script>
+// X axis
+var x = d3.scaleBand()
+  .range([0, width])
+  .domain(sortedWords) // Use sortedWords for x domain
+  .padding(0.2);
+svg.append("g")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(x))
+  .selectAll("text")
+    .style("text-anchor", "end")
+    .style("font-size", "12px")
+    .attr("transform", "rotate(-45)")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .style("fill", "#000"); // Define a cor do texto para preto
+
+// Y axis
+var y = d3.scaleLinear()
+  .domain([0, 1]) // Adjusted domain to match the range of your data
+  .range([height, 0]);
+svg.append("g")
+  .call(d3.axisLeft(y))
+  .selectAll("text")
+    .style("fill", "#000"); // Define a cor do texto para preto
+
+// Definir uma escala de cores de azul escuro a azul claro
+// Definir uma escala de cores de azul escuro a azul claro
+var colorScale = d3.scaleLinear()
+  .domain([0, sortedWords.length - 1])  // Domínio baseado no índice dos dados
+  .range(["#0066cc", "#b3d9ff"]);       // Azul escuro a azul claro
+
+// Bars
+svg.selectAll("mybar")
+  .data(sortedWords)
+  .enter()
+  .append("rect")
+    .attr("x", function(d, i) { return x(d); })
+    .attr("y", function(d, i) { return y(sortedValues[i]); })
+    .attr("width", x.bandwidth())
+    .attr("height", function(d, i) { return height - y(sortedValues[i]); })
+    .attr("fill", function(d, i) {
+      return colorScale(i);  // Aplica a cor da escala com base no índice
+    });
+</script>
 </body>
 
 </html>
