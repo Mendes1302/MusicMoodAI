@@ -1,130 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modelo, Música e Emoção 🎭</title>
-  <style>
-    /* Estilos CSS para ajustes visuais */
-    .minimalist-button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-    .minimalist-button img {
-      margin-right: 5px;
-      width: 1.5em;
-      height: 1.5em;
-    }
-    /* Estilo para o ícone dentro do campo de busca */
-    #search {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      display: flex;
-      align-items: center;
-      border-radius: 20px;
-      border: 1px solid #ccc;
-      background-color: white;
-      padding: 5px 10px;
-      z-index: 1000; /* Garante que o campo de busca fique acima do conteúdo */
-    }
-    #searchInput {
-      padding-left: 30px; /* Espaçamento para o ícone */
-      background-image: url('img/lupa.png'); /* URL do ícone */
-      background-size: 20px 20px; /* Tamanho do ícone */
-      background-repeat: no-repeat; /* Evita repetição */
-      background-position: 10px center; /* Posição do ícone */
-      border: none; /* Remove a borda do input */
-      font-size: 16px; /* Tamanho da fonte */
-      outline: none; /* Remove o contorno ao focar */
-      width: 200px; /* Largura do campo de busca */
-    }
-    #searchInput:focus {
-      border-color: #0066cc; /* Cor da borda ao focar */
-    }
-    #filterSelect {
-      margin-left: 10px; /* Espaçamento entre o campo de busca e o seletor */
-      font-size: 16px; /* Tamanho da fonte */
-      padding: 8px; /* Espaçamento interno */
-    }
-    #applyFilterButton {
-      margin-left: 10px; /* Espaçamento entre o seletor e o botão */
-      font-size: 16px; /* Tamanho da fonte */
-      padding: 8px 15px; /* Espaçamento interno */
-      cursor: pointer;
-      background-color: #0066cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    #applyFilterButton:hover {
-      background-color: #0056b3;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão Insights com Modal</title>
+    <style>
+        /* Estilo para o modal */
+        .modal {
+            display: none; /* Inicialmente oculto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Centraliza verticalmente */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px; /* Largura máxima */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation-name: modalopen;
+            animation-duration: 0.4s;
+        }
+
+        @keyframes modalopen {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-<div class="bg-dark row d-flex align-items-center">
-  <div class="container col-12 py-vh-2 text-center">
-    <h2 class="display-4 fw-bold" style="margin-top: 2em;">Modelo, Música e Emoção 🎭</h2>
+    <button class="minimalist-button" onclick="openModal()" data-aos="fade">
+        <img src="img/ondas-sonoras.png" alt="Ícone de Ondas Sonoras" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
+    </button>
 
-    <!-- Área de busca e filtro -->
-    <div id="search">
-      <input type="text" id="searchInput" placeholder="Buscar...">
-      
-      <select id="filterSelect">
-        <option value="all">Todos</option>
-        <option value="opcao_a">Opção A</option>
-        <option value="opcao_b">Opção B</option>
-      </select>
-      
-      <button id="applyFilterButton" onclick="applyFilter()">Aplicar Filtro</button>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>INSIGHTS</h2>
+            <p>Aqui vai o conteúdo do seu modal...</p>
+        </div>
     </div>
 
-    <div id="my_dataviz" class="img-fluid"></div><br>
-    
-    <a class="col-md-6 col-lg-3">
-      <button class="minimalist-button" onclick="goBack()">
-        <img src="img/back.png" alt="Previous Icon"> <b>BACK</b>
-      </button>
-      <button class="minimalist-button" onclick="refreshPage()">
-        <img src="img/icon_shuffle.png" alt="Shuffle Icon"> <b>SHUFFLE</b>
-      </button>
-    </a>
-  </div>
-</div>
+    <script>
+        // Função para abrir o modal
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
 
-<script>
-  // Função para aplicar o filtro
-  function applyFilter() {
-    var searchTerm = document.getElementById("searchInput").value.toLowerCase();
-    var filterValue = document.getElementById("filterSelect").value;
+        // Função para fechar o modal
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
 
-    // Implemente o filtro conforme necessário
-    // Exemplo de lógica de filtro:
-    // 1. Recupere os dados filtrados com base nos critérios selecionados.
-    // 2. Atualize o gráfico ou a visualização de acordo com os dados filtrados.
-    console.log("Termo de busca:", searchTerm);
-    console.log("Valor do filtro:", filterValue);
-  }
-
-  // Função para voltar
-  function goBack() {
-    window.history.back();
-  }
-
-  // Função para atualizar a página
-  function refreshPage() {
-    location.reload();
-  }
-</script>
+        // Fecha o modal se o usuário clicar fora da área do modal
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>

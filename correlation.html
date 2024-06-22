@@ -169,13 +169,13 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-12 py-vh-2 text-center">
-                  <h1 class="display-4 fw-bold">Modelo, Música e Emoção 🎭</h1>
-                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">         </div>
+                  <h1 class="display-4 fw-bold">Correlações das Emoções 📈</h1>
+                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up"></div>
               </div>
               
             </div>
             <div class="bg-dark row d-flex align-items-center">
-              <h2 class="display-4 fw-bold">Charts Bars</h2>
+              <h2 class="display-4 fw-bold">HeatMap</h2>
               <div id="search">
                 <input type="text" id="searchInput" placeholder="Buscar Música">
                 
@@ -209,7 +209,6 @@
             
           </div>
           <iframe data-aos="fade-up" style="border-radius:12px" src="https://open.spotify.com/embed/track/2RaGjLBahBx3PW7iPg8Mh0?utm_source=generator" width="70%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-
         </div>
       </div>
         
@@ -266,102 +265,104 @@
       console.log(scrollpos);
     })
     function goBack() {
-      window.location.href = "./correlation.html";
+      window.location.href = "./word_cloud.html";
     }
     function goNext() {
-      window.location.href = "./dataviz.html";
+      window.location.href = "./model_music_emotion_dt.html";
     }
   </script>
     <script>
-      // List of words
-      var myWords = [
-        "aborrecimento", "admiração", "alegria", "alívio", "amor", "compaixão", 
-        "confusão", "curiosidade", "decepção", "desaprovação", "desejo", "diversão", 
-        "entusiasmo", "gratidão", "inveja", "luto", "medo", "nervosismo", "nojo", 
-        "orgulho", "otimismo", "provação", "raiva", "remorso", "saudade", "surpresa", 
-        "tristeza", "vergonha"
-      ];
-      
-      // List of values (assuming they are between 0 and 1)
-      var myValues = [
-        0.3, 0.7, 0.5, 0.2, 0.9, 0.4, 0.6, 0.8, 0.1, 0.7, 
-        0.3, 0.2, 0.6, 0.9, 0.4, 0.5, 0.8, 0.2, 0.1, 0.3, 
-        0.9, 0.7, 0.4, 0.6, 0.2, 0.8, 0.5, 0.3
-      ];
-      
-      // Combine words and values into an array of objects for sorting
-      var data = myWords.map(function(word, index) {
-        return { word: word, value: myValues[index] };
-      });
-      
-      // Sort data array based on values in descending order
-      data.sort(function(a, b) {
-        return b.value - a.value;
-      });
-      
-      // Extract sorted words and values back into separate arrays
-      var sortedWords = data.map(function(d) { return d.word; });
-      var sortedValues = data.map(function(d) { return d.value; });
-      
-      // Set the dimensions and margins of the graph
-      var margin = {top: 30, right: 30, bottom: 70, left: 60},
-          width = 800 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
-      
-      // Append the SVG object to the body of the page
-      var svg = d3.select("#my_dataviz")
-        .append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-          .style("background-color", "white")
-          .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
-        .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      
-      // X axis
-      var x = d3.scaleBand()
-        .range([0, width])
-        .domain(sortedWords) // Use sortedWords for x domain
-        .padding(0.2);
-      svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-          .style("text-anchor", "end")
-          .style("font-size", "12px")
-          .attr("transform", "rotate(-45)")
-          .attr("dx", "-.8em")
-          .attr("dy", ".15em")
-          .style("fill", "#000"); // Define a cor do texto para preto
-      
-      // Y axis
-      var y = d3.scaleLinear()
-        .domain([0, 1]) // Adjusted domain to match the range of your data
-        .range([height, 0]);
-      svg.append("g")
-        .call(d3.axisLeft(y))
-        .selectAll("text")
-          .style("fill", "#000"); // Define a cor do texto para preto
-      
-      // Definir uma escala de cores de azul escuro a azul claro
-      // Definir uma escala de cores de azul escuro a azul claro
-      var colorScale = d3.scaleLinear()
-        .domain([0, sortedWords.length - 1])  // Domínio baseado no índice dos dados
-        .range(["#0066cc", "#b3d9ff"]);       // Azul escuro a azul claro
-      
-      // Bars
-      svg.selectAll("mybar")
-        .data(sortedWords)
-        .enter()
-        .append("rect")
-          .attr("x", function(d, i) { return x(d); })
-          .attr("y", function(d, i) { return y(sortedValues[i]); })
-          .attr("width", x.bandwidth())
-          .attr("height", function(d, i) { return height - y(sortedValues[i]); })
-          .attr("fill", function(d, i) {
-            return colorScale(i);  // Aplica a cor da escala com base no índice
-          });
-      </script>
+        // Dados de exemplo
+        var myWords = [
+            "aborrecimento", "admiração", "alegria", "alívio", "amor", "compaixão", 
+            "confusão", "curiosidade", "decepção", "desaprovação", "desejo", "diversão", 
+            "entusiasmo", "gratidão", "inveja", "luto", "medo", "nervosismo", "nojo", 
+            "orgulho", "otimismo", "provação", "raiva", "remorso", "saudade", "surpresa", 
+            "tristeza", "vergonha"
+        ];
+
+        var myValues = [
+            0.3, 0.7, 0.5, 0.2, 0.9, 0.4, 0.6, 0.8, 0.1, 0.7, 
+            0.3, 0.2, 0.6, 0.9, 0.4, 0.5, 0.8, 0.2, 0.1, 0.3, 
+            0.9, 0.7, 0.4, 0.6, 0.2, 0.8, 0.5, 0.3
+        ];
+
+        // Combine words and values into an array of objects for sorting
+        var data = myWords.map(function(word, index) {
+            return { word: word, value: myValues[index] };
+        });
+
+        // Sort data array based on values in descending order
+        data.sort(function(a, b) {
+            return b.value - a.value;
+        });
+
+        // Extract sorted words and values back into separate arrays
+        var sortedWords = data.map(function(d) { return d.word; });
+        var sortedValues = data.map(function(d) { return d.value; });
+
+        // Set the dimensions and margins of the graph
+        var margin = { top: 30, right: 30, bottom: 70, left: 80 }, // Aumentei a margem esquerda para 80
+            width = 800 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        // Append the SVG object to the body of the page
+        var svg = d3.select("#my_dataviz")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .style("background-color", "white")
+            .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // X axis
+        var x = d3.scaleBand()
+            .range([0, width])
+            .domain(sortedWords) // Use sortedWords for x domain
+            .padding(0.2);
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .style("font-size", "11px")
+            .attr("transform", "rotate(-45)")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .style("fill", "#000"); // Define a cor do texto para preto
+
+       // Y axis
+       var y = d3.scaleBand()
+            .range([height, 0])
+            .domain(sortedWords) // Use sortedWords for y domain
+            .padding(0.2);
+        svg.append("g")
+            .attr("transform", "translate(0, 0)") // Ajuste de margem esquerda para os rótulos do eixo Y
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .style("font-size", "11px")
+            .style("fill", "#000");// Define a cor do texto para preto
+
+        // Define a scale for color from dark blue to light blue
+        var colorScale = d3.scaleLinear()
+            .domain([0, 1])  // Domain based on your data range
+            .range(["#b3d9ff", "#0066cc"]);  // Light blue to dark blue
+
+        // Rectangles (Heatmap)
+        svg.selectAll()
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", function(d) { return x(d.word); })
+            .attr("y", function(d) { return y(d.word); })
+            .attr("width", x.bandwidth())
+            .attr("height", y.bandwidth())
+            .style("fill", function(d) { return colorScale(d.value); });
+
+    </script>
+    </script>
 
 </body>
 

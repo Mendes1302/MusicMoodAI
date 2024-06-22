@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="description" content="A well made and handcrafted Bootstrap 5 template">
   <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
@@ -12,14 +12,11 @@
   <meta name="author" content="Holger Koenemann">
   <meta name="generator" content="Eleventy v2.0.0">
   <meta name="HandheldFriendly" content="true">
-  <title>Music MoodAI</title>
+  <title>DataViz</title>
   <link rel="stylesheet" href="css/theme.min.css">
 
-<style>
+  <style>
     /* inter-300 - latin */
-    body {
-      overflow-x: hidden; /* Oculta a barra de rolagem horizontal */
-    }
     @font-face {
       font-family: 'Inter';
       font-style: normal;
@@ -96,18 +93,88 @@
         outline: none;
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
     }
+    #model {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 180px;
+    outline: none;
+    box-sizing: border-box;
+  }
+    #searchInput {
+    display: inline-block;
+    padding: 10px 20px 10px 60px; /* Ajustado o padding para o ícone */
+    background-image: url('img/lupa.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 20px center; /* Ajustado a posição do ícone */
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 500px;
+    outline: none;
+    box-sizing: border-box; /* Evita que o padding afete a largura total */
+  }
+  /* Estilo para o modal */
+  .modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
+}
+
+.modal-content {
+    background-color: #111111;
+    margin: 15% auto; /* Centraliza verticalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px; /* Largura máxima */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    animation-name: modalopen;
+    animation-duration: 0.4s;
+}
+
+@keyframes modalopen {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 
       
   </style>
+
 
 </head>
 
 <body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
 
-  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-0" tabindex="0">
+  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
     <div class="container">
       <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
-        <img id="logo" src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
         <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
       </a>
 
@@ -133,27 +200,77 @@
           </a>
         </li>
       </ul>
+      
     </div>
   </nav>
 
   <main>
-    
-    <div class="bg-dark row d-flex align-items-center">
-      <div class="container col-12 py-vh-2 text-center">
-        <h2 class="display-4 fw-bold" style="margin-top: 2em;">Quais Emoções Foram Usadas? 😜</h2>
-        <div id="my_dataviz" class="img-fluid"></div>
-        <a class="col-md-6 col-lg-3">
-          <button class="minimalist-button" onclick="goBack()">
-            <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
-          </button>
-          <button class="minimalist-button" onclick="refreshPage()">
-            <img src="img/icon_shuffle.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>SHUFFLE</b>
-          </button>
-          <button class="minimalist-button" onclick="refreshPage()">
-            <img src="img/ondas-sonoras.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
-          </button>
-        </a>
+    <div class="container">
+      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade-up">
+        <div class="container py-vh-5 position-relative mt-5 px-vw-5 text-center">
+          <div class="row d-flex align-items-center justify-content-center py-vh-5">
+            
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 py-vh-2 text-center">
+                  <h1 class="display-4 fw-bold">Quais Emoções Foram Usadas? 😜</h1>
+                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up"></div>
+              </div>
+              
+            </div>
+            <div class="bg-dark row d-flex align-items-center">
+              <h2 class="display-4 fw-bold">Word Cloud</h2>
+              <div class="container col-12 py-vh-2 text-center">
+                <div id="my_dataviz" class="img-fluid" data-aos="fade-up"> </div><br>
+                <div id="myModal" class="modal">
+                  <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2 class="display-4 fw-bold">Overview</h2>
+                    <p class="text-secondary" data-aos="fade-right">
+                      Ao clicar nas emoções no gráfico Word Clouds, você verá suas definições e sinônimos.
+                        Aqui, seguem alguns links importantes:
+                        <br><br>
+                        <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
+                        <br><br>
+                        <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X"class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>
+                        <br><br>
+                        <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">A Weakly Supervised Dataset of Fine-Grained Emotions in Portuguese</a>
+                        <br><br>
+                        <a href="https://docs.google.com/document/d/1Gl0tS_RXS5l_U8elVx2cDNpNtnm7hUqd/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Minha IC</a>
+                        <br><br>
+                        <a href="https://docs.google.com/document/d/1mSgHMRRgwlMUhz_G_O7skUOJAI4_I6ct/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Meu TCC</a>
+                    </p>
+                    </div>
+                  </div>
+                
+                  <button class="minimalist-button" onclick="goBack()"  data-aos="fade-right">
+                    <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
+                  </button>
+                  <button class="minimalist-button" onclick="refreshPage()" data-aos="fade">
+                    <img src="img/icon_shuffle.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>SHUFFLE</b>
+                  </button>
+                  <!-- Modal -->
+                      
+                  <button class="minimalist-button" onclick="openModal()" data-aos="fade">
+                    <img src="img/ondas-sonoras.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
+                  </button>
+                  <button class="minimalist-button" onclick="goNext()"  data-aos="fade-right"><b>NEXT</b>
+                    <img src="img/next.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> 
+                  </button>
+              </div>
+            </div>
+            
+          </div>
+          <iframe data-aos="fade-up" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5c7fsAKU17NcGx1RpsPHw3?utm_source=generator" width="70%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
       </div>
+        
+                  
+        
+            
+      </div>
+      
+           
     </div>
   </main>
 
@@ -167,6 +284,15 @@
     </div>
   </footer>
 
+
+
+
+
+
+
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/aos.js"></script>
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
@@ -175,6 +301,27 @@
       duration: 800, // values from 0 to 3000, with step 50ms
     });
   </script>
+      <script>
+        // Função para abrir o modal
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Fecha o modal se o usuário clicar fora da área do modal
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
   <script>
     let scrollpos = window.scrollY;
     const header = document.querySelector(".navbar");
@@ -191,47 +338,78 @@
 
       console.log(scrollpos);
     })
-    
+    function goBack() {
+      window.history.back();
+    }
+    function goNext() {
+      window.location.href = "./correlation.html";
+    }
   </script>
-    <script>
-        // List of words
-        var myWords =[
-            "aborrecimento", "admiração", "alegria", "alívio", "amor", "compaixão", 
-            "confusão", "curiosidade", "decepção", "desaprovação", "desejo", "diversão", 
-            "entusiasmo", "gratidão", "inveja", "luto", "medo", "nervosismo", "nojo", 
-            "orgulho", "otimismo", "provação", "raiva", "remorso", "saudade", "surpresa", 
-            "tristeza", "vergonha"
-        ]
+       <script>
+        var myWords = []; // Array vazio para armazenar palavras dinâmicas
 
-        // set the dimensions and margins of the graph
+        async function fetchData() {
+            const resultDiv = document.getElementById('result');
+            try {
+                const response = await fetch('http://localhost:8000/name_emotion');
+                if (!response.ok) {
+                    throw new Error('Erro na resposta da rede');
+                }
+                const data = await response.json();
+                data.forEach((item, index) => {
+                    myWords.push(item.name_emotion); 
+                });
+                generateWordCloud(); // Após carregar os dados, gera a nuvem de palavras
+            } catch (error) {
+                console.error('Houve um problema com a operação fetch:', error);
+                resultDiv.innerHTML = 'Erro ao carregar dados';
+            }
+        }
+
         var margin = {top: 5, right: 10, bottom: 10, left: 10},
             width = 800 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
-        // append the svg object to the body of the page
         var svg = d3.select("#my_dataviz").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        // Add a white rectangle with 80% opacity as the background
         svg.append("rect")
             .attr("width", width)
             .attr("height", height)
             .attr("fill", "white")
             .attr("opacity", 0.8)
-            .attr("rx", 20) // raio horizontal dos cantos
-            .attr("ry", 20); 
+            .attr("rx", 20)
+            .attr("ry", 20);
 
-        // Constructs a new cloud layout instance. It runs an algorithm to find the position of words that suits your requirements
         var layout = d3.layout.cloud()
             .size([width, height])
-            .words(myWords.map(function(d) { return {text: d}; }))
+            .words([])
             .padding(10)
             .fontSize(30)
             .on("end", draw);
-        layout.start();
+
+        function generateWordCloud() {
+            layout.words(myWords.map(function(d) { return {text: d}; }));
+            layout.start();
+        }
+
+        function draw(words) {
+            svg.append("g")
+                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function(d) { return d.size + "px"; })
+                .style("fill", getRandomColor)
+                .attr("text-anchor", "middle")
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function(d) { return d.text; });
+        }
 
         // Function to generate random color
         function getRandomColor() {
@@ -243,25 +421,6 @@
             }
             return color;
         }
-        function goBack() {
-        window.history.back();
-        }
-
-        // This function takes the output of 'layout' above and draws the words
-        function draw(words) {
-            svg.append("g")
-                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-                .selectAll("text")
-                .data(words)
-                .enter().append("text")
-                .style("font-size", function(d) { return d.size + "px"; })
-                .style("fill", function(d) { return getRandomColor(); }) // Add color
-                .attr("text-anchor", "middle")
-                .attr("transform", function(d) {
-                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                })
-                .text(function(d) { return d.text; });
-        }
         function refreshPage() {
             // Clear the existing words
             svg.selectAll("text").remove();
@@ -270,7 +429,11 @@
             layout.stop();
             layout.start();
         }
+
+        fetchData(); // Chama a função para buscar os dados e iniciar o processo
+
     </script>
+
 </body>
 
 </html>
