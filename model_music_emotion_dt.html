@@ -93,32 +93,114 @@
         outline: none;
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
     }
+    .modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
+    }
+
+    .modal-content {
+        background-color: #111111;
+        margin: 15% auto; /* Centraliza verticalmente */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px; /* Largura máxima */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        animation-name: modalopen;
+        animation-duration: 0.4s;
+    }.close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #search {
+            position: relative; 
+            display: ruby;
+            flex-direction: column;
+            align-items: center; 
+    }
+
+    #searchInput {
+        display: inline-block;
+        padding: 10px 20px 10px 60px; 
+        background-image: url('img/lupa.png');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-position: 20px center; 
+        border: 1px solid #ccc;
+        font-size: 16px;
+        width: 500px;
+        outline: none;
+        box-sizing: border-box; 
+    }
     #model {
+      display: inline-block;
+      padding: 10px 2px;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 180px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .minimalist-button-search {
     display: inline-block;
-    padding: 10px 15px;
+    font-size: 0.8em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+    padding: 0.5em 0.5em;
+    border: none;
     border-radius: 5px;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 180px;
-    outline: none;
-    box-sizing: border-box;
-  }
-    #searchInput {
-    display: inline-block;
-    padding: 10px 20px 10px 60px; /* Ajustado o padding para o ícone */
-    background-image: url('img/lupa.png');
-    background-size: 20px 20px;
-    background-repeat: no-repeat;
-    background-position: 20px center; /* Ajustado a posição do ícone */
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 500px;
-    outline: none;
-    box-sizing: border-box; /* Evita que o padding afete a largura total */
-  }
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    .minimalist-button-search:hover {
+        background-color: #e0e0e0;
+    }
 
+    .minimalist-button-search:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    .autocomplete-container {
+        position: absolute;
+        top: 100%; 
+        background-color: rgb(13, 12, 12);
+        max-height: 200px;
+        overflow-y: auto;
+        width: 500px;
+        z-index: 1;
+        outline: none;
+    }
+
+    .autocomplete-item {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .autocomplete-item:hover {
+        background-color: #7c7c7c1b;
+    }
+     /* Estilo para o modal */
+  
       
   </style>
 
@@ -170,34 +252,60 @@
               <div class="row">
                 <div class="col-12 py-vh-2 text-center">
                   <h1 class="display-4 fw-bold">Modelo, Música e Emoção 🎭</h1>
-                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">         </div>
+                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">       
+                    
+                </div>
               </div>
               
             </div>
             <div class="bg-dark row d-flex align-items-center">
-              <h2 class="display-4 fw-bold">Charts Bars</h2>
-              <div id="search">
-                <input type="text" id="searchInput" placeholder="Buscar Música">
+              <h2 id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
+              <div id="search" class="justify-content-center">
+                <input type="text" id="searchInput" value="60 Dias Apaixonado - Chitãozinho e Xororó">
+                <div id="autocomplete" class="autocomplete-container"></div>
                 
                 <select id="model">
-                  <option value="all">Modelo</option>
-                  <option value="KNN">KNN</option>
-                  <option value="LSTM">LSTM</option>
                   <option value="DCNN">DCNN</option>
+                  <option value="LSTM">LSTM</option>
+                  <option value="RF">RANDOM FOREST</option>
+                  <option value="NB">NAIVE BAYES</option>
+                  <option value="KNN">KNN</option>
                 </select>
                 
-                <button class="minimalist-button" onclick="goBack()"> <b>Buscar</b> </button>
+                <button class="minimalist-button-search" onclick="searching(event)"><b>SEARCH</b></button>
               </div>
-              <div class="container col-12 py-vh-2 text-center">
+              <p id="Invalid_smartphone" class="text-secondary"></p>
+              <div id="block_screen"></div>
+              <div class="container col-12 py-vh-2 text-center" id="charts">
                 <div id="my_dataviz" class="img-fluid" data-aos="fade-up"> </div><br>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                      <span class="close" onclick="closeModal()">&times;</span>
+                      <h2 class="display-4 fw-bold">INSIGHTS</h2>
+                      <p class="text-secondary" data-aos="fade-right">
+                        Descubra a intensidade das emoções em uma música em uma escala de 0 a 1 (ou seja, uma porcentagem). Utilize a opção <b>SHUFFLE</b> para gerar resultados aleatórios de música e modelo.
+                        Aqui estão alguns links importantes:
+                          <br><br>
+                          <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
+                          <br><br>
+                          <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X"class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>
+                          <br><br>
+                          <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">A Weakly Supervised Dataset of Fine-Grained Emotions in Portuguese</a>
+                          <br><br>
+                          <a href="https://docs.google.com/document/d/1Gl0tS_RXS5l_U8elVx2cDNpNtnm7hUqd/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Minha IC</a>
+                          <br><br>
+                          <a href="https://docs.google.com/document/d/1mSgHMRRgwlMUhz_G_O7skUOJAI4_I6ct/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Meu TCC</a>
+                      </p>
+                      </div>
+                    </div>
                 
                   <button class="minimalist-button" onclick="goBack()"  data-aos="fade-right">
                     <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
                   </button>
-                  <button class="minimalist-button" onclick="refreshPage()" data-aos="fade">
+                  <button id="shuffle" class="minimalist-button" onclick="shuffleCharts()" data-aos="fade">
                     <img src="img/icon_shuffle.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>SHUFFLE</b>
                   </button>
-                  <button class="minimalist-button" onclick="refreshPage()" data-aos="fade">
+                  <button id="insights" class="minimalist-button" onclick="openModal()" data-aos="fade">
                     <img src="img/ondas-sonoras.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
                   </button>
                   <button class="minimalist-button" onclick="goNext()"  data-aos="fade-right"><b>NEXT</b>
@@ -208,7 +316,7 @@
             
             
           </div>
-          <iframe data-aos="fade-up" style="border-radius:12px" src="https://open.spotify.com/embed/track/2RaGjLBahBx3PW7iPg8Mh0?utm_source=generator" width="70%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          
 
         </div>
       </div>
@@ -223,12 +331,19 @@
   </main>
 
   <footer class="bg-black border-top border-dark">
-    <div class="container py-4 text-secondary fw-lighter text-center">
-      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
-        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
-        <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
-      </a><br>
-      <span style="font-size: 0.8em;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook.🖥️💻</b></span>
+    <div class="container py-vh-4 text-secondary fw-lighter">
+      <div class="row">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start text-white">
+          <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
+        
+            <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
+          </a>        
+        </div>
+      </div>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook. 🖥️💻</b>
+      </span>
+      </div>
     </div>
   </footer>
 
@@ -250,6 +365,135 @@
     });
   </script>
   <script>
+    function goBack() {
+        window.location.href = "./word_cloud.html";
+    }
+    function goNext() {
+      window.location.href = "./distribution_datasource.html";
+    }
+    // Função para abrir o modal
+    function openModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    // Função para fechar o modal
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    // Fecha o modal se o usuário clicar fora da área do modal
+    window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+  <script>
+    let data = []; // Definindo data no escopo global
+    let svg, layout;
+    async function fetchData() {
+        const resultDiv = document.getElementById('result');
+        
+        try {
+            const response = await fetch('http://localhost:8000/emotional_result');
+            
+            if (!response.ok) {
+                throw new Error('Erro na resposta da rede');
+            }
+            
+            data = await response.json();
+            return data;
+            
+        } catch (error) {
+            console.error('Houve um problema com a operação fetch:', error);
+            resultDiv.innerHTML = 'Erro ao carregar dados';
+            return []; // Retorna um array vazio em caso de erro
+        }
+    }
+
+    // Function to remove accents from characters
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    document.getElementById('searchInput').addEventListener('click', function() {
+            this.select();
+        });
+
+    async function setupAutocomplete() {
+        await fetchData();
+        const searchInput = document.getElementById('searchInput');
+        const autocomplete = document.getElementById('autocomplete');
+
+        const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b)); // Filtra valores únicos de song_name e organiza alfabeticamente
+
+        searchInput.addEventListener('focus', function() {
+            showAllOptions(uniqueSongs);
+        });
+
+        searchInput.addEventListener('input', function() {
+            const input = removeAccents(this.value.toLowerCase());
+            autocomplete.innerHTML = '';
+
+            if (!input) {
+                showAllOptions(uniqueSongs);
+                return;
+            }
+
+            const matches = uniqueSongs.filter(song => removeAccents(song.toLowerCase()).includes(input));
+
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.textContent = match;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = match;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!autocomplete.contains(e.target) && e.target !== searchInput) {
+                autocomplete.innerHTML = '';
+            }
+        });
+
+        function showAllOptions(songs) {
+            autocomplete.innerHTML = '';
+
+            songs.forEach(song => {
+                const div = document.createElement('div');
+                div.textContent = song;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = song;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        }
+    }
+
+    setupAutocomplete().catch(error => {
+        console.error('Erro ao configurar o autocomplete:', error);
+    });
+
+    function searching(event) {
+        const model = document.getElementById('model').value;
+        const song = document.getElementById('searchInput').value;
+        updateCharts(song,model, 0);  
+
+        // Aqui você pode adicionar a lógica para o que você quer fazer com os valores obtidos
+        // Por exemplo, fazer uma nova busca, atualizar a UI, etc.
+    }
     let scrollpos = window.scrollY;
     const header = document.querySelector(".navbar");
     const header_height = header.offsetHeight;
@@ -263,105 +507,175 @@
       if (scrollpos >= header_height) { add_class_on_scroll(); }
       else { remove_class_on_scroll(); }
 
-      console.log(scrollpos);
     })
-    function goBack() {
-      window.location.href = "./correlation.html";
-    }
-    function goNext() {
-      window.location.href = "./dataviz.html";
-    }
-  </script>
-    <script>
-      // List of words
-      var myWords = [
-        "aborrecimento", "admiração", "alegria", "alívio", "amor", "compaixão", 
-        "confusão", "curiosidade", "decepção", "desaprovação", "desejo", "diversão", 
-        "entusiasmo", "gratidão", "inveja", "luto", "medo", "nervosismo", "nojo", 
-        "orgulho", "otimismo", "provação", "raiva", "remorso", "saudade", "surpresa", 
-        "tristeza", "vergonha"
-      ];
-      
-      // List of values (assuming they are between 0 and 1)
-      var myValues = [
-        0.3, 0.7, 0.5, 0.2, 0.9, 0.4, 0.6, 0.8, 0.1, 0.7, 
-        0.3, 0.2, 0.6, 0.9, 0.4, 0.5, 0.8, 0.2, 0.1, 0.3, 
-        0.9, 0.7, 0.4, 0.6, 0.2, 0.8, 0.5, 0.3
-      ];
-      
-      // Combine words and values into an array of objects for sorting
-      var data = myWords.map(function(word, index) {
-        return { word: word, value: myValues[index] };
-      });
-      
-      // Sort data array based on values in descending order
-      data.sort(function(a, b) {
-        return b.value - a.value;
-      });
-      
-      // Extract sorted words and values back into separate arrays
-      var sortedWords = data.map(function(d) { return d.word; });
-      var sortedValues = data.map(function(d) { return d.value; });
-      
-      // Set the dimensions and margins of the graph
-      var margin = {top: 30, right: 30, bottom: 70, left: 60},
-          width = 800 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
-      
-      // Append the SVG object to the body of the page
-      var svg = d3.select("#my_dataviz")
-        .append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-          .style("background-color", "white")
-          .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
-        .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      
-      // X axis
-      var x = d3.scaleBand()
-        .range([0, width])
-        .domain(sortedWords) // Use sortedWords for x domain
-        .padding(0.2);
-      svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-          .style("text-anchor", "end")
-          .style("font-size", "12px")
-          .attr("transform", "rotate(-45)")
-          .attr("dx", "-.8em")
-          .attr("dy", ".15em")
-          .style("fill", "#000"); // Define a cor do texto para preto
-      
-      // Y axis
-      var y = d3.scaleLinear()
-        .domain([0, 1]) // Adjusted domain to match the range of your data
-        .range([height, 0]);
-      svg.append("g")
-        .call(d3.axisLeft(y))
-        .selectAll("text")
-          .style("fill", "#000"); // Define a cor do texto para preto
-      
-      // Definir uma escala de cores de azul escuro a azul claro
-      // Definir uma escala de cores de azul escuro a azul claro
-      var colorScale = d3.scaleLinear()
-        .domain([0, sortedWords.length - 1])  // Domínio baseado no índice dos dados
-        .range(["#0066cc", "#b3d9ff"]);       // Azul escuro a azul claro
-      
-      // Bars
-      svg.selectAll("mybar")
-        .data(sortedWords)
-        .enter()
-        .append("rect")
-          .attr("x", function(d, i) { return x(d); })
-          .attr("y", function(d, i) { return y(sortedValues[i]); })
-          .attr("width", x.bandwidth())
-          .attr("height", function(d, i) { return height - y(sortedValues[i]); })
-          .attr("fill", function(d, i) {
-            return colorScale(i);  // Aplica a cor da escala com base no índice
+
+    async function updateCharts(song, model, status) {
+        await fetchData(); // Supondo que fetchData() é uma função assíncrona que busca os dados
+
+
+        const songData = data.find(item => item.song_name === song); // Encontrar os dados da música específica
+        
+        if (!songData) {
+          console.error(`Não foi possível encontrar os dados para a música '${song}'.`);
+          return;
+        }
+        
+        const filteredData = data.filter(item => item.song_id === songData.song_id && item.model_name === model);
+        let myWords = [];
+        let myValues = [];
+
+        // Verificar se há exatamente 28 itens
+        if (filteredData.length !== 28) {
+            console.warn(`A quantidade de dados filtrados não é 28. É ${filteredData.length}.`);
+        }
+
+        filteredData.slice(0, 28).forEach(item => {
+            myWords.push(item.emotion); // Adiciona o valor de item.name_emotion a myWords
+            myValues.push(item.value); // Adiciona o valor de item.value a myValues
+        });
+        
+        if (status==0) {
+          // Combine words and values into an array of objects for sorting
+          var results = myWords.map(function(word, index) {
+            return { word: word, value: myValues[index] };
           });
-      </script>
+          
+          // Sort data array based on values in descending order
+          results.sort(function(a, b) {
+            return b.value - a.value;
+          });
+          
+          // Extract sorted words and values back into separate arrays
+          var sortedWords = results.map(function(d) { return d.word; });
+          var sortedValues = results.map(function(d) { return d.value; });
+          
+          // Set the dimensions and margins of the graph
+          var margin = {top: 30, right: 30, bottom: 70, left: 60},
+              width = 800 - margin.left - margin.right,
+              height = 500 - margin.top - margin.bottom;
+
+          // Remover o gráfico anterior se existir
+          d3.select("#my_dataviz svg").remove();
+          
+          // Append the SVG object to the body of the page
+          svg = d3.select("#my_dataviz")
+            .append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .style("background-color", "white")
+              .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
+            .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          
+          // X axis
+          var x = d3.scaleBand()
+            .range([0, width])
+            .domain(sortedWords) // Use sortedWords for x domain
+            .padding(0.2);
+          svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+              .style("text-anchor", "end")
+              .style("font-size", "12px")
+              .attr("transform", "rotate(-45)")
+              .attr("dx", "-.8em")
+              .attr("dy", ".15em")
+              .style("fill", "#000"); // Define a cor do texto para preto
+          
+          // Y axis
+          var y = d3.scaleLinear()
+            .domain([0, 1]) // Adjusted domain to match the range of your data
+            .range([height, 0]);
+          svg.append("g")
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+              .style("fill", "#000"); // Define a cor do texto para preto
+          
+          // Definir uma escala de cores de azul escuro a azul claro
+          var colorScale = d3.scaleLinear()
+            .domain([0, sortedWords.length - 1])  // Domínio baseado no índice dos dados
+            .range(["#0066cc", "#b3d9ff"]);       // Azul escuro a azul claro
+          
+          // Bars
+          svg.selectAll("mybar")
+            .data(sortedWords)
+            .enter()
+            .append("rect")
+              .attr("x", function(d, i) { return x(d); })
+              .attr("y", function(d, i) { return y(sortedValues[i]); })
+              .attr("width", x.bandwidth())
+              .attr("height", function(d, i) { return height - y(sortedValues[i]); })
+              .attr("fill", function(d, i) {
+                return colorScale(i);  // Aplica a cor da escala com base no índice
+              });
+          
+        }
+    }
+  document.addEventListener("DOMContentLoaded", function() {
+    const windowWidth = window.innerWidth;
+    if (windowWidth >= 1000) {
+      const model = document.getElementById('model').value;
+      const song = document.getElementById('searchInput').value;
+      updateCharts(song,model, 0);      
+      
+    } else {
+    // Hide the graph and other elements
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
+
+    
+    // Change subtitle text
+    document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Create image element
+    var imgElement = document.createElement("img");
+    imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+    imgElement.width = 582;  // Largura da imagem
+    imgElement.height = 327;  // Altura da imagem
+    imgElement.alt = "abstract image";  // Texto alternativo da imagem
+    imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+    imgElement.loading = "lazy";  // Opção de carregamento da imagem
+    
+
+    // Append image to block screen
+    blockScreen.appendChild(imgElement);
+}
+  });
+  function shuffleCharts() {
+    const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b));
+    //const models = ["DCNN", "LSTM", "RF", "NB", "KNN"]
+    const models = ["DCNN"]
+
+    // Função para escolher um valor aleatório da lista
+    function getRandomSong(songs) {
+        const randomIndex = Math.floor(Math.random() * songs.length);
+        return songs[randomIndex];
+    }
+
+
+    // Exemplo de uso
+    const randomSong = getRandomSong(uniqueSongs);
+    const randomModel = getRandomSong(models);
+    // Exibir os valores aleatórios nos elementos HTML
+    document.getElementById("model").value = randomModel;
+    document.getElementById("searchInput").value = randomSong;
+    console.log(randomModel, randomSong);
+    updateCharts(randomSong, randomModel, 0);
+  }
+</script>
 
 </body>
 

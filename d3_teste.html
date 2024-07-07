@@ -1,92 +1,689 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html class="h-100" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Botão Insights com Modal</title>
-    <style>
-        /* Estilo para o modal */
-        .modal {
-            display: none; /* Inicialmente oculto */
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="description" content="A well made and handcrafted Bootstrap 5 template">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
+  <meta name="author" content="Holger Koenemann">
+  <meta name="generator" content="Eleventy v2.0.0">
+  <meta name="HandheldFriendly" content="true">
+  <title>DataViz</title>
+  <link rel="stylesheet" href="css/theme.min.css">
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* Centraliza verticalmente */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px; /* Largura máxima */
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            animation-name: modalopen;
-            animation-duration: 0.4s;
-        }
+  <style>
+    /* inter-300 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-300.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-300.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
 
-        @keyframes modalopen {
-            from {opacity: 0}
-            to {opacity: 1}
-        }
+    /* inter-400 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-regular.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-500.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-500.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-700.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+    .minimalist-button {
+        display: center;
+        align-items: center;
+        font-size: 0.8em;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .minimalist-button img {
+        width: 1em;
+        height: 1em;
+        margin-left: 0.5em;
+    }
+
+    .minimalist-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    .modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
+    }
+
+    .modal-content {
+        background-color: #111111;
+        margin: 15% auto; /* Centraliza verticalmente */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px; /* Largura máxima */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        animation-name: modalopen;
+        animation-duration: 0.4s;
+    }.close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #search {
+            position: relative; 
+            display: ruby;
+            flex-direction: column;
+            align-items: center; 
+    }
+
+    #searchInput {
+        display: inline-block;
+        padding: 10px 20px 10px 60px; 
+        background-image: url('img/lupa.png');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-position: 20px center; 
+        border: 1px solid #ccc;
+        font-size: 16px;
+        width: 500px;
+        outline: none;
+        box-sizing: border-box; 
+    }
+    #model {
+      display: inline-block;
+      padding: 10px 2px;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 180px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .minimalist-button-search {
+    display: inline-block;
+    font-size: 0.8em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+    padding: 0.5em 0.5em;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    .minimalist-button-search:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button-search:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    .autocomplete-container {
+        position: absolute;
+        top: 100%; 
+        background-color: rgb(13, 12, 12);
+        max-height: 200px;
+        overflow-y: auto;
+        width: 500px;
+        z-index: 1;
+        outline: none;
+    }
+
+    .autocomplete-item {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .autocomplete-item:hover {
+        background-color: #7c7c7c1b;
+    }
+     /* Estilo para o modal */
+  
+      
+  </style>
+
+
 </head>
-<body>
 
-    <button class="minimalist-button" onclick="openModal()" data-aos="fade">
-        <img src="img/ondas-sonoras.png" alt="Ícone de Ondas Sonoras" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
-    </button>
+<body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
 
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>INSIGHTS</h2>
-            <p>Aqui vai o conteúdo do seu modal...</p>
-        </div>
+  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
+    <div class="container">
+      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
+        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+        <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
+      </a>
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="home.html" aria-label="Homepage">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="dataviz.html" aria-label="A sample content page">
+            DataViz
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="explainable_ai.html" aria-label="A system message page">
+            ExplainAI
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="others.html" aria-label="A system message page">
+            Others
+          </a>
+        </li>
+      </ul>
+      
     </div>
+  </nav>
 
-    <script>
-        // Função para abrir o modal
-        function openModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-        }
+  <main>
+    <div class="container">
+      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade-up">
+        <div class="container py-vh-5 position-relative mt-5 px-vw-5 text-center">
+          <div class="row d-flex align-items-center justify-content-center py-vh-5">
+            
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 py-vh-2 text-center">
+                  <h1 class="display-4 fw-bold">Modelo, Música e Emoção 🎭</h1>
+                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">       
+                    
+                </div>
+              </div>
+              
+            </div>
+            <div class="bg-dark row d-flex align-items-center">
+              <h2 id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
+              <div id="search" class="justify-content-center">
+                <input type="text" id="searchInput" value="60 Dias Apaixonado - Chitãozinho e Xororó">
+                <div id="autocomplete" class="autocomplete-container"></div>
+                
+                <select id="model">
+                  <option value="DCNN">DCNN</option>
+                  <option value="LSTM">LSTM</option>
+                  <option value="RF">RANDOM FOREST</option>
+                  <option value="NB">NAIVE BAYES</option>
+                  <option value="KNN">KNN</option>
+                </select>
+                
+                <button class="minimalist-button-search" onclick="searching(event)"><b>SEARCH</b></button>
+              </div>
+              <p id="Invalid_smartphone" class="text-secondary"></p>
+              <div id="block_screen"></div>
+              <div class="container col-12 py-vh-2 text-center" id="charts">
+                <div id="my_dataviz" class="img-fluid" data-aos="fade-up"> </div><br>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                      <span class="close" onclick="closeModal()">&times;</span>
+                      <h2 class="display-4 fw-bold">INSIGHTS</h2>
+                      <p class="text-secondary" data-aos="fade-right">
+                        Descubra a intensidade das emoções em uma música em uma escala de 0 a 1 (ou seja, uma porcentagem). Utilize a opção <b>SHUFFLE</b> para gerar resultados aleatórios de música e modelo.
+                        Aqui estão alguns links importantes:
+                          <br><br>
+                          <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
+                          <br><br>
+                          <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X"class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>
+                          <br><br>
+                          <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">A Weakly Supervised Dataset of Fine-Grained Emotions in Portuguese</a>
+                          <br><br>
+                          <a href="https://docs.google.com/document/d/1Gl0tS_RXS5l_U8elVx2cDNpNtnm7hUqd/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Minha IC</a>
+                          <br><br>
+                          <a href="https://docs.google.com/document/d/1mSgHMRRgwlMUhz_G_O7skUOJAI4_I6ct/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Meu TCC</a>
+                      </p>
+                      </div>
+                    </div>
+                
+                  <button class="minimalist-button" onclick="goBack()"  data-aos="fade-right">
+                    <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
+                  </button>
+                  <button id="shuffle" class="minimalist-button" onclick="shuffleCharts()" data-aos="fade">
+                    <img src="img/icon_shuffle.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>SHUFFLE</b>
+                  </button>
+                  <button id="insights" class="minimalist-button" onclick="openModal()" data-aos="fade">
+                    <img src="img/ondas-sonoras.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
+                  </button>
+                  <button class="minimalist-button" onclick="goNext()"  data-aos="fade-right"><b>NEXT</b>
+                    <img src="img/next.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> 
+                  </button>
+              </div>
+            </div>
+            
+            
+          </div>
+          
 
-        // Função para fechar o modal
-        function closeModal() {
-            var modal = document.getElementById("myModal");
+        </div>
+      </div>
+        
+                  
+        
+            
+      </div>
+      
+           
+    </div>
+  </main>
+
+  <footer class="bg-black border-top border-dark">
+    <div class="container py-vh-4 text-secondary fw-lighter">
+      <div class="row">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start text-white">
+          <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
+        
+            <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
+          </a>        
+        </div>
+      </div>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook. 🖥️💻</b>
+      </span>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    AOS.init({
+      duration: 800, // values from 0 to 3000, with step 50ms
+    });
+  </script>
+  <script>
+    function goBack() {
+        window.location.href = "./correlation.html";
+    }
+    function goNext() {
+      window.location.href = "./distribution_datasource.html";
+    }
+    // Função para abrir o modal
+    function openModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    // Função para fechar o modal
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    // Fecha o modal se o usuário clicar fora da área do modal
+    window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
             modal.style.display = "none";
         }
+    }
+</script>
+  <script>
+    let data = []; // Definindo data no escopo global
+    let svg, layout;
+    async function fetchData() {
+        const resultDiv = document.getElementById('result');
+        
+        try {
+            const response = await fetch('http://localhost:8000/emotional_result');
+            
+            if (!response.ok) {
+                throw new Error('Erro na resposta da rede');
+            }
+            
+            data = await response.json();
+            return data;
+            
+        } catch (error) {
+            console.error('Houve um problema com a operação fetch:', error);
+            resultDiv.innerHTML = 'Erro ao carregar dados';
+            return []; // Retorna um array vazio em caso de erro
+        }
+    }
 
-        // Fecha o modal se o usuário clicar fora da área do modal
-        window.onclick = function(event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
+    // Function to remove accents from characters
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    document.getElementById('searchInput').addEventListener('click', function() {
+            this.select();
+        });
+
+    async function setupAutocomplete() {
+        await fetchData();
+        const searchInput = document.getElementById('searchInput');
+        const autocomplete = document.getElementById('autocomplete');
+
+        const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b)); // Filtra valores únicos de song_name e organiza alfabeticamente
+
+        searchInput.addEventListener('focus', function() {
+            showAllOptions(uniqueSongs);
+        });
+
+        searchInput.addEventListener('input', function() {
+            const input = removeAccents(this.value.toLowerCase());
+            autocomplete.innerHTML = '';
+
+            if (!input) {
+                showAllOptions(uniqueSongs);
+                return;
+            }
+
+            const matches = uniqueSongs.filter(song => removeAccents(song.toLowerCase()).includes(input));
+
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.textContent = match;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = match;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!autocomplete.contains(e.target) && e.target !== searchInput) {
+                autocomplete.innerHTML = '';
+            }
+        });
+
+        function showAllOptions(songs) {
+            autocomplete.innerHTML = '';
+
+            songs.forEach(song => {
+                const div = document.createElement('div');
+                div.textContent = song;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = song;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        }
+    }
+
+    setupAutocomplete().catch(error => {
+        console.error('Erro ao configurar o autocomplete:', error);
+    });
+
+    function searching(event) {
+        const model = document.getElementById('model').value;
+        const song = document.getElementById('searchInput').value;
+        updateCharts(song,model, 0);  
+
+        // Aqui você pode adicionar a lógica para o que você quer fazer com os valores obtidos
+        // Por exemplo, fazer uma nova busca, atualizar a UI, etc.
+    }
+    let scrollpos = window.scrollY;
+    const header = document.querySelector(".navbar");
+    const header_height = header.offsetHeight;
+
+    const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm");
+    const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm");
+
+    window.addEventListener('scroll', function () {
+      scrollpos = window.scrollY;
+
+      if (scrollpos >= header_height) { add_class_on_scroll(); }
+      else { remove_class_on_scroll(); }
+
+    })
+    // Função para calcular correlação (exemplo simples, ajuste conforme necessário)
+    function calculateCorrelation(values1, values2) {
+        // Calcular a correlação entre values1 e values2
+        // Esta é uma função de exemplo, substitua pelo seu cálculo de correlação real
+        return Math.random() * 2 - 1; // Retorna um valor aleatório entre -1 e 1 para fins de demonstração
+    }
+
+    async function updateCharts(song, model, status) {
+        await fetchData(); // Supondo que fetchData() é uma função assíncrona que busca os dados
+
+        const songData = data.find(item => item.song_name === song); // Encontrar os dados da música específica
+        
+        if (!songData) {
+            console.error(`Não foi possível encontrar os dados para a música '${song}'.`);
+            return;
+        }
+        
+        const filteredData = data.filter(item => item.song_id === songData.song_id && item.model_name === model);
+        let myWords = [];
+        let myValues = [];
+
+        // Verificar se há exatamente 28 itens
+        if (filteredData.length !== 28) {
+            console.warn(`A quantidade de dados filtrados não é 28. É ${filteredData.length}.`);
+        }
+
+        filteredData.slice(0, 28).forEach(item => {
+            myWords.push(item.emotion); // Adiciona o valor de item.name_emotion a myWords
+            myValues.push(item.value); // Adiciona o valor de item.value a myValues
+        });
+        
+        // Gerar matriz de correlação
+        let correlationMatrix = [];
+        for (let i = 0; i < 28; i++) {
+            correlationMatrix[i] = [];
+            for (let j = 0; j < 28; j++) {
+                // Supondo que você tenha uma função calculateCorrelation que retorna a correlação entre duas emoções
+                correlationMatrix[i][j] = calculateCorrelation(filteredData[i].values, filteredData[j].values);
             }
         }
-    </script>
+
+        if (status == 0) {
+            // Set the dimensions and margins of the graph
+            var margin = {top: 30, right: 30, bottom: 70, left: 60},
+                width = 800 - margin.left - margin.right,
+                height = 800 - margin.top - margin.bottom;
+
+            // Remover o gráfico anterior se existir
+            d3.select("#my_dataviz svg").remove();
+            
+            // Append the SVG object to the body of the page
+            var svg = d3.select("#my_dataviz")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .style("background-color", "white")
+                .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+            // X axis
+            var x = d3.scaleBand()
+                .range([0, width])
+                .domain(myWords)
+                .padding(0.05);
+
+            svg.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x))
+                .selectAll("text")
+                .attr("transform", "rotate(-45)")
+                .style("text-anchor", "end")
+                .style("font-size", "10px")
+                .style("fill", "#000"); // Define a cor do texto para preto
+
+            // Y axis
+            var y = d3.scaleBand()
+                .range([height, 0])
+                .domain(myWords)
+                .padding(0.05);
+
+            svg.append("g")
+                .call(d3.axisLeft(y))
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .style("font-size", "10px")
+                .style("fill", "#000");// Define a cor do texto para preto
+
+            // Define a scale for color from blue to red
+        var colorScale = d3.scaleLinear()
+            .domain([-1, 0, 1])  // Domain from -1 to 1 for correlation values
+            .range(["#ff0000", "#ffffff", "#0000ff"]);  // Red to white to blue
+
+
+            // Rectangles (Heatmap)
+            svg.selectAll()
+                .data(correlationMatrix.flat().map((d, i) => ({
+                    x: Math.floor(i / 28),
+                    y: i % 28,
+                    value: d
+                })))
+                .enter()
+                .append("rect")
+                .attr("x", d => x(myWords[d.x]))
+                .attr("y", d => y(myWords[d.y]))
+                .attr("width", x.bandwidth())
+                .attr("height", y.bandwidth())
+                .style("fill", d => colorScale(d.value));
+        }
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+    const windowWidth = window.innerWidth;
+    if (windowWidth >= 1000) {
+      const model = document.getElementById('model').value;
+      const song = document.getElementById('searchInput').value;
+      updateCharts(song,model, 0);      
+      
+    } else {
+    // Hide the graph and other elements
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
+
+    
+    // Change subtitle text
+    document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Create image element
+    var imgElement = document.createElement("img");
+    imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+    imgElement.width = 582;  // Largura da imagem
+    imgElement.height = 327;  // Altura da imagem
+    imgElement.alt = "abstract image";  // Texto alternativo da imagem
+    imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+    imgElement.loading = "lazy";  // Opção de carregamento da imagem
+    
+
+    // Append image to block screen
+    blockScreen.appendChild(imgElement);
+}
+  });
+  function shuffleCharts() {
+    const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b));
+    //const models = ["DCNN", "LSTM", "RF", "NB", "KNN"]
+    const models = ["DCNN"]
+
+    // Função para escolher um valor aleatório da lista
+    function getRandomSong(songs) {
+        const randomIndex = Math.floor(Math.random() * songs.length);
+        return songs[randomIndex];
+    }
+
+
+    // Exemplo de uso
+    const randomSong = getRandomSong(uniqueSongs);
+    const randomModel = getRandomSong(models);
+    // Exibir os valores aleatórios nos elementos HTML
+    document.getElementById("model").value = randomModel;
+    document.getElementById("searchInput").value = randomSong;
+    console.log(randomModel, randomSong);
+    updateCharts(randomSong, randomModel, 0);
+  }
+</script>
 
 </body>
+
 </html>

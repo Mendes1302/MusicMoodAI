@@ -12,7 +12,7 @@
   <meta name="author" content="Holger Koenemann">
   <meta name="generator" content="Eleventy v2.0.0">
   <meta name="HandheldFriendly" content="true">
-  <title>Others</title>
+  <title>DataViz</title>
   <link rel="stylesheet" href="css/theme.min.css">
 
   <style>
@@ -65,6 +65,105 @@
         url('fonts/inter-v12-latin-700.woff') format('woff');
       /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
     }
+    .minimalist-button {
+        display: center;
+        align-items: center;
+        font-size: 0.8em;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .minimalist-button img {
+        width: 1em;
+        height: 1em;
+        margin-left: 0.5em;
+    }
+
+    .minimalist-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    #search {
+            position: relative; 
+            display: ruby;
+            flex-direction: column;
+            align-items: center; 
+    }
+
+    #searchInput {
+        display: inline-block;
+        padding: 10px 20px 10px 60px; 
+        background-image: url('img/lupa.png');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-position: 20px center; 
+        border: 1px solid #ccc;
+        font-size: 16px;
+        width: 500px;
+        outline: none;
+        box-sizing: border-box; 
+    }
+    #model {
+      display: inline-block;
+      padding: 14px 15px;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 180px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .minimalist-button-search {
+    display: inline-block;
+    font-size: 0.8em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+    padding: 0.5em 0.5em;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    .minimalist-button-search:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button-search:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    .autocomplete-container {
+        position: absolute;
+        top: 100%; 
+        background-color: rgb(13, 12, 12);
+        max-height: 200px;
+        overflow-y: auto;
+        width: 500px;
+        z-index: 1;
+        outline: none;
+    }
+
+    .autocomplete-item {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .autocomplete-item:hover {
+        background-color: #7c7c7c1b;
+    }
+      
   </style>
 
 
@@ -95,102 +194,100 @@
             ExplainAI
           </a>
         </li>
-        </li>
         <li class="nav-item">
           <a class="nav-link fs-5" href="others.html" aria-label="A system message page">
             Others
           </a>
         </li>
       </ul>
+      
     </div>
   </nav>
 
   <main>
     <div class="container">
-      <div class="row d-flex justify-content-center py-vh-5 pb-0">
-        <div class="col-12 col-lg-10 col-xl-8">
-          <div class="row">
+      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade-up">
+        <div class="container py-vh-5 position-relative mt-5 px-vw-5 text-center">
+          <div class="row d-flex align-items-center justify-content-center py-vh-5">
+            
             <div class="col-12">
-              <p class="lead pt-5 mt-5" data-aos="fade-up">
-                Aqui, apresento diversos projetos desenvolvidos, desde minha participação em iniciação científica 
-                até links relevantes do Trabalho de Conclusão de Curso (TCC). Destaco uma apresentação sobre a 
-                integração da Inteligência Artificial (IA) na educação inclusiva em Libras, juntamente com outros trabalhos 
-                significativos. Também compartilho influências que moldaram o layout de um site, as letras de músicas
-                e a seleção de imagens em meus projetos.
-              </p> 
-              <h1 class="display-1 mt-5">Others</h1>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 py-vh-2 text-center">
-            <img src="img/webp/sum1.webp" width="500" height="500" alt="abstract image"
-              class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
-          </div>
-        </div>
-        <div class="col-12 col-lg-10 col-xl-8">
-            
-            <h2 class="h3 mt-5 border-top pt-5">01. Quais emoções foram usadas?</h2>
-              <p class="text-secondary">Conforme descrito pela <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X" class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>,
-                 há 25 emoções que são consideradas 
-                "universais", embora o termo esteja entre aspas para indicar a variação em diferentes idiomas, 
-                culturas e ideias, conforme citado no próprio artigo. Adicionalmente, três emoções foram incluídas 
-                devido à sua maior relevância no contexto do português brasileiro, conforme mencionado no  
-                  <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">artigo</a>, 
-                  desenvolvido por cientistas brasileiros. Assim, o estudo considera um total de 28 emoções.
-                  <div class="text-center">
-
-                    <a href="emotions_words.html" class="align-items-center link-fancy link-fancy-light text-center">Aperte o PLAY
-                      <svg class="play-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M3 22v-20l18 10-18 10z"/>
-                      </svg></a>
-                      <br></p>
-                      <img src="img/webp/emotion_dataviz.webp" width="500" height="500" alt="abstract image"
-                      class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
-
-            <h2 class="h3 mt-5 border-top pt-5" data-aos="fade-right">02. Iniciação Científica (IC)</h2>
-            <p class="text-secondary" data-aos="fade-right">Minha pesquisa de Iniciação Científica concentrou-se no desenvolvimento de um 
-              algoritmo para prever emoções em letras de músicas. Conduzi benchmarking entre diversos algoritmos, 
-              como DCNN, LSTM, entre outros, visando identificar o mais eficiente. Inspirando-me em um <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">estudo</a> prévio sobre tweets
-              , utilizei parte dessa base de dados e criei uma adicional para aprimorar os resultados, conforme detalhado no meu <a href="https://github.com/Mendes1302/MusicMoodAI" class="link-fancy link-fancy-light" target="_blank">artigo de IC</a>
-              . Como complemento à pesquisa, elaborei uma <a href="https://open.spotify.com/playlist/5c7fsAKU17NcGx1RpsPHw3?si=5039f82a6e49499b" class="link-fancy link-fancy-light" target="_blank">Playlist Spotify</a> 
-              com as músicas testadas, ampliando a diversidade da base e estabelecendo uma conexão mais próxima com os leitores. Além disso, destaco no GitHub o repositório 
-              que abriga todos os códigos referentes à minha Iniciação Científica, intitulado "<a href="https://github.com/Mendes1302/AffectiveComputing" class="link-fancy link-fancy-light" target="_blank">AffectiveComputing</a>".</p>
-          
-            <h2 class="h3 mt-5 border-top pt-5"data-aos="fade-right">03. Inteligência Artificial Aplicada à Educação Inclusiva (Libras)</h2>
-            <p class="text-secondary" data-aos="fade-right">Em uma disciplina eletiva, escolhi Libras e para o projeto final da disciplina, que exigia uma apresentação livre
-              na língua de sinais.  Juntamente com um grupo de colegas de Ciência da Computação e Pedagogia, exploramos as dificuldades 
-              no ensino de Libras. Identificamos a oportunidade de abordar Inteligência Artificial e apresentamos a ferramenta <a href="https://play.google.com/store/apps/details?id=com.storysign.storysign&hl=pt_BR&pli=1" class="link-fancy link-fancy-light" target="_blank">App StorySign</a>
-                da Huawei, uma plataforma gratuita de alfabetização para crianças surdas. Realizamos uma <a href="https://drive.google.com/file/d/1xkQKlWqcvKIA4trjj965S3NZVg8pi693/view?usp=sharing" class="link-fancy link-fancy-light" target="_blank">apresentação PowerPoint</a> e 
-                <a href="https://www.linkedin.com/posts/lucas-mendes-barbosa_libras-inteligaeanciaartificial-educaaexaetoinclusiva-activity-7135336258502860802-wurV?utm_source=share&utm_medium=member_desktop" class="link-fancy link-fancy-light" target="_blank">gravamos o evento</a>, buscando explorar não apenas a IA, mas também tecnologias para auxiliar no ensino de Libras.</p>
+              <div class="row">
+                <div class="col-12 py-vh-2 text-center">
+                  <h1 class="display-4 fw-bold">Modelo, Música e Emoção 🎭</h1>
+                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">       
+                    
+                </div>
+              </div>
               
-            <h2 class="h3 mt-5 border-top pt-5" data-aos="fade-right">04. Processamento de Imagens da Nasa</h2>
-            <p class="text-secondary" data-aos="fade-right">Na disciplina de  Processamento de Imagens e Sinais, foi uma experiência enriquecedora que 
-              inspirou uma jornada fascinante e motivado pelo livro "Desvendando o Universo: Tudo o que você precisa saber para 
-              viajar pelo tempo e pelo espaço" de Lucy e Stephen Hawking, decidi explorar e processar imagens astronômicas e 
-              meteorológicas para o projeto final. Essas imagens estão disponíveis em <a href="https://images.nasa.gov/" class="link-fancy link-fancy-light" target="_blank">NASA Image</a>. Além disso, decidi aplicar 
-              essas técnicas em duas imagens de minha autoria: um emocionante eclipse solar e uma visão única da Lua junto a um prédio.
-              Todo o processo foi realizado no <a href="https://colab.research.google.com/drive/1UunH1Zo5SYfJUsH7PYfsm77FBGKXw2hA?usp=sharing" class="link-fancy link-fancy-light" target="_blank">Colab</a>
-              , onde explorei curiosidades sobre esses eventos, apliquei uma variedade de filtros e 
-              muito mais. E, para concluir, compartilho um <a href="https://www.linkedin.com/posts/lucas-mendes-barbosa_astronomia-nasa-stephenhawking-activity-7125117670147973120-kc0u?utm_source=share&utm_medium=member_desktop" class="link-fancy link-fancy-light" target="_blank">vídeo</a>
-                com as imagens que mais apreciei.</p>
+            </div>
+            <div class="bg-dark row d-flex align-items-center">
+              <h2 id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
+              <div id="search" class="justify-content-center">
+                <input type="text" id="searchInput" value="60 Dias Apaixonado - Chitãozinho e Xororó">
+                <div id="autocomplete" class="autocomplete-container"></div>
+                
+                <select id="model">
+                  <option value="DCNN">DCNN</option>
+                  <option value="LSTM">LSTM</option>
+                  <option value="RF">RANDOM FOREST</option>
+                  <option value="NB">NAIVE BAYES</option>
+                  <option value="KNN">KNN</option>
+                </select>
+                
+                <button class="minimalist-button-search" onclick="searching(event)"><b>SEARCH</b></button>
+              </div>
+              <p id="Invalid_smartphone" class="text-secondary"></p>
+              <div id="block_screen"></div>
+              <div class="container col-12 py-vh-2 text-center" id="charts">
+                <div id="my_dataviz" class="img-fluid" data-aos="fade-up"> </div><br>
+                
+                  <button class="minimalist-button" onclick="goBack()"  data-aos="fade-right">
+                    <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
+                  </button>
+                  <button id="shuffle" class="minimalist-button" onclick="shuffleCharts()" data-aos="fade">
+                    <img src="img/icon_shuffle.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>SHUFFLE</b>
+                  </button>
+                  <button id="insights" class="minimalist-button" onclick="refreshPage()" data-aos="fade">
+                    <img src="img/ondas-sonoras.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
+                  </button>
+                  <button class="minimalist-button" onclick="goNext()"  data-aos="fade-right"><b>NEXT</b>
+                    <img src="img/next.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> 
+                  </button>
+              </div>
+            </div>
             
-
-
-        </div>
-      </div>
-      <div class="row d-flex align-items-start justify-content-center py-vh-3 text-muted" data-aos="fade">
-        <div class="col-12 col-lg-10 col-xl-9">
-          <div class="col-12 py-vh-2 text-center border-top">
-            <img src="img/webp/van-gogh.jpeg" width="500" height="500" alt="abstract image"
-              class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up">
+            
           </div>
+          
+
         </div>
       </div>
+        
+                  
+        
+            
+      </div>
+      
+           
     </div>
-
   </main>
 
+  <footer class="bg-black border-top border-dark">
+    <div class="container py-vh-4 text-secondary fw-lighter">
+      <div class="row">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start text-white">
+          <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
+        
+            <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
+          </a>        
+        </div>
+      </div>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook. 🖥️💻</b>
+      </span>
+      </div>
+    </div>
+  </footer>
 
 
 
@@ -201,12 +298,117 @@
 
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/aos.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
   <script>
     AOS.init({
       duration: 800, // values from 0 to 3000, with step 50ms
     });
   </script>
   <script>
+    let data = []; // Definindo data no escopo global
+
+    async function fetchData() {
+        const resultDiv = document.getElementById('result');
+        
+        try {
+            const response = await fetch('http://localhost:8000/emotional_result');
+            
+            if (!response.ok) {
+                throw new Error('Erro na resposta da rede');
+            }
+            
+            data = await response.json();
+            return data;
+            
+        } catch (error) {
+            console.error('Houve um problema com a operação fetch:', error);
+            resultDiv.innerHTML = 'Erro ao carregar dados';
+            return []; // Retorna um array vazio em caso de erro
+        }
+    }
+
+    // Function to remove accents from characters
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    document.getElementById('searchInput').addEventListener('click', function() {
+            this.select();
+        });
+
+    async function setupAutocomplete() {
+        await fetchData();
+        const searchInput = document.getElementById('searchInput');
+        const autocomplete = document.getElementById('autocomplete');
+
+        const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b)); // Filtra valores únicos de song_name e organiza alfabeticamente
+
+        searchInput.addEventListener('focus', function() {
+            showAllOptions(uniqueSongs);
+        });
+
+        searchInput.addEventListener('input', function() {
+            const input = removeAccents(this.value.toLowerCase());
+            autocomplete.innerHTML = '';
+
+            if (!input) {
+                showAllOptions(uniqueSongs);
+                return;
+            }
+
+            const matches = uniqueSongs.filter(song => removeAccents(song.toLowerCase()).includes(input));
+
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.textContent = match;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = match;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!autocomplete.contains(e.target) && e.target !== searchInput) {
+                autocomplete.innerHTML = '';
+            }
+        });
+
+        function showAllOptions(songs) {
+            autocomplete.innerHTML = '';
+
+            songs.forEach(song => {
+                const div = document.createElement('div');
+                div.textContent = song;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = song;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        }
+    }
+
+    setupAutocomplete().catch(error => {
+        console.error('Erro ao configurar o autocomplete:', error);
+    });
+
+    function searching(event) {
+        const model = document.getElementById('model').value;
+        const song = document.getElementById('searchInput').value;
+        updateCharts(song,model, 0);  
+
+        // Aqui você pode adicionar a lógica para o que você quer fazer com os valores obtidos
+        // Por exemplo, fazer uma nova busca, atualizar a UI, etc.
+    }
     let scrollpos = window.scrollY;
     const header = document.querySelector(".navbar");
     const header_height = header.offsetHeight;
@@ -220,9 +422,160 @@
       if (scrollpos >= header_height) { add_class_on_scroll(); }
       else { remove_class_on_scroll(); }
 
-      console.log(scrollpos);
     })
-  </script>
+    function goBack() {
+      window.location.href = "./correlation.html";
+    }
+    function goNext() {
+      window.location.href = "./dataviz.html";
+    }
+
+    async function updateCharts(song, model, status) {
+        await fetchData(); // Supondo que fetchData() é uma função assíncrona que busca os dados
+
+
+        const songData = data.find(item => item.song_name === song); // Encontrar os dados da música específica
+        
+        if (!songData) {
+          console.error(`Não foi possível encontrar os dados para a música '${song}'.`);
+          return;
+        }
+        
+        const filteredData = data.filter(item => item.song_id === songData.song_id && item.model_name === model);
+        let myWords = [];
+        let myValues = [];
+
+        // Verificar se há exatamente 28 itens
+        if (filteredData.length !== 28) {
+            console.warn(`A quantidade de dados filtrados não é 28. É ${filteredData.length}.`);
+        }
+
+        filteredData.slice(0, 28).forEach(item => {
+            myWords.push(item.emotion); // Adiciona o valor de item.name_emotion a myWords
+            myValues.push(item.value); // Adiciona o valor de item.value a myValues
+        });
+        
+        if (status==0) {
+          // Combine words and values into an array of objects for sorting
+          var results = myWords.map(function(word, index) {
+            return { word: word, value: myValues[index] };
+          });
+          
+          // Sort data array based on values in descending order
+          results.sort(function(a, b) {
+            return b.value - a.value;
+          });
+          
+          // Extract sorted words and values back into separate arrays
+          var sortedWords = results.map(function(d) { return d.word; });
+          var sortedValues = results.map(function(d) { return d.value; });
+          
+          // Set the dimensions and margins of the graph
+          var margin = {top: 30, right: 30, bottom: 70, left: 60},
+              width = 800 - margin.left - margin.right,
+              height = 500 - margin.top - margin.bottom;
+
+          // Remover o gráfico anterior se existir
+          d3.select("#my_dataviz svg").remove();
+          
+          // Append the SVG object to the body of the page
+          var svg = d3.select("#my_dataviz")
+            .append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .style("background-color", "white")
+              .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
+            .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          
+          // X axis
+          var x = d3.scaleBand()
+            .range([0, width])
+            .domain(sortedWords) // Use sortedWords for x domain
+            .padding(0.2);
+          svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+              .style("text-anchor", "end")
+              .style("font-size", "12px")
+              .attr("transform", "rotate(-45)")
+              .attr("dx", "-.8em")
+              .attr("dy", ".15em")
+              .style("fill", "#000"); // Define a cor do texto para preto
+          
+          // Y axis
+          var y = d3.scaleLinear()
+            .domain([0, 1]) // Adjusted domain to match the range of your data
+            .range([height, 0]);
+          svg.append("g")
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+              .style("fill", "#000"); // Define a cor do texto para preto
+          
+          // Definir uma escala de cores de azul escuro a azul claro
+          var colorScale = d3.scaleLinear()
+            .domain([0, sortedWords.length - 1])  // Domínio baseado no índice dos dados
+            .range(["#0066cc", "#b3d9ff"]);       // Azul escuro a azul claro
+          
+          // Bars
+          svg.selectAll("mybar")
+            .data(sortedWords)
+            .enter()
+            .append("rect")
+              .attr("x", function(d, i) { return x(d); })
+              .attr("y", function(d, i) { return y(sortedValues[i]); })
+              .attr("width", x.bandwidth())
+              .attr("height", function(d, i) { return height - y(sortedValues[i]); })
+              .attr("fill", function(d, i) {
+                return colorScale(i);  // Aplica a cor da escala com base no índice
+              });
+          
+        }
+    }
+  document.addEventListener("DOMContentLoaded", function() {
+    const windowWidth = window.innerWidth;
+    if (windowWidth >= 1000) {
+      const model = document.getElementById('model').value;
+      const song = document.getElementById('searchInput').value;
+      updateCharts(song,model, 0);      
+      
+    } else {
+    // Hide the graph and other elements
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
+
+    
+    // Change subtitle text
+    document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Create image element
+    var imgElement = document.createElement("img");
+    imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+    imgElement.width = 582;  // Largura da imagem
+    imgElement.height = 327;  // Altura da imagem
+    imgElement.alt = "abstract image";  // Texto alternativo da imagem
+    imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+    imgElement.loading = "lazy";  // Opção de carregamento da imagem
+    
+
+    // Append image to block screen
+    blockScreen.appendChild(imgElement);
+}
+  });
+</script>
 
 </body>
 

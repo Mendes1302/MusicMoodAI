@@ -213,7 +213,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-12 py-vh-2 text-center">
-                  <h1 class="display-4 fw-bold">Quais Emoções Foram Usadas? 😜</h1>
+                  <h1 class="display-4 fw-bold">Distribuição das Fontes de Dados 📊</h1>
                   <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">
                     
                   
@@ -222,7 +222,7 @@
               
             </div>
             <div class="bg-dark row d-flex align-items-center">
-              <h2  id="subtitle" class="display-4 fw-bold">Word Cloud</h2>
+              <h2  id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
               <p id="Invalid_smartphone" class="text-secondary"></p>
               <div id="block_screen"></div>
               <div id="wordModal" class="modal">
@@ -243,8 +243,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <h2 class="display-4 fw-bold">INSIGHTS</h2>
                     <p class="text-secondary" data-aos="fade-right">
-                      Ao clicar nas emoções no gráfico Word Clouds, você verá suas definições e sinônimos.
-                        Aqui, seguem alguns links importantes:
+                      Aqui vemos como estão distribuídos dos nossos dados entre ChatGPT e Tweets. Seguem abaixo links que podem ser interessantes:
                         <br><br>
                         <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
                         <br><br>
@@ -319,10 +318,10 @@
 
 <script>
     function goBack() {
-      window.history.back();
+      window.location.href = "./model_music_emotion_dt.html";
     }
     function goNext() {
-      window.location.href = "./model_music_emotion_dt.html";
+      window.location.href = "./distribution_emotion.html";
     }
     // Função para abrir o modal
     function openModal() {
@@ -346,157 +345,239 @@
 </script>
 
 <script>
-  let svg, layout, data;
-  function show_Charts() {
-      const myWords = [];
-      async function fetchData() {
-          const resultDiv = document.getElementById('result');
-          try {
-              const response = await fetch('http://localhost:8000/name_emotion');
-              if (!response.ok) {
-                  throw new Error('Erro na resposta da rede');
-              }
-              data = await response.json();
-              data.forEach(item => {
-                  myWords.push(item.name_emotion);
-              });
-              generateWordCloud();
-          } catch (error) {
-              console.error('Houve um problema com a operação fetch:', error);
-              resultDiv.innerHTML = 'Erro ao carregar dados';
-          }
+  let svg, layout, data, summary;
+
+  // Função para buscar dados e atualizar o gráfico
+  async function fetchData() {
+    const resultDiv = document.getElementById('result');
+    let ChatGPT = 0, tweets = 0;
+
+    try {
+      const response = await fetch('http://localhost:8000/get_sources');
+      
+      if (!response.ok) {
+        throw new Error('Erro na resposta da rede');
       }
+      
+      const data = await response.json();
+      
+      data.forEach(item => {
+        if (item.source === 'ChatGPT') {
+          ChatGPT++;
+        } else {
+          tweets++;
+        }
+      });
+      
+      // Logging do resumo dentro da função fetchData
+      summary = { "ChatGPT": ChatGPT, "Tweets": tweets };
+      updateChart(summary);
+      
+    } catch (error) {
+      console.error('Houve um problema com a operação fetch:', error);
+      resultDiv.innerHTML = 'Erro ao carregar dados';
+    }
+  }
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        // Gerar valores entre 0 e 7 para cores mais escuras
+        color += letters[Math.floor(Math.random() * 8)];
+    }
+    return color;
+}
+
+function lightenColor(color, percent) {
+    let num = parseInt(color.slice(1), 16),
+        amt = Math.round(2.55 * percent),
+        R = (num >> 16) + amt,
+        G = (num >> 8 & 0x00FF) + amt,
+        B = (num & 0x0000FF) + amt;
+
+    // Ajustar valores para manter a saturação mínima
+    R = Math.min(Math.max(R, 0), 255);
+    G = Math.min(Math.max(G, 0), 255);
+    B = Math.min(Math.max(B, 0), 255);
+
+    // Verificar se a cor resultante é muito clara
+    if (R > 200 && G > 200 && B > 200) {
+        // Reduzir a intensidade para evitar cores muito claras
+        R = Math.max(R - 50, 0);
+        G = Math.max(G - 50, 0);
+        B = Math.max(B - 50, 0);
+    }
+
+    return "#" + (1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1);
+}
+
+  function updateChart(summary, status=1) {
 
 
-      const margin = { top: 5, right: 10, bottom: 10, left: 10 },
-            width = 800 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+    // Adicionar "Total" aos dados
+    const totalValue = d3.sum(Object.values(summary).slice(0, 2));
+    summary["Total"] = totalValue;
+    console.log(summary);
 
-      svg = d3.select("#my_dataviz").append("svg")
+    // Listar palavras e valores a partir do summary
+    const myWords = Object.keys(summary);
+    const myValues = Object.values(summary);
+
+    // Ordenar palavras e valores pelo valor em ordem decrescente
+    const sortedData = myWords.map((word, index) => ({ word, value: myValues[index] }))
+        .sort((a, b) => b.value - a.value);
+
+    const sortedWords = sortedData.map(d => d.word);
+    const sortedValues = sortedData.map(d => d.value);
+
+    // Set the dimensions and margins of the graph
+    const margin = {top: 30, right: 30, bottom: 70, left: 60};
+    const width = 800 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
+
+    // Remover o gráfico anterior se existir
+    d3.select("#my_dataviz svg").remove();
+
+    // Append the SVG object to the body of the page
+    svg = d3.select("#my_dataviz")
+        .append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-          .attr("transform", `translate(${margin.left},${margin.top})`);
+          .style("background-color", "white")
+          .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      svg.append("rect")
-          .attr("width", width)
-          .attr("height", height)
-          .attr("fill", "white")
-          .attr("opacity", 0.8)
-          .attr("rx", 20)
-          .attr("ry", 20);
+    // Fundo branco
+    svg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", "white");
 
-      layout = d3.layout.cloud()
-          .size([width, height])
-          .words([])
-          .padding(10)
-          .fontSize(30)
-          .on("end", draw);
+    // X axis
+    const x = d3.scaleBand()
+        .domain(sortedWords)
+        .range([0, width])
+        .padding(0.5);
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+          .style("text-anchor", "middle")
+          .style("font-size", "20px")
+          .attr("transform", "rotate(0)")
+          .attr("dx", "0em")
+          .attr("dy", "1em")
+          .style("fill", "#000"); 
 
-      function generateWordCloud() {
-          layout.words(myWords.map(d => ({ text: d })));
-          layout.start();
-      }
+    // Y axis
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(sortedValues) + 2000])
+        .range([height, 0]);
+    svg.append("g")
+        .call(d3.axisLeft(y))
+        .selectAll("text")
+          .style("fill", "#000")
+          .style("font-size", "15px"); 
 
-      function getRandomColor() {
-          const letters = '0123456789ABCDEF';
-          let color = '#';
-          for (let i = 0; i < 6; i++) {
-              color += letters[Math.floor(Math.random() * 10)];
-          }
-          return color;
-      }
-
-    // Function to show the modal
-    function showModal(word) {
-        function findEmotion(emotionName) {
-            return data.find(emotion => emotion.name_emotion === emotionName);
-        }
-        const emotionData = findEmotion(word);
-        var modal = document.getElementById("wordModal");
-        document.getElementById("modalText").innerText = emotionData.name_emotion.toUpperCase();
-        document.getElementById("definition").innerText = emotionData.description;
-        document.getElementById("synonym").innerText = emotionData.synonym_emotion;
-        modal.style.display = "block";
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+     // Definir uma escala de cores de azul escuro a azul claro
+     var colorScale = d3.scaleLinear()
+        .domain([0, sortedWords.length - 1])  // Domínio baseado no índice dos dados
+        .range(["#0066cc", "#b3d9ff"]); 
+    if(status==1){
+      // Bars
+      svg.selectAll("mybar")
+          .data(sortedWords)
+          .enter()
+          .append("rect")
+            .attr("x", function(d) { return x(d); })
+            .attr("y", function(d, i) { return y(sortedValues[i]); })
+            .attr("width", x.bandwidth())
+            .attr("height", function(d, i) { return height - y(sortedValues[i]); })
+            .attr("fill", function(d, i) {
+              return colorScale(i);  // Aplica a cor da escala com base no índice
+            });
+    }else{
+      svg.selectAll("rect").remove();
+      const randomColor = getRandomColor();
+      const colorScale = d3.scaleLinear()
+          .domain([0, sortedWords.length - 1])
+          .range([randomColor, lightenColor(randomColor, 80)]);
+      svg.selectAll("mybar")
+        .data(sortedWords)
+        .enter()
+        .append("rect")
+          .attr("x", function(d) { return x(d); })
+          .attr("y", function(d, i) { return y(sortedValues[i]); })
+          .attr("width", x.bandwidth())
+          .attr("height", function(d, i) { return height - y(sortedValues[i]); })
+          .attr("fill", function(d, i) { return colorScale(i); });
     }
+      
 
-      function draw(words) {
-          svg.append("g")
-              .attr("transform", `translate(${layout.size()[0] / 2},${layout.size()[1] / 2})`)
-              .selectAll("text")
-              .data(words)
-              .enter().append("text")
-              .style("font-size", d => `${d.size}px`)
-              .style("fill", getRandomColor)
-              .attr("text-anchor", "middle")
-              .attr("transform", d => `translate(${d.x},${d.y})rotate(${d.rotate})`)
-              .text(d => d.text)
-              .on("click", function(event, d) {
-                  showModal(event.text);
-              });
-      }
-
-      fetchData();
+    // Texto acima das barras
+    svg.selectAll("mybar")
+        .data(sortedWords)
+        .enter()
+        .append("text")
+          .attr("x", function(d) { return x(d) + x.bandwidth() / 2; })
+          .attr("y", function(d, i) { return y(sortedValues[i]) - 5; })
+          .attr("text-anchor", "middle")
+          .style("fill", "black")
+          .style("font-size", "12px")
+          .text(function(d, i) {
+              const percentage = ((sortedValues[i] / totalValue) * 100).toFixed(2);
+              return `${sortedValues[i]} (${percentage}%)`;
+          });
   }
 
+
+// Chamada inicial para buscar e renderizar os dados
   document.addEventListener("DOMContentLoaded", function() {
-      const windowWidth = window.innerWidth;
+    const windowWidth = window.innerWidth;
 
-      if (windowWidth >= 1000) {
-          show_Charts();
-      } else {
-          document.getElementById("my_dataviz").style.display = "none";
-          document.getElementById("shuffle").style.display = "none";
-          document.getElementById("insights").style.display = "none";
-          document.getElementById("spotify_iframe").style.display = "none";
-          document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
-          document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
+    if (windowWidth >= 1000) {
+      fetchData();
+    } else {
+      document.getElementById("my_dataviz").style.display = "none";
+      document.getElementById("shuffle").style.display = "none";
+      document.getElementById("insights").style.display = "none";
+      document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
+      document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
 
-          let blockScreen = document.getElementById("block_screen");
-          if (!blockScreen) {
-              blockScreen = document.createElement("div");
-              blockScreen.id = "block_screen";
-              blockScreen.className = "block-screen";
-              document.body.appendChild(blockScreen);
-          }
-
-          const imgElement = document.createElement("img");
-          imgElement.src = "img/sad_computer.png";
-          imgElement.width = 582;
-          imgElement.height = 327;
-          imgElement.alt = "abstract image";
-          imgElement.className = "img-fluid rounded-5";
-          imgElement.loading = "lazy";
-
-          blockScreen.appendChild(imgElement);
+      let blockScreen = document.getElementById("block_screen");
+      if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
       }
-  });
-  function closeWordModal() {
-        var modal = document.getElementById("wordModal");
-        modal.style.display = "none";
+
+      const imgElement = document.createElement("img");
+      imgElement.src = "img/sad_computer.png";
+      imgElement.width = 582;
+      imgElement.height = 327;
+      imgElement.alt = "abstract image";
+      imgElement.className = "img-fluid rounded-5";
+      imgElement.loading = "lazy";
+
+      blockScreen.appendChild(imgElement);
     }
+  });
+
+  function closeWordModal() {
+    var modal = document.getElementById("wordModal");
+    modal.style.display = "none";
+  }
+  
 
   function shuffleCharts() {
-    svg.selectAll("text").remove();
-    layout.stop();
-    layout.start();
+    // Bars
+    updateChart(summary, 0);
   }
 </script>
+
+
 
 </body>
 
