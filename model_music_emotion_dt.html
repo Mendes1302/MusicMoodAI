@@ -258,7 +258,7 @@
               </div>
               
             </div>
-            <div class="bg-dark row d-flex align-items-center">
+            <div class="bg-dark row d-flex align-items-center" style="border-radius: 15px;">
               <h2 id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
               <div id="search" class="justify-content-center">
                 <input type="text" id="searchInput" value="60 Dias Apaixonado - Chitãozinho e Xororó">
@@ -283,19 +283,17 @@
                       <span class="close" onclick="closeModal()">&times;</span>
                       <h2 class="display-4 fw-bold">INSIGHTS</h2>
                       <p class="text-secondary" data-aos="fade-right">
-                        Descubra a intensidade das emoções em uma música em uma escala de 0 a 1 (ou seja, uma porcentagem). Utilize a opção <b>SHUFFLE</b> para gerar resultados aleatórios de música e modelo.
-                        Aqui estão alguns links importantes:
-                          <br><br>
-                          <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
-                          <br><br>
-                          <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X"class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>
-                          <br><br>
-                          <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">A Weakly Supervised Dataset of Fine-Grained Emotions in Portuguese</a>
-                          <br><br>
-                          <a href="https://docs.google.com/document/d/1Gl0tS_RXS5l_U8elVx2cDNpNtnm7hUqd/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Minha IC</a>
-                          <br><br>
-                          <a href="https://docs.google.com/document/d/1mSgHMRRgwlMUhz_G_O7skUOJAI4_I6ct/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Meu TCC</a>
-                      </p>
+                        Descubra a porcentagem das emoções em uma música escolhida por você. Personalize sua busca com o <b>SEARCH</b>, escolhendo a música e o modelo, ou use a opção <b>SHUFFLE</b> para gerar resultados aleatórios. 
+                         </p>
+                         <p class="text-white" data-aos="fade-right"><b>MODELOS UTILIZADOS:</b></p>
+                         <div class="text-secondary">
+                          <dt>Deep Convolutional Neural Network (DCNN)</dt>
+                          <dt>Long Short-Term Memory (LSTM)</dt>
+                          <dt>Naive Bayes</dt>
+                          <dt>Random Forest</dt>
+                          <dt>K-Nearest Neighbors (KNN)</dt>
+                        </div><br>
+                        <p class="text-secondary" data-aos="fade-right">🎹🪗🎺 Divirta-se! 🎵🎷🎸</p>
                       </div>
                     </div>
                 
@@ -341,7 +339,11 @@
           </a>        
         </div>
       </div>
-      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook. 🖥️💻</b>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook.</b>      </span>
+      <br>
+
+      <span class="container text-center small py-vh-2"><b>Contato</b>: lucas.mendestech@gmail.com<br>
+        © Lucas Mendes Barbosa. Todos os direitos reservados.
       </span>
       </div>
     </div>
@@ -366,10 +368,10 @@
   </script>
   <script>
     function goBack() {
-        window.location.href = "./word_cloud.html";
+      window.history.back();
     }
     function goNext() {
-      window.location.href = "./distribution_datasource.html";
+      window.location.href = "./metrics_avaliation.html";
     }
     // Função para abrir o modal
     function openModal() {
@@ -585,12 +587,20 @@
           
           // Y axis
           var y = d3.scaleLinear()
-            .domain([0, 1]) // Adjusted domain to match the range of your data
+            .domain([0, 100]) // Adjusted domain to match the range of your data
             .range([height, 0]);
-          svg.append("g")
-            .call(d3.axisLeft(y))
-            .selectAll("text")
-              .style("fill", "#000"); // Define a cor do texto para preto
+            svg.append("g")
+              .call(d3.axisLeft(y)
+                .ticks(10) // Define a separação das ticks (10 em 10)
+                .tickSize(-width) // Define o tamanho da grade para o comprimento total do gráfico
+                .tickFormat(d => d) // Formatação dos labels
+              )
+              .selectAll("text")
+              .style("fill", "#000");
+
+            // Adiciona a cor cinza às linhas da grade
+            svg.selectAll(".tick line")
+              .attr("stroke", "#ccc"); // Define a cor do texto para preto
           
           // Definir uma escala de cores de azul escuro a azul claro
           var colorScale = d3.scaleLinear()
@@ -656,8 +666,7 @@
   });
   function shuffleCharts() {
     const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b));
-    //const models = ["DCNN", "LSTM", "RF", "NB", "KNN"]
-    const models = ["DCNN"]
+    const models = ["DCNN", "LSTM", "RF", "NB", "KNN"]
 
     // Função para escolher um valor aleatório da lista
     function getRandomSong(songs) {

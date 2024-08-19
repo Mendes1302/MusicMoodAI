@@ -213,7 +213,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-12 py-vh-2 text-center">
-                  <h1 class="display-4 fw-bold">Distribuição das Emoções na Base de Dados 💘</h1>
+                  <h1 class="display-4 fw-bold"> Métricas de Avaliação dos Modelos 🤖</h1>
                   <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">
                     
                   
@@ -221,7 +221,7 @@
               </div>
               
             </div>
-            <div class="bg-dark row d-flex align-items-center">
+            <div class="bg-dark row d-flex align-items-center" style="border-radius: 15px;">
               <h2  id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
               <p id="Invalid_smartphone" class="text-secondary"></p>
               <div id="block_screen"></div>
@@ -243,18 +243,18 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <h2 class="display-4 fw-bold">INSIGHTS</h2>
                     <p class="text-secondary" data-aos="fade-right">
-                      Aqui vemos como estão distribuídos dos nossos dados entre ChatGPT e Tweets. Seguem abaixo links que podem ser interessantes:
-                        <br><br>
-                        <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
-                        <br><br>
-                        <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X"class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>
-                        <br><br>
-                        <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">A Weakly Supervised Dataset of Fine-Grained Emotions in Portuguese</a>
-                        <br><br>
-                        <a href="https://docs.google.com/document/d/1Gl0tS_RXS5l_U8elVx2cDNpNtnm7hUqd/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Minha IC</a>
-                        <br><br>
-                        <a href="https://docs.google.com/document/d/1mSgHMRRgwlMUhz_G_O7skUOJAI4_I6ct/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Meu TCC</a>
+                      
+                      Aqui você pode consultar os valores de F1-Score, Recall e Precisão para cada modelo:
                     </p>
+                      <div class="text-secondary"><b>
+                        <dt>Deep Convolutional Neural Network (DCNN)</dt>
+                        <dt>Long Short-Term Memory (LSTM)</dt>
+                        <dt>Naive Bayes</dt>
+                        <dt>Random Forest</dt>
+                        <dt>K-Nearest Neighbors (KNN)</dt>
+                      </div></b>
+                      <br>
+                      <p class="text-secondary" data-aos="fade-right">O F1-Score é a média entre Precision e Recall, fornecendo uma visão equilibrada do desempenho do modelo e servindo como referência neste artigo. Precision mede a taxa de acerto nas previsões positivas, enquanto Recall avalia a capacidade do modelo de identificar todos os casos positivos relevantes. Essas métricas são amplamente utilizadas para avaliar modelos.</p>
                     </div>
                   </div>
                   
@@ -287,6 +287,7 @@
            
     </div>
   </main>
+
   <footer class="bg-black border-top border-dark">
     <div class="container py-vh-4 text-secondary fw-lighter">
       <div class="row">
@@ -328,10 +329,10 @@
 
 <script>
     function goBack() {
-      window.location.href = "./distribution_datasource.html";
+      window.location.href = "./model_music_emotion_dt.html";
     }
     function goNext() {
-      window.location.href = "./explainable_ai.html";
+      window.location.href = "./word_cloud.html";
     }
     // Função para abrir o modal
     function openModal() {
@@ -355,29 +356,9 @@
 </script>
 
 <script>
-  let svg, layout, data, summary, sortedData;
+  let svg, layout, data, summary, legend;
 
-  // Função para buscar dados e atualizar o gráfico
-  async function fetchData() {
-    const resultDiv = document.getElementById('result');
-    let ChatGPT = 0, tweets = 0;
-
-    try {
-      const response = await fetch('http://localhost:8000/get_sources_emotions');
-      
-      if (!response.ok) {
-        throw new Error('Erro na resposta da rede');
-      }
-      
-      summary = await response.json();
-      updateChart(summary);
-      
-    } catch (error) {
-      console.error('Houve um problema com a operação fetch:', error);
-      resultDiv.innerHTML = 'Erro ao carregar dados';
-    }
-  }
-  function getRandomColor() {
+   function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
@@ -409,159 +390,211 @@ function lightenColor(color, percent) {
 
     return "#" + (1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1);
 }
+function updateChart(status = 1) {
+    const values = {
+        "DCNN": { "F1-Score": 82, "Precision": 82, "Recall": 82 },
+        "LSTM": { "F1-Score": 78, "Precision": 79, "Recall": 78 },
+        "NAIVE BAYES": { "F1-Score": 73, "Precision": 76, "Recall": 73 },
+        "RANDOM FOREST": { "F1-Score": 43, "Precision": 45, "Recall": 43 },
+        "KNN": { "F1-Score": 22, "Precision": 21, "Recall": 22 }
+    };
 
-  function updateChart(summary, status=1) {
+    const metrics = ["F1-Score", "Precision", "Recall"];
+    const algorithms = Object.keys(values);
 
+    // Preparar dados para o gráfico
+    const data = [];
+    algorithms.forEach(algorithm => {
+        metrics.forEach(metric => {
+            data.push({ algorithm: algorithm, metric: metric, value: values[algorithm][metric] });
+        });
+    });
 
-    const myWords =  [];
-    const myValues = [];
-    summary.forEach(item => {
-                    myValues.push(item.count);
-                    myWords.push(item.name_emotion);
-                });
-
-
-    // Ordenar palavras e valores pelo valor em ordem decrescente
-    sortedData = myWords.map((word, index) => ({ word, value: myValues[index] }))
-        .sort((a, b) => b.value - a.value);
-
-    const sortedWords = sortedData.map(d => d.word);
-    const sortedValues = sortedData.map(d => d.value);
-
-    // Set the dimensions and margins of the graph
-    const margin = {top: 30, right: 30, bottom: 70, left: 60};
+    // Definir dimensões e margens
+    const margin = { top: 30, right: 30, bottom: 70, left: 60 };
     const width = 800 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-        // Cálculo da média e desvio padrão
-    const mean = d3.mean(sortedValues);
-    const deviation = d3.deviation(sortedValues);
-
     // Remover o gráfico anterior se existir
     d3.select("#my_dataviz svg").remove();
-      
-      // Append the SVG object to the body of the page
-      var svg = d3.select("#my_dataviz")
+
+    // Append the SVG object to the body of the page
+    const svg = d3.select("#my_dataviz")
         .append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-          .style("background-color", "white")
-          .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .style("background-color", "white")
+        .style("border-radius", "10px") // Adiciona bordas arredondadas em estilo CSS
         .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      // Fundo branco
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Fundo branco
     svg.append("rect")
         .attr("width", width)
         .attr("height", height)
         .attr("fill", "white");
-      // X axis
-      var x = d3.scaleBand()
+
+    // X axis: agrupando por algoritmo
+    const x0 = d3.scaleBand()
+        .domain(algorithms)
         .range([0, width])
-        .domain(sortedWords) // Use sortedWords for x domain
         .padding(0.2);
-      svg.append("g")
+
+    const x1 = d3.scaleBand()
+        .domain(metrics)
+        .range([0, x0.bandwidth()])
+        .padding(0.05);
+
+    svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
+        .call(d3.axisBottom(x0))
         .selectAll("text")
-          .style("text-anchor", "end")
-          .style("font-size", "12px")
-          .attr("transform", "rotate(-45)")
-          .attr("dx", "-.8em")
-          .attr("dy", ".15em")
-          .style("fill", "#000"); // Define a cor do texto para preto
-      
-      // Y axis
-      var y = d3.scaleLinear()
-        .domain([0, 2000]) // Adjusted domain to match the range of your data
+        .style("text-anchor", "middle")
+        .style("font-size", "15px")
+        .attr("dx", "0em")
+        .attr("dy", "1em")
+        .style("fill", "#000");
+
+    // Y axis
+    const y = d3.scaleLinear()
+        .domain([0, 100])
         .range([height, 0]);
-      svg.append("g")
+
+    svg.append("g")
         .call(d3.axisLeft(y))
         .selectAll("text")
-          .style("fill", "#000"); // Define a cor do texto para preto
-      
-      // Definir uma escala de cores de azul escuro a azul claro
-      var colorScale = d3.scaleLinear()
-        .domain([0, sortedWords.length - 1])  // Domínio baseado no índice dos dados
-        .range(["#0066cc", "#b3d9ff"]);       // Azul escuro a azul claro
-    if(status==1){
-      // Bars
-      svg.selectAll("mybar")
-        .data(sortedWords)
+        .style("fill", "#000")
+        .style("font-size", "15px");
+
+    // Definir uma escala de cores para as métricas
+    const colorScale = d3.scaleOrdinal()
+        .domain(metrics)
+        .range(["#0066cc", "#3399ff", "#b3d9ff"]);
+
+    // Adicionar legenda
+    const legend = svg.append("g")
+    .attr("transform", "translate(" + (width - 100) + ", 0)"); 
+
+    legend.selectAll("rect")
+        .data(metrics)
         .enter()
         .append("rect")
-          .attr("x", function(d, i) { return x(d); })
-          .attr("y", function(d, i) { return y(sortedValues[i]); })
-          .attr("width", x.bandwidth())
-          .attr("height", function(d, i) { return height - y(sortedValues[i]); })
-          .attr("fill", function(d, i) {
-            return colorScale(i);  // Aplica a cor da escala com base no índice
-          });
-    }else{
-      svg.selectAll("rect").remove();
-      const randomColor = getRandomColor();
-      const colorScale = d3.scaleLinear()
-          .domain([0, sortedWords.length - 1])
-          .range([randomColor, lightenColor(randomColor, 80)]);
-      svg.selectAll("mybar")
-        .data(sortedWords)
+        .attr("x", 0)
+        .attr("y", (d, i) => i * 20)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", d => colorScale(d));
+
+    legend.selectAll("text")
+        .data(metrics)
         .enter()
-        .append("rect")
-          .attr("x", function(d) { return x(d); })
-          .attr("y", function(d, i) { return y(sortedValues[i]); })
-          .attr("width", x.bandwidth())
-          .attr("height", function(d, i) { return height - y(sortedValues[i]); })
-          .attr("fill", function(d, i) { return colorScale(i); });
+        .append("text")
+        .attr("x", 24)
+        .attr("y", (d, i) => i * 20 + 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "start")
+        .text(d => d)
+        .style("font-size", "15px");
+
+    if (status == 1) {
+        // Criação das barras
+        const bars = svg.selectAll("g.layer")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("class", "layer")
+            .attr("transform", d => "translate(" + x0(d.algorithm) + ",0)");
+
+        // Adicionando as barras
+        bars.selectAll("rect")
+            .data(d => metrics.map(metric => ({ metric: metric, value: values[d.algorithm][metric] })))
+            .enter()
+            .append("rect")
+            .attr("x", d => x1(d.metric))
+            .attr("y", d => y(d.value))
+            .attr("width", x1.bandwidth())
+            .attr("height", d => height - y(d.value))
+            .attr("fill", d => colorScale(d.metric));
+
+        // Adicionando os valores nas barras
+        bars.selectAll("text")
+            .data(d => metrics.map(metric => ({ metric: metric, value: values[d.algorithm][metric] })))
+            .enter()
+            .append("text")
+            .attr("x", d => x1(d.metric) + x1.bandwidth() / 2)
+            .attr("y", d => y(d.value) - 5)  // Ajuste a posição vertical conforme necessário
+            .attr("text-anchor", "middle")
+            .text(d => `${d.value} %`) 
+            .attr("fill", "black")
+            .style("font-size", "11px");
+
+    } else {
+        svg.selectAll("rect").remove();
+        const randomColor = getRandomColor();
+        const colorScale = d3.scaleOrdinal()
+            .domain(metrics)
+            .range([randomColor, lightenColor(randomColor, 40), lightenColor(randomColor, 80)]);
+
+        // Criação das barras
+        const bars = svg.selectAll("g.layer")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("class", "layer")
+            .attr("transform", d => "translate(" + x0(d.algorithm) + ",0)");
+
+        // Adicionando as barras
+        bars.selectAll("rect")
+            .data(d => metrics.map(metric => ({ metric: metric, value: values[d.algorithm][metric] })))
+            .enter()
+            .append("rect")
+            .attr("x", d => x1(d.metric))
+            .attr("y", d => y(d.value))
+            .attr("width", x1.bandwidth())
+            .attr("height", d => height - y(d.value))
+            .attr("fill", d => colorScale(d.metric));
+
+        // Adicionando os valores nas barras
+        bars.selectAll("text")
+            .data(d => metrics.map(metric => ({ metric: metric, value: values[d.algorithm][metric] })))
+            .enter()
+            .append("text")
+            .attr("x", d => x1(d.metric) + x1.bandwidth() / 2)
+            .attr("y", d => y(d.value) - 5)  // Ajuste a posição vertical conforme necessário
+            .attr("text-anchor", "middle")
+            .text(d => `${d.value} %`) 
+            .attr("fill", "black")
+            .style("font-size", "11px");
+
+        legend.selectAll("rect")
+            .data(metrics)
+            .enter()
+            .append("rect")
+            .attr("x", 0)
+            .attr("y", (d, i) => i * 20)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", d => colorScale(d));
+
+        legend.selectAll("text")
+            .data(metrics)
+            .enter()
+            .append("text")
+            .attr("x", 24)
+            .attr("y", (d, i) => i * 20 + 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "start")
+            .text(d => d)
+            .style("font-size", "15px");
     }
-  // Linha para representar a média
-svg.append("line")
-   .attr("x1", 0)
-   .attr("y1", y(mean))
-   .attr("x2", width)
-   .attr("y2", y(mean))
-   .attr("stroke", "#ccc") // alterado para cinza
-   .attr("stroke-width", 2)
-   .attr("stroke-dasharray", "5,5");
-
-// Legenda para média e desvio padrão
-var legendGroup = svg.append("g")
-    .attr("transform", "translate(" + (width / 2) + ", 20)") // centralizado no topo
-
-// Adicionando retângulo com borda arredondada
-legendGroup.append("rect")
-    .attr("x", -100)
-    .attr("y", -15)
-    .attr("rx", 10) // raio do arredondamento horizontal
-    .attr("ry", 10) // raio do arredondamento vertical
-    .attr("width", 200)
-    .attr("height", 40)
-    .style("fill", "#ccc") // cor de fundo branca
-    .style("stroke", "black") // cor da borda cinza
-    .style("stroke-width", 2);
-
-// Texto da legenda
-legendGroup.append("text")
-    .attr("text-anchor", "middle") // centraliza o texto horizontalmente
-    .attr("dy", "0.5em")
-    .style("font-size", "12px")
-    .style("fill", "#202020") // cor do texto cinza
-    .text("Média: " + mean.toFixed(2));
-
-legendGroup.append("text")
-    .attr("dy", "1.5em")
-    .attr("text-anchor", "middle") // centraliza o texto horizontalmente
-    .style("font-size", "12px")
-    .style("fill", "#202020") // cor do texto cinza
-    .text("Desvio Padrão: " + deviation.toFixed(2));
-
-  }
-
+}
 
 // Chamada inicial para buscar e renderizar os dados
   document.addEventListener("DOMContentLoaded", function() {
     const windowWidth = window.innerWidth;
 
     if (windowWidth >= 1000) {
-      fetchData();
+      updateChart();
     } else {
       document.getElementById("my_dataviz").style.display = "none";
       document.getElementById("shuffle").style.display = "none";
@@ -596,9 +629,8 @@ legendGroup.append("text")
   
 
   function shuffleCharts() {
-    
     // Bars
-    updateChart(summary, 0);
+    updateChart(0);
   }
 </script>
 

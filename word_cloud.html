@@ -221,7 +221,7 @@
               </div>
               
             </div>
-            <div class="bg-dark row d-flex align-items-center">
+            <div class="bg-dark row d-flex align-items-center" style="border-radius: 15px;">
               <h2  id="subtitle" class="display-4 fw-bold">Word Cloud</h2>
               <p id="Invalid_smartphone" class="text-secondary"></p>
               <div id="block_screen"></div>
@@ -243,19 +243,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <h2 class="display-4 fw-bold">INSIGHTS</h2>
                     <p class="text-secondary" data-aos="fade-right">
-                      Ao clicar nas emoções no gráfico Word Clouds, você verá suas definições e sinônimos.
-                        Aqui, seguem alguns links importantes:
-                        <br><br>
-                        <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
-                        <br><br>
-                        <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X"class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>
-                        <br><br>
-                        <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">A Weakly Supervised Dataset of Fine-Grained Emotions in Portuguese</a>
-                        <br><br>
-                        <a href="https://docs.google.com/document/d/1Gl0tS_RXS5l_U8elVx2cDNpNtnm7hUqd/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Minha IC</a>
-                        <br><br>
-                        <a href="https://docs.google.com/document/d/1mSgHMRRgwlMUhz_G_O7skUOJAI4_I6ct/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Meu TCC</a>
-                    </p>
+                      Ao clicar em cada emoção no gráfico de Word Clouds, você verá suas definições e sinônimos. Para uma melhor experiência, usamos a técnica de lematização nas palavras, o que significa que todas as variações do mesmo verbo são reduzidas à sua forma base. Por exemplo, 'amou', 'amarei' e 'amo' são lematizados como 'amar'.
                     </div>
                   </div>
                   
@@ -290,12 +278,23 @@
   </main>
 
   <footer class="bg-black border-top border-dark">
-    <div class="container py-4 text-secondary fw-lighter text-center">
-      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
-        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
-        <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
-      </a><br>
-      <span style="font-size: 0.8em;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook.🖥️💻</b></span>
+    <div class="container py-vh-4 text-secondary fw-lighter">
+      <div class="row">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start text-white">
+          <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="home.html">
+        
+            <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
+          </a>        
+        </div>
+      </div>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook.</b>      </span>
+      <br>
+
+      <span class="container text-center small py-vh-2"><b>Contato</b>: lucas.mendestech@gmail.com<br>
+        © Lucas Mendes Barbosa. Todos os direitos reservados.
+      </span>
+      </div>
     </div>
   </footer>
 
@@ -319,10 +318,10 @@
 
 <script>
     function goBack() {
-      window.history.back();
+      window.location.href = "./metrics_avaliation.html";
     }
     function goNext() {
-      window.location.href = "./model_music_emotion_dt.html";
+      window.location.href = "./distribution_datasource.html";
     }
     // Função para abrir o modal
     function openModal() {
@@ -382,7 +381,6 @@
           .attr("width", width)
           .attr("height", height)
           .attr("fill", "white")
-          .attr("opacity", 0.8)
           .attr("rx", 20)
           .attr("ry", 20);
 
