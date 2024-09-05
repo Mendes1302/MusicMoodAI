@@ -93,69 +93,77 @@
         outline: none;
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
     }
-    #search {
-            position: relative; 
-            display: ruby;
-            flex-direction: column;
-            align-items: center; 
+    .modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
     }
 
-    #searchInput {
-        display: inline-block;
-        padding: 10px 20px 10px 60px; 
-        background-image: url('img/lupa.png');
-        background-size: 20px 20px;
-        background-repeat: no-repeat;
-        background-position: 20px center; 
-        border: 1px solid #ccc;
-        font-size: 16px;
-        width: 500px;
-        outline: none;
-        box-sizing: border-box; 
-    }
-    #model {
-      display: inline-block;
-      padding: 14px 15px;
-      border-radius: 5px;
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      width: 180px;
-      outline: none;
-      box-sizing: border-box;
-    }
-    .minimalist-button-search {
-    display: inline-block;
-    font-size: 0.8em;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
-    padding: 0.5em 0.5em;
-    border: none;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    }
-    .minimalist-button-search:hover {
-        background-color: #e0e0e0;
+    .modal-content {
+        background-color: #111111;
+        margin: 15% auto; /* Centraliza verticalmente */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px; /* Largura máxima */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        animation-name: modalopen;
+        animation-duration: 0.4s;
+    }.close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
     }
 
-    .minimalist-button-search:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
     }
-    .autocomplete-container {
-        position: absolute;
-        top: 100%; 
-        background-color: rgb(13, 12, 12);
-        max-height: 200px;
-        overflow-y: auto;
-        width: 500px;
-        z-index: 1;
-        outline: none;
-    }
+#search {
+    position: relative; 
+    display: flex; /* Utiliza Flexbox para alinhar os elementos em uma linha */
+    align-items: center; /* Alinha os elementos verticalmente ao centro */
+    gap: 3px; /* Espaço entre os elementos */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+}
 
-    .autocomplete-item {
+#searchInput {
+    padding: 10px 20px 10px 60px; 
+    background-image: url('img/lupa.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 20px center; 
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 500px;
+    outline: none;
+    box-sizing: border-box;
+    position: relative; /* Define o contexto de posicionamento para o autocomplete-container */
+}
+
+.autocomplete-container {
+    position: absolute;
+    top: 100%; /* Posiciona o autocomplete logo abaixo do searchInput */
+    left: 0; /* Alinha o autocomplete com o lado esquerdo do searchInput */
+    background-color: rgb(13, 12, 12);
+    max-height: 200px;
+    overflow-y: auto;
+    width: 500px; /* Ajusta a largura do autocomplete para corresponder à largura do searchInput */
+    z-index: 1;
+    outline: none;
+    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+    transform: translateX(0);
+}.autocomplete-item {
         padding: 10px;
         cursor: pointer;
     }
@@ -163,6 +171,40 @@
     .autocomplete-item:hover {
         background-color: #7c7c7c1b;
     }
+
+#model {
+    padding: 10px 2px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 180px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.minimalist-button-search {
+    font-size: 0.8em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 0.5em 0.5em;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.minimalist-button-search:hover {
+    background-color: #e0e0e0;
+}
+
+.minimalist-button-search:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+  
       
   </style>
 
@@ -214,17 +256,19 @@
               <div class="row">
                 <div class="col-12 py-vh-2 text-center">
                   <h1 class="display-4 fw-bold">Modelo, Música e Emoção 🎭</h1>
+                  <p id="advice" class="text-secondary">No computador ou notebook, pressione a tecla <b>F11</b> para uma melhor imersão</p>
                   <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">       
                     
                 </div>
               </div>
               
             </div>
-            <div class="bg-dark row d-flex align-items-center">
+            <div class="bg-dark row d-flex align-items-center" style="border-radius: 15px;">
               <h2 id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
               <div id="search" class="justify-content-center">
                 <input type="text" id="searchInput" value="60 Dias Apaixonado - Chitãozinho e Xororó">
                 <div id="autocomplete" class="autocomplete-container"></div>
+                
                 
                 <select id="model">
                   <option value="DCNN">DCNN</option>
@@ -240,6 +284,24 @@
               <div id="block_screen"></div>
               <div class="container col-12 py-vh-2 text-center" id="charts">
                 <div id="my_dataviz" class="img-fluid" data-aos="fade-up"> </div><br>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                      <span class="close" onclick="closeModal()">&times;</span>
+                      <h2 class="display-4 fw-bold">INSIGHTS</h2>
+                      <p class="text-secondary" data-aos="fade-right">
+                        Descubra a porcentagem das emoções em uma música escolhida por você. Personalize sua busca com o <b>SEARCH</b>, escolhendo a música e o modelo, ou use a opção <b>SHUFFLE</b> para gerar resultados aleatórios. 
+                         </p>
+                         <p class="text-white" data-aos="fade-right"><b>MODELOS UTILIZADOS:</b></p>
+                         <div class="text-secondary">
+                          <dt>Deep Convolutional Neural Network (DCNN)</dt>
+                          <dt>Long Short-Term Memory (LSTM)</dt>
+                          <dt>Naive Bayes</dt>
+                          <dt>Random Forest</dt>
+                          <dt>K-Nearest Neighbors (KNN)</dt>
+                        </div><br>
+                        <p class="text-secondary" data-aos="fade-right">🎹🪗🎺 Divirta-se! 🎵🎷🎸</p>
+                      </div>
+                    </div>
                 
                   <button class="minimalist-button" onclick="goBack()"  data-aos="fade-right">
                     <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
@@ -247,7 +309,7 @@
                   <button id="shuffle" class="minimalist-button" onclick="shuffleCharts()" data-aos="fade">
                     <img src="img/icon_shuffle.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>SHUFFLE</b>
                   </button>
-                  <button id="insights" class="minimalist-button" onclick="refreshPage()" data-aos="fade">
+                  <button id="insights" class="minimalist-button" onclick="openModal()" data-aos="fade">
                     <img src="img/ondas-sonoras.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
                   </button>
                   <button class="minimalist-button" onclick="goNext()"  data-aos="fade-right"><b>NEXT</b>
@@ -283,7 +345,11 @@
           </a>        
         </div>
       </div>
-      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook. 🖥️💻</b>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook.</b>      </span>
+      <br>
+
+      <span class="container text-center small py-vh-2"><b>Contato</b>: lucas.mendestech@gmail.com<br>
+        © Lucas Mendes Barbosa. Todos os direitos reservados.
       </span>
       </div>
     </div>
@@ -307,8 +373,35 @@
     });
   </script>
   <script>
-    let data = []; // Definindo data no escopo global
+    function goBack() {
+      window.history.back();
+    }
+    function goNext() {
+      window.location.href = "./metrics_avaliation.html";
+    }
+    // Função para abrir o modal
+    function openModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
 
+    // Função para fechar o modal
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    // Fecha o modal se o usuário clicar fora da área do modal
+    window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+  <script>
+    let data = []; // Definindo data no escopo global
+    let svg, layout;
     async function fetchData() {
         const resultDiv = document.getElementById('result');
         
@@ -423,12 +516,6 @@
       else { remove_class_on_scroll(); }
 
     })
-    function goBack() {
-      window.location.href = "./correlation.html";
-    }
-    function goNext() {
-      window.location.href = "./dataviz.html";
-    }
 
     async function updateCharts(song, model, status) {
         await fetchData(); // Supondo que fetchData() é uma função assíncrona que busca os dados
@@ -437,6 +524,7 @@
         const songData = data.find(item => item.song_name === song); // Encontrar os dados da música específica
         
         if (!songData) {
+          window.alert(`Não foi possível encontrar os dados para a música '${song}'.`)
           console.error(`Não foi possível encontrar os dados para a música '${song}'.`);
           return;
         }
@@ -471,7 +559,7 @@
           var sortedValues = results.map(function(d) { return d.value; });
           
           // Set the dimensions and margins of the graph
-          var margin = {top: 30, right: 30, bottom: 70, left: 60},
+          var margin = {top: 30, right: 30, bottom: 85, left: 60},
               width = 800 - margin.left - margin.right,
               height = 500 - margin.top - margin.bottom;
 
@@ -479,7 +567,7 @@
           d3.select("#my_dataviz svg").remove();
           
           // Append the SVG object to the body of the page
-          var svg = d3.select("#my_dataviz")
+          svg = d3.select("#my_dataviz")
             .append("svg")
               .attr("width", width + margin.left + margin.right)
               .attr("height", height + margin.top + margin.bottom)
@@ -498,7 +586,7 @@
             .call(d3.axisBottom(x))
             .selectAll("text")
               .style("text-anchor", "end")
-              .style("font-size", "12px")
+              .style("font-size", "12.5px")
               .attr("transform", "rotate(-45)")
               .attr("dx", "-.8em")
               .attr("dy", ".15em")
@@ -506,12 +594,20 @@
           
           // Y axis
           var y = d3.scaleLinear()
-            .domain([0, 1]) // Adjusted domain to match the range of your data
+            .domain([0, 100]) // Adjusted domain to match the range of your data
             .range([height, 0]);
-          svg.append("g")
-            .call(d3.axisLeft(y))
-            .selectAll("text")
-              .style("fill", "#000"); // Define a cor do texto para preto
+            svg.append("g")
+              .call(d3.axisLeft(y)
+                .ticks(10) // Define a separação das ticks (10 em 10)
+                .tickSize(-width) // Define o tamanho da grade para o comprimento total do gráfico
+                .tickFormat(d => d) // Formatação dos labels
+              )
+              .selectAll("text")
+              .style("fill", "#000");
+
+            // Adiciona a cor cinza às linhas da grade
+            svg.selectAll(".tick line")
+              .attr("stroke", "#ccc"); // Define a cor do texto para preto
           
           // Definir uma escala de cores de azul escuro a azul claro
           var colorScale = d3.scaleLinear()
@@ -546,6 +642,7 @@
     document.getElementById("shuffle").style.display = "none";
     document.getElementById("search").style.display = "none";
     document.getElementById("insights").style.display = "none";
+    document.getElementById("advice").style.display = "none";
     document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
 
     
@@ -575,6 +672,26 @@
     blockScreen.appendChild(imgElement);
 }
   });
+  function shuffleCharts() {
+    const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b));
+    const models = ["DCNN", "LSTM", "RF", "NB", "KNN"]
+
+    // Função para escolher um valor aleatório da lista
+    function getRandomSong(songs) {
+        const randomIndex = Math.floor(Math.random() * songs.length);
+        return songs[randomIndex];
+    }
+
+
+    // Exemplo de uso
+    const randomSong = getRandomSong(uniqueSongs);
+    const randomModel = getRandomSong(models);
+    // Exibir os valores aleatórios nos elementos HTML
+    document.getElementById("model").value = randomModel;
+    document.getElementById("searchInput").value = randomSong;
+    console.log(randomModel, randomSong);
+    updateCharts(randomSong, randomModel, 0);
+  }
 </script>
 
 </body>

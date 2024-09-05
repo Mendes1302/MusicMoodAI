@@ -214,6 +214,7 @@
               <div class="row">
                 <div class="col-12 py-vh-2 text-center">
                   <h1 class="display-4 fw-bold">Distribuição das Emoções na Base de Dados 💘</h1>
+                  <p id="advice" class="text-secondary">No computador ou notebook, pressione a tecla <b>F11</b> para uma melhor imersão</p>
                   <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">
                     
                   
@@ -221,7 +222,7 @@
               </div>
               
             </div>
-            <div class="bg-dark row d-flex align-items-center">
+            <div class="bg-dark row d-flex align-items-center" style="border-radius: 15px;">
               <h2  id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
               <p id="Invalid_smartphone" class="text-secondary"></p>
               <div id="block_screen"></div>
@@ -243,18 +244,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <h2 class="display-4 fw-bold">INSIGHTS</h2>
                     <p class="text-secondary" data-aos="fade-right">
-                      Aqui vemos como estão distribuídos dos nossos dados entre ChatGPT e Tweets. Seguem abaixo links que podem ser interessantes:
-                        <br><br>
-                        <a href="https://www.amazon.com.br/Storytelling-com-Dados-Visualiza%C3%A7%C3%A3o-Profissionais/dp/8550804681/ref=sr_1_1?crid=32LFBFYEIIGVW&dib=eyJ2IjoiMSJ9.LWVU6efodG-b3AmxINIHSOS93nKUY3FK3WyZLugATiDW2Ypf1mqvrISvf9Z0usONjtBPi2OYJy553MiI1S6d1q39P-y0PsUyis7IjsWxwK0R8s4WPTCBv4_4Yk3GRWRNpDH6_X-SMItBVBUgUxTnhrVBTSsXzu4xmFKRyE1dTGqGDWZCWJl7qKALsTg3SwON4_hS4WCva3SOBdOOcnHuGezNW1NV6qwz17tJ1e96fVQ.FwPjzvUrdXNlpgsiTCp3FodjUuXloFqJT2ZiM0hHRsg&dib_tag=se&keywords=storytelling+com+dados&qid=1719088380&s=books&sprefix=story%2Cstripbooks%2C208&sr=1-1"class="link-fancy link-fancy-light" target="_blank">Storytelling com Dados</a>
-                        <br><br>
-                        <a href="https://www.sciencedirect.com/science/article/abs/pii/S136466132030276X"class="link-fancy link-fancy-light" target="_blank">Semantic Space Theory</a>
-                        <br><br>
-                        <a href="https://sol.sbc.org.br/index.php/stil/article/view/17786" class="link-fancy link-fancy-light" target="_blank">A Weakly Supervised Dataset of Fine-Grained Emotions in Portuguese</a>
-                        <br><br>
-                        <a href="https://docs.google.com/document/d/1Gl0tS_RXS5l_U8elVx2cDNpNtnm7hUqd/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Minha IC</a>
-                        <br><br>
-                        <a href="https://docs.google.com/document/d/1mSgHMRRgwlMUhz_G_O7skUOJAI4_I6ct/edit?usp=sharing&ouid=117175704076322815167&rtpof=true&sd=true" class="link-fancy link-fancy-light" target="_blank">Meu TCC</a>
-                    </p>
+                      Este gráfico ilustra a distribuição dos dados entre as 28 emoções existentes. A <b>média</b> é de 1060, refletindo o valor central dos dados, enquanto o <b>desvio padrão</b> de 108 indica a variabilidade em relação a essa média. Valores próximos à média sugerem menor dispersão, enquanto valores mais altos indicam maior variação.
                     </div>
                   </div>
                   
@@ -331,7 +321,7 @@
       window.location.href = "./distribution_datasource.html";
     }
     function goNext() {
-      window.location.href = "./explainable_ai.html";
+      window.location.href = "./dataviz_resume.html";
     }
     // Função para abrir o modal
     function openModal() {
@@ -433,9 +423,6 @@ function lightenColor(color, percent) {
     const width = 800 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-        // Cálculo da média e desvio padrão
-    const mean = d3.mean(sortedValues);
-    const deviation = d3.deviation(sortedValues);
 
     // Remover o gráfico anterior se existir
     d3.select("#my_dataviz svg").remove();
@@ -471,13 +458,29 @@ function lightenColor(color, percent) {
           .style("fill", "#000"); // Define a cor do texto para preto
       
       // Y axis
-      var y = d3.scaleLinear()
-        .domain([0, 2000]) // Adjusted domain to match the range of your data
-        .range([height, 0]);
-      svg.append("g")
-        .call(d3.axisLeft(y))
-        .selectAll("text")
-          .style("fill", "#000"); // Define a cor do texto para preto
+var y = d3.scaleLinear()
+  .domain([0, 1600]) // Ajusta o domínio para corresponder ao intervalo dos seus dados
+  .range([height, 0]);
+
+// Adiciona o eixo Y
+svg.append("g")
+  .call(d3.axisLeft(y))
+  .selectAll("text")
+    .style("fill", "#000"); // Define a cor do texto para preto
+
+// Adiciona a grade no eixo Y
+svg.append("g")
+  .attr("class", "grid")
+  .selectAll("line")
+  .data(y.ticks(10)) // Ajusta o número de ticks conforme necessário
+  .enter().append("line")
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("y1", y)
+    .attr("y2", y)
+    .style("stroke", "#ccc") // Cor da linha cinza clara
+    .style("stroke-dasharray", ("3, 3")); // Define a linha como tracejada
+
       
       // Definir uma escala de cores de azul escuro a azul claro
       var colorScale = d3.scaleLinear()
@@ -512,46 +515,6 @@ function lightenColor(color, percent) {
           .attr("height", function(d, i) { return height - y(sortedValues[i]); })
           .attr("fill", function(d, i) { return colorScale(i); });
     }
-  // Linha para representar a média
-svg.append("line")
-   .attr("x1", 0)
-   .attr("y1", y(mean))
-   .attr("x2", width)
-   .attr("y2", y(mean))
-   .attr("stroke", "#ccc") // alterado para cinza
-   .attr("stroke-width", 2)
-   .attr("stroke-dasharray", "5,5");
-
-// Legenda para média e desvio padrão
-var legendGroup = svg.append("g")
-    .attr("transform", "translate(" + (width / 2) + ", 20)") // centralizado no topo
-
-// Adicionando retângulo com borda arredondada
-legendGroup.append("rect")
-    .attr("x", -100)
-    .attr("y", -15)
-    .attr("rx", 10) // raio do arredondamento horizontal
-    .attr("ry", 10) // raio do arredondamento vertical
-    .attr("width", 200)
-    .attr("height", 40)
-    .style("fill", "#ccc") // cor de fundo branca
-    .style("stroke", "black") // cor da borda cinza
-    .style("stroke-width", 2);
-
-// Texto da legenda
-legendGroup.append("text")
-    .attr("text-anchor", "middle") // centraliza o texto horizontalmente
-    .attr("dy", "0.5em")
-    .style("font-size", "12px")
-    .style("fill", "#202020") // cor do texto cinza
-    .text("Média: " + mean.toFixed(2));
-
-legendGroup.append("text")
-    .attr("dy", "1.5em")
-    .attr("text-anchor", "middle") // centraliza o texto horizontalmente
-    .style("font-size", "12px")
-    .style("fill", "#202020") // cor do texto cinza
-    .text("Desvio Padrão: " + deviation.toFixed(2));
 
   }
 
@@ -566,6 +529,7 @@ legendGroup.append("text")
       document.getElementById("my_dataviz").style.display = "none";
       document.getElementById("shuffle").style.display = "none";
       document.getElementById("insights").style.display = "none";
+      document.getElementById("advice").style.display = "none";
       document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
       document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
 
