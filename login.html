@@ -129,67 +129,41 @@
         text-decoration: none;
         cursor: pointer;
     }
-#search {
-    position: relative; 
-    display: flex; /* Utiliza Flexbox para alinhar os elementos em uma linha */
-    align-items: center; /* Alinha os elementos verticalmente ao centro */
-    gap: 3px; /* Espaço entre os elementos */
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-}
-
-#searchInput {
-    padding: 10px 20px 10px 60px; 
-    background-image: url('img/lupa.png');
-    background-size: 20px 20px;
-    background-repeat: no-repeat;
-    background-position: 20px center; 
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 500px;
-    outline: none;
-    box-sizing: border-box;
-    position: relative; /* Define o contexto de posicionamento para o autocomplete-container */
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.autocomplete-container {
-    position: absolute;
-    top: 100%; /* Posiciona o autocomplete logo abaixo do searchInput */
-    left: 0; /* Alinha o autocomplete com o lado esquerdo do searchInput */
-    background-color: rgb(13, 12, 12);
-    max-height: 200px;
-    overflow-y: auto;
-    width: 500px; /* Ajusta a largura do autocomplete para corresponder à largura do searchInput */
-    z-index: 1;
-    outline: none;
-    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
-    transform: translateX(0);
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}.autocomplete-item {
-        padding: 10px;
-        cursor: pointer;
+    #search {
+            position: relative; 
+            display: ruby;
+            flex-direction: column;
+            align-items: center; 
     }
 
-    .autocomplete-item:hover {
-        background-color: #7c7c7c1b;
+    #searchInput {
+        display: inline-block;
+        padding: 10px 20px 10px 60px; 
+        background-image: url('img/lupa.png');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-position: 20px center; 
+        border: 1px solid #ccc;
+        font-size: 16px;
+        width: 500px;
+        outline: none;
+        box-sizing: border-box; 
     }
-
-#model {
-    padding: 10px 2px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 180px;
-    outline: none;
-    box-sizing: border-box;
-}
-
-.minimalist-button-search {
+    #model {
+      display: inline-block;
+      padding: 10px 2px;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 180px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .minimalist-button-search {
+    display: inline-block;
     font-size: 0.8em;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
     padding: 0.5em 0.5em;
     border: none;
     border-radius: 5px;
@@ -197,126 +171,36 @@
     color: #333;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+    }
+    .minimalist-button-search:hover {
+        background-color: #e0e0e0;
+    }
 
-.minimalist-button-search:hover {
-    background-color: #e0e0e0;
-}
+    .minimalist-button-search:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    .autocomplete-container {
+        position: absolute;
+        top: 100%; 
+        background-color: rgb(13, 12, 12);
+        max-height: 200px;
+        overflow-y: auto;
+        width: 500px;
+        z-index: 1;
+        outline: none;
+        
+    }
 
-.minimalist-button-search:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
-}
-/* Ajustes dinâmicos com base na largura da tela */
-@media (min-width: 1000px) {
-    .autocomplete-container {
-      transform: translateX(27px);
+    .autocomplete-item {
+        padding: 10px;
+        cursor: pointer;
     }
-}
-@media (min-width: 1024px) {
-    .autocomplete-container {
-        transform: translateX(20px); /* Ajuste proporcional */
-        width:523px;
-    }
-    #searchInput {
-      width:523px; /* Ajuste proporcional */
-    }
-}
-@media (min-width: 1048px) {
-    .autocomplete-container {
-        transform: translateX(24px); /* Ajuste proporcional */
-    }
-}
-@media (min-width: 1072px) {
-    .autocomplete-container {
-        transform: translateX(21px); /* Ajuste proporcional */
-    }
-}
-@media (min-width: 1280px) {
-    .autocomplete-container {
-      transform:  translateX(76px); 
-      width:543px;
-    }
-    #searchInput {
-      width:543px; /* Ajuste proporcional */
-    }
-}
-@media (min-width: 1360px) {
-    .autocomplete-container {
-      transform:  translateX(73px); 
-      width:535px;
-    }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
-@media (min-width: 1440px) {
-    .autocomplete-container {
-      transform:  translateX(68px); 
-      width:535px;
-    }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
-@media (min-width: 1536px) {
-    .autocomplete-container {
-      transform:  translateX(60px); 
-      width:535px;
-    }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
 
-@media (min-width: 1600px) {
-  .autocomplete-container {
-      transform:  translateX(57px); 
-      width:535px;
+    .autocomplete-item:hover {
+        background-color: #7c7c7c1b;
     }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
-@media (min-width: 1680px) {
-  .autocomplete-container {
-      transform:  translateX(280px); 
-      width:535px;
-    }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
-
-@media (min-width: 1920px) {
-  .autocomplete-container {
-      transform:  translateX(265px); 
-      width:535px;
-    }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
-
-@media (min-width: 2560px) {
-  .autocomplete-container {
-      transform:  translateX(219px); 
-      width:535px;
-    }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
-@media (min-width: 3200px) {
-  .autocomplete-container {
-      transform:  translateX(175px); 
-      width:535px;
-    }
-    #searchInput {
-      width:535px; /* Ajuste proporcional */
-    }
-}
-
+     /* Estilo para o modal */
   
       
   </style>
@@ -381,7 +265,6 @@
               <div id="search" class="justify-content-center">
                 <input type="text" id="searchInput" value="60 Dias Apaixonado - Chitãozinho e Xororó">
                 <div id="autocomplete" class="autocomplete-container"></div>
-                
                 
                 <select id="model">
                   <option value="DCNN">DCNN</option>
@@ -672,7 +555,7 @@
           var sortedValues = results.map(function(d) { return d.value; });
           
           // Set the dimensions and margins of the graph
-          var margin = {top: 30, right: 30, bottom: 85, left: 60},
+          var margin = {top: 30, right: 30, bottom: 70, left: 60},
               width = 800 - margin.left - margin.right,
               height = 500 - margin.top - margin.bottom;
 
@@ -699,7 +582,7 @@
             .call(d3.axisBottom(x))
             .selectAll("text")
               .style("text-anchor", "end")
-              .style("font-size", "12.5px")
+              .style("font-size", "12px")
               .attr("transform", "rotate(-45)")
               .attr("dx", "-.8em")
               .attr("dy", ".15em")
@@ -750,41 +633,42 @@
       updateCharts(song,model, 0);      
       
     } else {
-    // Hide the graph and other elements
-    document.getElementById("my_dataviz").style.display = "none";
-    document.getElementById("shuffle").style.display = "none";
-    document.getElementById("search").style.display = "none";
-    document.getElementById("insights").style.display = "none";
-    document.getElementById("advice").style.display = "none";
-    document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
+          // Hide the graph and other elements
+          document.getElementById("my_dataviz").style.display = "none";
+          document.getElementById("shuffle").style.display = "none";
+          document.getElementById("search").style.display = "none";
+          document.getElementById("insights").style.display = "none";
+          document.getElementById("advice").style.display = "none";
+          document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
 
-    
-    // Change subtitle text
-    document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
+          
+          // Change subtitle text
+          document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
 
-    // Create block screen if it doesn't exist
-    var blockScreen = document.getElementById("block_screen");
-    if (!blockScreen) {
-        blockScreen = document.createElement("div");
-        blockScreen.id = "block_screen";
-        blockScreen.className = "block-screen";
-        document.body.appendChild(blockScreen);
-    }
+          // Create block screen if it doesn't exist
+          var blockScreen = document.getElementById("block_screen");
+          if (!blockScreen) {
+              blockScreen = document.createElement("div");
+              blockScreen.id = "block_screen";
+              blockScreen.className = "block-screen";
+              document.body.appendChild(blockScreen);
+          }
 
-    // Create image element
-    var imgElement = document.createElement("img");
-    imgElement.src = "img/sad_computer.png";  // Caminho da imagem
-    imgElement.width = 582;  // Largura da imagem
-    imgElement.height = 327;  // Altura da imagem
-    imgElement.alt = "abstract image";  // Texto alternativo da imagem
-    imgElement.className = "img-fluid rounded-5";  // Classes da imagem
-    imgElement.loading = "lazy";  // Opção de carregamento da imagem
-    
+          // Create image element
+          var imgElement = document.createElement("img");
+          imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+          imgElement.width = 582;  // Largura da imagem
+          imgElement.height = 327;  // Altura da imagem
+          imgElement.alt = "abstract image";  // Texto alternativo da imagem
+          imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+          imgElement.loading = "lazy";  // Opção de carregamento da imagem
+          
 
-    // Append image to block screen
-    blockScreen.appendChild(imgElement);
-}
+          // Append image to block screen
+          blockScreen.appendChild(imgElement);
+      }
   });
+  
   function shuffleCharts() {
     const uniqueSongs = [...new Set(data.map(item => item.song_name))].sort((a, b) => a.localeCompare(b));
     const models = ["DCNN", "LSTM", "RF", "NB", "KNN"]
