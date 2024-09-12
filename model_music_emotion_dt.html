@@ -515,6 +515,77 @@
   <script>
     let data = []; // Definindo data no escopo global
     let svg, layout;
+    async function ErrorMessage() {
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("advice").style.display = "none";
+    document.getElementById("Invalid_smartphone").innerHTML = "A banda está desafinada! Entre em contato com o produtor: <b>lucas.mendestech@gmail.com</b>";
+
+    document.getElementById("subtitle").textContent = "API errou a batida!💔😢";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Check if the image already exists
+    var existingImage = blockScreen.querySelector("img");
+    if (!existingImage) {
+        // Create image element
+        var imgElement = document.createElement("img");
+        imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+        imgElement.width = 582;  // Largura da imagem
+        imgElement.height = 327;  // Altura da imagem
+        imgElement.alt = "abstract image";  // Texto alternativo da imagem
+        imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+        imgElement.loading = "lazy";  // Opção de carregamento da imagem
+        
+        // Append image to block screen
+        blockScreen.appendChild(imgElement);
+    }
+}
+    async function ErrorMessage() {
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("advice").style.display = "none";
+    document.getElementById("Invalid_smartphone").innerHTML = "A banda está desafinada! Entre em contato com o produtor: <b>lucas.mendestech@gmail.com</b>";
+
+    document.getElementById("subtitle").textContent = "API errou a batida!💔😢";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Check if the image already exists
+    var existingImage = blockScreen.querySelector("img");
+    if (!existingImage) {
+        // Create image element
+        var imgElement = document.createElement("img");
+        imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+        imgElement.width = 582;  // Largura da imagem
+        imgElement.height = 327;  // Altura da imagem
+        imgElement.alt = "abstract image";  // Texto alternativo da imagem
+        imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+        imgElement.loading = "lazy";  // Opção de carregamento da imagem
+        
+        // Append image to block screen
+        blockScreen.appendChild(imgElement);
+    }
+}
+   
     async function fetchData() {
         const resultDiv = document.getElementById('result');
         
@@ -522,6 +593,8 @@
             const response = await fetch('http://localhost:8000/emotional_result');
             
             if (!response.ok) {
+              
+                ErrorMessage();
                 throw new Error('Erro na resposta da rede');
             }
             
@@ -529,11 +602,14 @@
             return data;
             
         } catch (error) {
+          ErrorMessage();
             console.error('Houve um problema com a operação fetch:', error);
             resultDiv.innerHTML = 'Erro ao carregar dados';
             return []; // Retorna um array vazio em caso de erro
         }
     }
+    
+    
 
     // Function to remove accents from characters
     function removeAccents(str) {
@@ -636,7 +712,7 @@
 
         const songData = data.find(item => item.song_name === song); // Encontrar os dados da música específica
         
-        if (!songData) {
+        if (!songData ) {
           window.alert(`Não foi possível encontrar os dados para a música '${song}'.`)
           console.error(`Não foi possível encontrar os dados para a música '${song}'.`);
           return;

@@ -346,6 +346,40 @@
 
 <script>
   let svg, layout, data, summary, sortedData;
+  async function ErrorMessage() {
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("advice").style.display = "none";
+    document.getElementById("Invalid_smartphone").innerHTML = "A banda está desafinada! Entre em contato com o produtor: <b>lucas.mendestech@gmail.com</b>";
+
+    document.getElementById("subtitle").textContent = "API errou a batida!💔😢";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Check if the image already exists
+    var existingImage = blockScreen.querySelector("img");
+    if (!existingImage) {
+        // Create image element
+        var imgElement = document.createElement("img");
+        imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+        imgElement.width = 582;  // Largura da imagem
+        imgElement.height = 327;  // Altura da imagem
+        imgElement.alt = "abstract image";  // Texto alternativo da imagem
+        imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+        imgElement.loading = "lazy";  // Opção de carregamento da imagem
+        
+        // Append image to block screen
+        blockScreen.appendChild(imgElement);
+    }
+}
 
   // Função para buscar dados e atualizar o gráfico
   async function fetchData() {
@@ -356,6 +390,7 @@
       const response = await fetch('http://localhost:8000/get_sources_emotions');
       
       if (!response.ok) {
+        ErrorMessage();
         throw new Error('Erro na resposta da rede');
       }
       
@@ -363,6 +398,7 @@
       updateChart(summary);
       
     } catch (error) {
+      ErrorMessage();
       console.error('Houve um problema com a operação fetch:', error);
       resultDiv.innerHTML = 'Erro ao carregar dados';
     }

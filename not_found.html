@@ -1,0 +1,225 @@
+<!doctype html>
+<html class="h-100" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="description" content="A well made and handcrafted Bootstrap 5 template">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
+  <meta name="author" content="Holger Koenemann">
+  <meta name="generator" content="Eleventy v2.0.0">
+  <meta name="HandheldFriendly" content="true">
+  <title>DataViz</title>
+  <link rel="stylesheet" href="css/theme.min.css">
+
+  <style>
+    /* inter-300 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-300.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-300.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    /* inter-400 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-regular.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-500.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-500.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-700.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+    .minimalist-button {
+        display: center;
+        align-items: center;
+        font-size: 0.8em;
+        font-family: var(--bs-body-font-family);
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .minimalist-button img {
+        width: 1em;
+        height: 1em;
+        margin-left: 0.5em;
+    }
+
+    .minimalist-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    .play-button {
+      cursor: pointer;
+      fill: #ffffff; /* Cor de preenchimento do botão (branco em hexadecimal) */
+      width: 1.5rem;   /* Largura do botão */
+      height: 1.5rem;  /* Altura do botão */
+      transition: fill 0.3s; /* Adiciona uma transição suave para o efeito hover */
+    }
+
+    .play-button:hover {
+      fill: #808080; /* Cor de preenchimento do botão no hover (cinza em hexadecimal) */
+    }
+  </style>
+
+
+</head>
+
+<body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
+
+  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
+    <div class="container">
+      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="index.html">
+        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+        <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
+      </a>
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="index.html" aria-label="Homepage">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="dataviz.html" aria-label="A sample content page">
+            DataViz
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="explainable_ai.html" aria-label="A system message page">
+            ExplainAI
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="others.html" aria-label="A system message page">
+            Others
+          </a>
+        </li>
+      </ul>
+      
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade">
+        <div class="container py-vh-5 position-relative mt-5 px-vw-5 text-center">
+          <div class="row d-flex align-items-center justify-content-center py-vh-5">
+            
+            <div class="col-12">
+              <div class="row">
+                
+                <div class="col-12 py-vh-2 text-center">
+                  <h1 class="display-1 fw-bold">Infelizmente, a banda 404 ainda não chegou, mas as outras páginas estão brilhando!<br> </h1>
+                  <span class="h5 text-secondary fw-lighter">"Será só imaginação?
+                    Será que nada vai acontecer?"<br> - Legião Urbana
+                  </span>                  
+                </div>
+                <div class="col-12 py-vh-2 text-center">
+                <img src="img/webp/sadness_404.webp" width="600" height="600" alt="abstract image"
+                class="img-fluid position-relative rounded-5 shadow" data-aos="zoom-up"> </div>
+              </div>
+            </div>
+            <a data-aos="fade-right" class="col-md-6 col-lg-3">
+              <button class="minimalist-button" data-aos="zoom-in-up" onclick="goBack()">
+                <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
+            </button>
+            </a>
+            
+          </div>
+            
+        </div>
+      </div>
+        
+                     
+        
+      
+           
+    </div>
+
+  </main>
+
+
+
+
+
+
+
+
+
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800, // values from 0 to 3000, with step 50ms
+    });
+  </script>
+  <script>
+    let scrollpos = window.scrollY;
+    const header = document.querySelector(".navbar");
+    const header_height = header.offsetHeight;
+
+    const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm");
+    const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm");
+
+    window.addEventListener('scroll', function () {
+      scrollpos = window.scrollY;
+
+      if (scrollpos >= header_height) { add_class_on_scroll(); }
+      else { remove_class_on_scroll(); }
+
+      console.log(scrollpos);
+    })
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+</body>
+
+</html>
