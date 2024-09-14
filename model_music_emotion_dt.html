@@ -847,18 +847,22 @@
         document.body.appendChild(blockScreen);
     }
 
-    // Create image element
-    var imgElement = document.createElement("img");
-    imgElement.src = "img/sad_computer.png";  // Caminho da imagem
-    imgElement.width = 582;  // Largura da imagem
-    imgElement.height = 327;  // Altura da imagem
-    imgElement.alt = "abstract image";  // Texto alternativo da imagem
-    imgElement.className = "img-fluid rounded-5";  // Classes da imagem
-    imgElement.loading = "lazy";  // Opção de carregamento da imagem
-    
 
-    // Append image to block screen
-    blockScreen.appendChild(imgElement);
+    // Check if the image already exists
+    var existingImage = blockScreen.querySelector("img");
+    if (!existingImage) {
+        // Create image element
+        var imgElement = document.createElement("img");
+        imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+        imgElement.width = 582;  // Largura da imagem
+        imgElement.height = 327;  // Altura da imagem
+        imgElement.alt = "abstract image";  // Texto alternativo da imagem
+        imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+        imgElement.loading = "lazy";  // Opção de carregamento da imagem
+        
+        // Append image to block screen
+        blockScreen.appendChild(imgElement);
+    }
 }
   });
   function shuffleCharts() {
