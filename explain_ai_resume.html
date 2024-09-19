@@ -339,7 +339,7 @@
       async function fetchData() {
           const resultDiv = document.getElementById('result');
           try {
-              const response = await fetch('http://localhost:8000/name_emotion');
+              const response = await fetch('https://api.musicmoodai.com.br/name_emotion');
               if (!response.ok) {
                   throw new Error('Erro na resposta da rede');
               }

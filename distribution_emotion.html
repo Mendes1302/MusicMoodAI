@@ -387,7 +387,7 @@
     let ChatGPT = 0, tweets = 0;
 
     try {
-      const response = await fetch('http://localhost:8000/get_sources_emotions');
+      const response = await fetch('https://api.musicmoodai.com.br/get_sources_emotions');
       
       if (!response.ok) {
         ErrorMessage();
