@@ -1,0 +1,916 @@
+<!doctype html>
+<html class="h-100" lang="pt_BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="description" content="Music MoodAI: Explore a música brasileira de forma inovadora com inteligência artificial. Descubra as emoções por trás das músicas com análises de IA.">
+  <meta name="keywords" content="Music MoodAI, música brasileira, inteligência artificial, emoções, reconhecimento de emoções, Dataviz, Explainable AI, sentimentos na música">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Music MoodAI: Explorando as emoções e músicas com ExplainAI">
+  <meta property="og:description" content="Descubra as emoções das músicas brasileiras com o Music MoodAI, uma plataforma que combina IA e música para uma experiência única.">
+  <meta property="og:image" content="img/webp/model_emotion.webp">
+  <meta property="og:url" content="https://musicmoodai.com.br/model_music_emotion_dt.html">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Music MoodAI">
+  <meta property="og:image:type" content="image/webp">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
+  
+  <meta name="author" content="Lucas Mendes Barbosa">
+  <meta name="HandheldFriendly" content="true">
+  <title>ExplainAI</title>
+  <link rel="stylesheet" href="css/theme.min.css">
+
+  <style>
+    /* inter-300 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-300.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-300.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    /* inter-400 - latin */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-regular.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-500.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-500.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local(''),
+        url('fonts/inter-v12-latin-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('fonts/inter-v12-latin-700.woff') format('woff');
+      /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+    .minimalist-button {
+        display: center;
+        align-items: center;
+        font-size: 0.8em;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .minimalist-button img {
+        width: 1em;
+        height: 1em;
+        margin-left: 0.5em;
+    }
+
+    .minimalist-button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .minimalist-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+    .modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
+    }
+
+    .modal-content {
+        background-color: #111111;
+        margin: 15% auto; /* Centraliza verticalmente */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px; /* Largura máxima */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        animation-name: modalopen;
+        animation-duration: 0.4s;
+    }.close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+#search {
+    position: relative; 
+    display: flex; /* Utiliza Flexbox para alinhar os elementos em uma linha */
+    align-items: center; /* Alinha os elementos verticalmente ao centro */
+    gap: 3px; /* Espaço entre os elementos */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+}
+
+#searchInput {
+    padding: 10px 20px 10px 60px; 
+    background-image: url('img/lupa.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 20px center; 
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 500px;
+    outline: none;
+    box-sizing: border-box;
+    position: relative; /* Define o contexto de posicionamento para o autocomplete-container */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.autocomplete-container {
+    position: absolute;
+    top: 100%; /* Posiciona o autocomplete logo abaixo do searchInput */
+    left: 0; /* Alinha o autocomplete com o lado esquerdo do searchInput */
+    background-color: rgb(13, 12, 12);
+    max-height: 200px;
+    overflow-y: auto;
+    width: 500px; /* Ajusta a largura do autocomplete para corresponder à largura do searchInput */
+    z-index: 1;
+    outline: none;
+    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+    transform: translateX(0);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}.autocomplete-item {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .autocomplete-item:hover {
+        background-color: #7c7c7c1b;
+    }
+
+#model {
+    padding: 10px 2px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 180px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.minimalist-button-search {
+    font-size: 0.8em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 0.5em 0.5em;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.minimalist-button-search:hover {
+    background-color: #e0e0e0;
+}
+
+.minimalist-button-search:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+/* Ajustes dinâmicos com base na largura da tela */
+@media (min-width: 1000px) {
+    .autocomplete-container {
+      transform: translateX(27px);
+    }
+}
+@media (min-width: 1024px) {
+    .autocomplete-container {
+        transform: translateX(20px); /* Ajuste proporcional */
+        width:523px;
+    }
+    #searchInput {
+      width:523px; /* Ajuste proporcional */
+    }
+}
+@media (min-width: 1048px) {
+    .autocomplete-container {
+        transform: translateX(24px); /* Ajuste proporcional */
+    }
+}
+@media (min-width: 1072px) {
+    .autocomplete-container {
+        transform: translateX(21px); /* Ajuste proporcional */
+    }
+}
+@media (min-width: 1280px) {
+    .autocomplete-container {
+      transform:  translateX(76px); 
+      width:543px;
+    }
+    #searchInput {
+      width:543px; /* Ajuste proporcional */
+    }
+}
+@media (min-width: 1360px) {
+    .autocomplete-container {
+      transform:  translateX(73px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+@media (min-width: 1440px) {
+    .autocomplete-container {
+      transform:  translateX(68px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+@media (min-width: 1536px) {
+    .autocomplete-container {
+      transform:  translateX(60px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+
+@media (min-width: 1600px) {
+  .autocomplete-container {
+      transform:  translateX(57px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+@media (min-width: 1680px) {
+  .autocomplete-container {
+      transform:  translateX(280px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+
+@media (min-width: 1920px) {
+  .autocomplete-container {
+      transform:  translateX(265px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+
+@media (min-width: 2560px) {
+  .autocomplete-container {
+      transform:  translateX(219px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+@media (min-width: 3200px) {
+  .autocomplete-container {
+      transform:  translateX(175px); 
+      width:535px;
+    }
+    #searchInput {
+      width:535px; /* Ajuste proporcional */
+    }
+}
+
+  
+      
+  </style>
+
+
+</head>
+
+<body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
+
+  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
+    <div class="container">
+      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="index.html">
+        <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+        <span class="ms-md-1 mt-1 fw-bolder me-md-5">Music MoodAI</span>
+      </a>
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="index.html" aria-label="Homepage">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="dataviz.html" aria-label="A sample content page">
+            DataViz
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="explainable_ai.html" aria-label="A system message page">
+            ExplainAI
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="others.html" aria-label="A system message page">
+            Others
+          </a>
+        </li>
+      </ul>
+      
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade-up">
+        <div class="container py-vh-5 position-relative mt-5 px-vw-5 text-center">
+          <div class="row d-flex align-items-center justify-content-center py-vh-5">
+            
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 py-vh-2 text-center">
+                  <h1 class="display-4 fw-bold">Como Isso é Possível? 🤔</h1>
+                  <p id="advice" class="text-secondary">No computador ou notebook, pressione a tecla <b>F11</b> para uma melhor imersão</p>
+                  <p class="lead border-top  pt-5 mt-5" data-aos="fade-up">       
+                    
+                </div>
+              </div>
+              
+            </div>
+            <div class="bg-dark row d-flex align-items-center" style="border-radius: 15px;">
+              <h2 id="subtitle" class="display-4 fw-bold">Bars Charts</h2>
+              <div id="search" class="justify-content-center">
+                <input type="text" id="searchInput" value="60 Dias Apaixonado - Chitãozinho e Xororó">
+                <div id="autocomplete" class="autocomplete-container"></div>
+                
+                
+                <select id="model" >
+                  <option value="DCNN">DCNN</option>
+                </select>
+                
+                <button class="minimalist-button-search" onclick="searching(event)"><b>SEARCH</b></button>
+              </div>
+              <p id="Invalid_smartphone" class="text-secondary"></p>
+              <div id="block_screen"></div>
+              <div class="container col-12 py-vh-2 text-center" id="charts">
+                <div id="my_dataviz" class="img-fluid" data-aos="fade-up"> </div><br>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                      <span class="close" onclick="closeModal()">&times;</span>
+                      <h2 class="display-4 fw-bold">INSIGHTS</h2>
+                      <p class="text-secondary" data-aos="fade-right">
+                        Descubra as palavras que levarão ao top 3 emoções da música escolhida por você. Personalize sua busca com o <b>SEARCH</b>, escolhendo a música, ou use a opção <b>SHUFFLE</b> para gerar resultados aleatórios.
+                        <br>Essa ferramenta utilizou o LIME (Local Interpretable Model-Agnostic Explanations) em Python, que oferece uma explicação interpretável dos modelos de machine learning. </p>
+                        <br> 
+                        <p class="text-secondary" data-aos="fade-right">
+                        <b>Por questões legais ⚖️, não posso disponibilizar a letra da música aqui 🎶, mas você pode acessá-la no Google 🔍 e em outros sites similares 🌐.
+
+                        </b>
+                        </p>
+                        <br><br><p class="text-secondary" data-aos="fade-right">🎹🪗🎺 Divirta-se! 🎵🎷🎸</p>
+                      </div>
+                    </div>
+                
+                  <button class="minimalist-button" onclick="goBack()"  data-aos="fade-right">
+                    <img src="img/back.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>BACK</b>
+                  </button>
+                  <button id="shuffle" class="minimalist-button" onclick="shuffleCharts()" data-aos="fade">
+                    <img src="img/icon_shuffle.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>SHUFFLE</b>
+                  </button>
+                  <button id="insights" class="minimalist-button" onclick="openModal()" data-aos="fade">
+                    <img src="img/ondas-sonoras.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> <b>INSIGHTS</b>
+                  </button>
+                  <button class="minimalist-button" onclick="goNext()"  data-aos="fade-right"><b>NEXT</b>
+                    <img src="img/next.png" alt="Previous Icon" style="width: 1.5em; height: 1.5em; margin-inline-start: -0.1em;"> 
+                  </button>
+              </div>
+            </div>
+            
+            
+          </div>
+          
+
+        </div>
+      </div>
+        
+                  
+        
+            
+      </div>
+      
+           
+    </div>
+  </main>
+
+  <footer class="bg-black border-top border-dark">
+    <div class="container py-vh-4 text-secondary fw-lighter">
+      <div class="row">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start text-white">
+          <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="index.html">
+        
+            <img src="img/webp/logo_mmai.webp" width="75" height="75" class="rotate-logo">
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5"><b>Music MoodAI</b></span>            
+          </a>        
+        </div>
+      </div>
+      <span class="text-secondary aos-init aos-animate" style="font-size: 0.8em; align-content: center;"><b>Embora seja responsivo, para uma melhor experiência, utilize-o no computador ou notebook.</b>      </span>
+      <br>
+
+      <span class="container text-center small py-vh-2"><b>Contato</b>: lucas.mendestech@gmail.com<br>
+        © Lucas Mendes Barbosa. Todos os direitos reservados.
+      </span>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    AOS.init({
+      duration: 800, // values from 0 to 3000, with step 50ms
+    });
+  </script>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+    function goNext() {
+      window.location.href = "./explainable_ai.html";
+    }
+    // Função para abrir o modal
+    function openModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    // Função para fechar o modal
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    // Fecha o modal se o usuário clicar fora da área do modal
+    window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+  <script>
+    let data = []; // Definindo data no escopo global
+    let svg, layout;
+    async function ErrorMessage() {
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("advice").style.display = "none";
+    document.getElementById("Invalid_smartphone").innerHTML = "A banda está desafinada! Entre em contato com o produtor: <b>lucas.mendestech@gmail.com</b>";
+
+    document.getElementById("subtitle").textContent = "API errou a batida!💔😢";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Check if the image already exists
+    var existingImage = blockScreen.querySelector("img");
+    if (!existingImage) {
+        // Create image element
+        var imgElement = document.createElement("img");
+        imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+        imgElement.width = 582;  // Largura da imagem
+        imgElement.height = 327;  // Altura da imagem
+        imgElement.alt = "abstract image";  // Texto alternativo da imagem
+        imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+        imgElement.loading = "lazy";  // Opção de carregamento da imagem
+        
+        // Append image to block screen
+        blockScreen.appendChild(imgElement);
+    }
+}
+    async function ErrorMessage() {
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("advice").style.display = "none";
+    document.getElementById("Invalid_smartphone").innerHTML = "A banda está desafinada! Entre em contato com o produtor: <b>lucas.mendestech@gmail.com</b>";
+
+    document.getElementById("subtitle").textContent = "API errou a batida!💔😢";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+    // Check if the image already exists
+    var existingImage = blockScreen.querySelector("img");
+    if (!existingImage) {
+        // Create image element
+        var imgElement = document.createElement("img");
+        imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+        imgElement.width = 582;  // Largura da imagem
+        imgElement.height = 327;  // Altura da imagem
+        imgElement.alt = "abstract image";  // Texto alternativo da imagem
+        imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+        imgElement.loading = "lazy";  // Opção de carregamento da imagem
+        
+        // Append image to block screen
+        blockScreen.appendChild(imgElement);
+    }
+}
+   
+    async function fetchData() {
+        const resultDiv = document.getElementById('result');
+        
+        try {
+            const response = await fetch('http://0.0.0.0:8000/get_explain_ai');
+            
+            if (!response.ok) {
+              
+                ErrorMessage();
+                throw new Error('Erro na resposta da rede');
+            }
+            
+            data = await response.json();
+            return data;
+            
+        } catch (error) {
+          ErrorMessage();
+            console.error('Houve um problema com a operação fetch:', error);
+            resultDiv.innerHTML = 'Erro ao carregar dados';
+            return []; // Retorna um array vazio em caso de erro
+        }
+    }
+    
+    
+
+    // Function to remove accents from characters
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    document.getElementById('searchInput').addEventListener('click', function() {
+            this.select();
+        });
+
+    async function setupAutocomplete() {
+        await fetchData();
+        const searchInput = document.getElementById('searchInput');
+        const autocomplete = document.getElementById('autocomplete');
+
+        const uniqueSongs = [...new Set(data.map(item => item.song_and_artist))].sort((a, b) => a.localeCompare(b)); // Filtra valores únicos de song_name e organiza alfabeticamente
+
+        searchInput.addEventListener('focus', function() {
+            showAllOptions(uniqueSongs);
+        });
+
+        searchInput.addEventListener('input', function() {
+            const input = removeAccents(this.value.toLowerCase());
+            autocomplete.innerHTML = '';
+
+            if (!input) {
+                showAllOptions(uniqueSongs);
+                return;
+            }
+
+            const matches = uniqueSongs.filter(song => removeAccents(song.toLowerCase()).includes(input));
+
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.textContent = match;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = match;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!autocomplete.contains(e.target) && e.target !== searchInput) {
+                autocomplete.innerHTML = '';
+            }
+        });
+
+        function showAllOptions(songs) {
+            autocomplete.innerHTML = '';
+
+            songs.forEach(song => {
+                const div = document.createElement('div');
+                div.textContent = song;
+                div.classList.add('autocomplete-item');
+
+                div.addEventListener('click', function() {
+                    searchInput.value = song;
+                    autocomplete.innerHTML = '';
+                });
+
+                autocomplete.appendChild(div);
+            });
+        }
+    }
+
+    setupAutocomplete().catch(error => {
+        console.error('Erro ao configurar o autocomplete:', error);
+    });
+
+    function searching(event) {
+        const model = document.getElementById('model').value;
+        const song = document.getElementById('searchInput').value;
+        updateCharts(song,model, 0);  
+
+        // Aqui você pode adicionar a lógica para o que você quer fazer com os valores obtidos
+        // Por exemplo, fazer uma nova busca, atualizar a UI, etc.
+    }
+    let scrollpos = window.scrollY;
+    const header = document.querySelector(".navbar");
+    const header_height = header.offsetHeight;
+
+    const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm");
+    const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm");
+
+    window.addEventListener('scroll', function () {
+      scrollpos = window.scrollY;
+
+      if (scrollpos >= header_height) { add_class_on_scroll(); }
+      else { remove_class_on_scroll(); }
+
+    })
+
+    async function updateCharts(song, model, status) {
+    await fetchData(); // Supondo que fetchData() é uma função assíncrona que busca os dados
+
+    const songData = data.filter(item => item.song_and_artist === song);
+    
+    if (!songData) {
+        window.alert(`Não foi possível encontrar os dados para a música '${song}'.`);
+        console.error(`Não foi possível encontrar os dados para a música '${song}'.`);
+        return;
+    }
+
+    const myWords = songData.map(item => item.word);
+    const myValues = songData.map(item => item.value);
+    const myEmotions = songData.map(item => item.emotion);
+
+    
+    
+    if (status == 0) {
+        // Combine words and values into an array of objects for sorting
+        var results = myWords.map(function(word, index) {
+            return { word: word, value: myValues[index], emotion: myEmotions[index] }; // Adiciona a emoção aqui
+        });
+
+        
+        // Sort data array based on values in descending order
+        results.sort(function(a, b) {
+            return b.value - a.value;
+        });
+        
+        // Extract sorted words, values, and emotions back into separate arrays
+        var sortedWords = results.map(function(d) { return d.word; });
+        var sortedValues = results.map(function(d) { return d.value; });
+        var sortedEmotions = results.map(function(d) { return d.emotion; }); // Armazena as emoções ordenadas
+        
+        // Set the dimensions and margins of the graph
+        var margin = {top: 30, right: 30, bottom: 85, left: 60},
+            width = 800 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        // Remover o gráfico anterior se existir
+        d3.select("#my_dataviz svg").remove();
+        
+        // Append the SVG object to the body of the page
+        svg = d3.select("#my_dataviz")
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .style("background-color", "white")
+                .style("border-radius", "10px")
+            .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        
+        // X axis
+        var x = d3.scaleBand()
+            .range([0, width])
+            .domain(sortedWords)
+            .padding(0.2);
+
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+                .style("text-anchor", "end")
+                .style("font-size", "12.5px")
+                .attr("transform", "rotate(-45)")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .style("fill", "#000");
+        
+        // Y axis
+        var y = d3.scaleLinear()
+            .domain([0, 100]) // Use max value from sortedValues
+            .range([height, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(y).ticks(10).tickSize(-width).tickFormat(d => d))
+            .selectAll("text").style("fill", "#000");
+        
+        // Adiciona a cor cinza às linhas da grade
+        svg.selectAll(".tick line").attr("stroke", "#ccc");
+        
+        
+
+        // Definir uma escala de cores em azul pastel, invertendo a ordem
+        console.log(d3.max(sortedWords))
+        var colorScale = ["#004B87", "#3D78AC", "#729FCC"]
+
+        
+
+            
+
+       // Bars
+svg.selectAll("mybar")
+    .data(sortedWords)
+    .enter()
+    .append("rect")
+        .attr("x", function(d, i) { return x(d); })
+        .attr("y", function(d, i) { return y(sortedValues[i]); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d, i) { return height - y(sortedValues[i]); })
+        .attr("fill", function(d, i) {
+            // Usar uma cor do array colorScale baseado no índice
+            return colorScale[i % colorScale.length];  
+        });
+
+        // Legenda (a mesma parte do código, se você quiser manter)
+        const legend = svg.append("g")
+            .attr("transform", "translate(" + (width - 150) + "," + 0 + ")"); // Posição da legenda
+
+       // Cria grupos de legenda
+        sortedEmotions.forEach((emotion, index) => {
+            legend.append("rect")
+                .attr("x", 0)
+                .attr("y", index * 20) // Espaçamento vertical
+                .attr("width", 18)
+                .attr("height", 18)
+                .attr("fill", colorScale[index % colorScale.length]);
+
+            const capitalizedEmotion = emotion.charAt(0).toUpperCase() + emotion.slice(1);
+
+            legend.append("text")
+                .attr("x", 25)
+                .attr("y", index * 20 + 15) // Alinha o texto com o retângulo
+                .text(capitalizedEmotion)
+                .style("font-size", "12px");
+        });
+    }
+}
+
+    
+    document.addEventListener("DOMContentLoaded", function() {
+    const windowWidth = window.innerWidth;
+    if (windowWidth >= 1000) {
+      const model = document.getElementById('model').value;
+      const song = document.getElementById('searchInput').value;
+      updateCharts(song,model, 0);      
+      
+    } else {
+    // Hide the graph and other elements
+    document.getElementById("my_dataviz").style.display = "none";
+    document.getElementById("shuffle").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("insights").style.display = "none";
+    document.getElementById("advice").style.display = "none";
+    document.getElementById("Invalid_smartphone").textContent = "🖥️ É necessário uma tela maior para uma melhor experiência. Igual ou maior a 1000px💻";
+
+    
+    // Change subtitle text
+    document.getElementById("subtitle").textContent = "Não foi possível visualizar📱";
+
+    // Create block screen if it doesn't exist
+    var blockScreen = document.getElementById("block_screen");
+    if (!blockScreen) {
+        blockScreen = document.createElement("div");
+        blockScreen.id = "block_screen";
+        blockScreen.className = "block-screen";
+        document.body.appendChild(blockScreen);
+    }
+
+
+    // Check if the image already exists
+    var existingImage = blockScreen.querySelector("img");
+    if (!existingImage) {
+        // Create image element
+        var imgElement = document.createElement("img");
+        imgElement.src = "img/sad_computer.png";  // Caminho da imagem
+        imgElement.width = 582;  // Largura da imagem
+        imgElement.height = 327;  // Altura da imagem
+        imgElement.alt = "abstract image";  // Texto alternativo da imagem
+        imgElement.className = "img-fluid rounded-5";  // Classes da imagem
+        imgElement.loading = "lazy";  // Opção de carregamento da imagem
+        
+        // Append image to block screen
+        blockScreen.appendChild(imgElement);
+    }
+}
+  });
+  function shuffleCharts() {
+    const uniqueSongs = [...new Set(data.map(item => item.song_and_artist))].sort((a, b) => a.localeCompare(b));
+    const models = ["DCNN"]
+
+    // Função para escolher um valor aleatório da lista
+    function getRandomSong(songs) {
+        const randomIndex = Math.floor(Math.random() * songs.length);
+        return songs[randomIndex];
+    }
+
+
+    // Exemplo de uso
+    const randomSong = getRandomSong(uniqueSongs);
+    const randomModel = getRandomSong(models);
+    // Exibir os valores aleatórios nos elementos HTML
+    document.getElementById("model").value = randomModel;
+    document.getElementById("searchInput").value = randomSong;
+    console.log(randomModel, randomSong);
+    updateCharts(randomSong, randomModel, 0);
+  }
+</script>
+
+</body>
+
+</html>
