@@ -248,8 +248,8 @@
                     
                 </div>
             </div>
-              <div class="container col-12 py-vh-2 text-center">
-                
+              <div class="container col-12 py-vh-2 text-center" id="charts">
+                <div id="img_logo" ></div>
                 <div id="my_dataviz" class="img-fluid" data-aos="fade-up"> </div><br>
                 <div id="myModal" class="modal">
                   <div class="modal-content">
@@ -432,6 +432,18 @@
       const myWords = [];
       async function fetchData() {
           const resultDiv = document.getElementById('result');
+          const imgLogoDiv = document.getElementById('img_logo'); // Novo contêiner para o logo
+
+          // Verifica se o logo já existe
+          let logo = imgLogoDiv.querySelector('.rotate-logo'); // Tenta encontrar o logo existente
+          if (!logo) { // Se não encontrar, cria um novo logo
+            logo = document.createElement('img');
+            logo.src = 'img/webp/logo_mmai.webp'; // Caminho da imagem do logo
+            logo.classList.add('rotate-logo'); // Adiciona a classe de rotação
+            logo.width = 250;  // Largura do logo em pixels
+            logo.height = 250; 
+            imgLogoDiv.appendChild(logo); // Adiciona o logo ao novo contêiner
+          }
           try {
               const response = await fetch('https://api.musicmoodai.com.br/name_emotion');
               if (!response.ok) {
@@ -442,10 +454,16 @@
               data.forEach(item => {
                   myWords.push(item.name_emotion);
               });
+              if (imgLogoDiv.contains(logo)) {
+      imgLogoDiv.removeChild(logo); // Remove o logo após o carregamento
+    }
               generateWordCloud();
           } catch (error) {
               ErrorMessage();
               console.error('Houve um problema com a operação fetch:', error);
+              if (imgLogoDiv.contains(logo)) {
+      imgLogoDiv.removeChild(logo); // Remove o logo após o carregamento
+    }
               resultDiv.innerHTML = 'Erro ao carregar dados'; 
               return [];
           }
